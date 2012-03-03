@@ -13,7 +13,9 @@
 		* MazeGame.java : Created the class implementation and developed the solution till 1.5.
 	(2) 2012-03-03 André Freitas
 		* GameObject.java : Commented all sections.
-		* MazeGame.java : Commend all sections. Optimized function moveDragon() and dragon killing bug fixed (1).
+		* MazeGame.java : Commend all sections. Optimized function moveDragon() and dragon killing bug fixed (1).	
+	(3) 2012-03-03 André Freitas
+		* MazeGame.java : Added maze random generation using function recursiveMazeGen(mazeMap, xi, xf, yi, yf)
 
 == BUGS FIXED ==
 	(1) 2012-03-03 André Freitas
