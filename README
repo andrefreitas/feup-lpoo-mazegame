@@ -19,6 +19,6 @@
 
 == BUGS FIXED ==
 	(1) 2012-03-03 André Freitas
-		* Problem: the dragon still moves after beeing killed and hero dissapears going to dragon cell.
+		* Problem: the dragon still moves after being killed and hero disappears if in the same position as the dragon
 		* Solution: when the hero kills the dragon, its state goes to 'K' (killed) and the positions 
 		are set to x=-1 and y=-1.
