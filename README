@@ -1,1 +1,13 @@
-Hello we have cookies
+== README ==
+	The Maze Game have a dragon, a hero and a sword in a maze. 
+	The hero must get the sword to prevent from dying when crossing the dragon and get to the exit.
+	Everytime the hero crosses the dragon, he dies and game over.
+	
+== AUTHORS ==
+	* André Freitas - p.andrefreitas@gmail.com
+	* Vasco Gonçalves - vascofg@gmail.com
+	
+== CHANGELOG ==
+	2012-02-27  André Freitas, Vasco Gonçalves
+		* GameObject.java : Created the implementation of class GameObject
+		* MazeGame.java : Created the class implementation and developed the solution till 1.5.
