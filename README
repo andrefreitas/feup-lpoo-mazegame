@@ -1,7 +1,7 @@
 == README ==
-	The Maze Game have a dragon, a hero and a sword in a maze. 
-	The hero must get the sword to prevent from dying when crossing the dragon and get to the exit.
-	Everytime the hero crosses the dragon, he dies and game over.
+	The Maze Game has a dragon, a hero and a sword in a maze. 
+	The hero must get the sword to be able to exit the dungeon, while optionally killing the dragon.
+	If the hero crosses the dragon while unarmed he dies, and the game is over.
 	
 == AUTHORS ==
 	* André Freitas - p.andrefreitas@gmail.com
