@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.CharBuffer;
 import java.lang.Math;
 
 /********************************************************
@@ -28,7 +27,7 @@ public class MazeGame {
 
 	/* main() ================== */
 	public static void main(String args[]) throws IOException {
-	    generateMaze(mazeDim[0], mazeDim[1]);
+		generateMaze(mazeDim[0], mazeDim[1]);
 		play();
 	}
 
@@ -43,22 +42,22 @@ public class MazeGame {
 		printMaze();
 	}
 
-	// setup the object with their initial postion and states
+	// setup the objects with their initial positions and states
 	private static void setupObjects() {
 		hero = new GameObject('H', 1, 1);
-		mazeMap[hero.getY()][hero.getX()]=hero.getState();
-		
+		mazeMap[hero.getY()][hero.getX()] = hero.getState();
+
 		sword = new GameObject('E', 1, 8);
-		mazeMap[sword.getY()][sword.getX()]=sword.getState();
-		
+		mazeMap[sword.getY()][sword.getX()] = sword.getState();
+
 		dragon = new GameObject('D', 2, 6);
-		mazeMap[dragon.getY()][dragon.getX()]=dragon.getState();
-		
-		exit = new GameObject('S', mazeDim[0]-1, mazeDim[1]-2);
-		mazeMap[exit.getY()][exit.getX()]=exit.getState();
+		mazeMap[dragon.getY()][dragon.getX()] = dragon.getState();
+
+		exit = new GameObject('S', mazeDim[0] - 1, mazeDim[1] - 2);
+		mazeMap[exit.getY()][exit.getX()] = exit.getState();
 	}
 
-	// print the maze in the standard output
+	// prints the maze in the standard output
 	private static void printMaze() {
 		for (int i = 0; i < mazeDim[1]; i++) {
 			for (int n = 0; n < mazeDim[0]; n++) {
@@ -69,7 +68,8 @@ public class MazeGame {
 	}
 
 	// this function evaluates if the game is over by checking if the hero is
-	// unarmed or is near a dragon
+	// adjacent to the dragon and unarmed or if he's armed and exited the
+	// dungeon
 	private static boolean gameOver() {
 		return ((GameObject.samePosition(hero, exit) && hero.getState() == 'A') || (GameObject
 				.adjacentPosition(hero, dragon) && hero.getState() == 'H'));
@@ -93,50 +93,53 @@ public class MazeGame {
 		recursiveMazeGen(mazeMap, 0, m - 1, 0, n - 1);
 	}
 
-	// prims algorithm for maze generation
+	// recursive algorithm for maze generation
 	private static void recursiveMazeGen(char[][] maze, int xi, int xf, int yi,
 			int yf) {
-		if (Math.abs(xf - xi) < 4| Math.abs(yf - yi) < 4)
-			return; // if can't create more walls
+		if (Math.abs(xf - xi) < 4 | Math.abs(yf - yi) < 4)
+			return; // if the wall is impossible to create, does nothing
 		// (1) Generate the walls intersection point
 		java.util.Random r = new java.util.Random();
-		int x = r.nextInt(xf-(xi+2)-1) + xi + 2;
-		int y = r.nextInt(yf-(yi+2)-1) + yi + 2;
-		
+		int x = r.nextInt(xf - (xi + 2) - 1) + xi + 2;
+		int y = r.nextInt(yf - (yi + 2) - 1) + yi + 2;
+
 		// (2) Fill the walls
 		// ***********************************************************************************************
-		// READ THIS PLEASE: if the maze have problems with closed chambers, here is the place to fix it!
-		// This may happen because some crossing walls close some chambers exits. Try to put the variable
-		// moreRandomWall to test the difference
+		// READ THIS PLEASE: this fixes a problem in which some chambers would
+		// be closed
+		// This could happen because some crossing walls close chamber exits.
+		// Try to change the variable moreRandomWall to test the difference
 		// ***********************************************************************************************
-		int moreRandomWall= r.nextInt(2);
-		for (int i = xi+1+moreRandomWall; i < xf-1; i++)
+		int moreRandomWall = r.nextInt(2);
+		for (int i = xi + 1 + moreRandomWall; i < xf - 1; i++)
 			maze[y][i] = 'X';
-		for (int i = yi+1+moreRandomWall; i < yf-moreRandomWall; i++)
+		for (int i = yi + 1 + moreRandomWall; i < yf - moreRandomWall; i++)
 			maze[i][x] = 'X';
 		// ***********************************************************************************************
-		
-		// (3) Draw 3 exits in walls, but without a warranty of exit from chamber
-		int delta = r.nextInt(x - (xi+1)) + xi +1; // x-left
+
+		// (3) Draw 3 exits in walls, but without a guaranteed exit from the
+		// chamber
+		int delta = r.nextInt(x - (xi + 1)) + xi + 1; // x-left
 		maze[y][delta] = ' ';
-		
-		delta = r.nextInt(xf - (x+1)) + x + 1; // x-right
-		maze[y][delta] = ' '; 
-		
-		delta = r.nextInt(yf - (y+1)) + y + 1; // x-right
-		maze[delta][x] = ' '; 
-		
+
+		delta = r.nextInt(xf - (x + 1)) + x + 1; // x-right
+		maze[y][delta] = ' ';
+
+		delta = r.nextInt(yf - (y + 1)) + y + 1; // x-right
+		maze[delta][x] = ' ';
+
 		// (4) Recursive call
 		recursiveMazeGen(maze, xi, x, yi, y);
-		recursiveMazeGen(maze, x , xf, yi, y);
-		recursiveMazeGen(maze, xi, x, y , yf);
-		recursiveMazeGen(maze, x , xf, y , yf);
+		recursiveMazeGen(maze, x, xf, yi, y);
+		recursiveMazeGen(maze, xi, x, y, yf);
+		recursiveMazeGen(maze, x, xf, y, yf);
 	}
 
 	// move the dragon randomly
 	private static void moveDragon() {
 		if (dragon.getState() == 'K')
-			return; // bug fix 1
+			return; // solves bug1 which would make the dragon continue moving
+					// even after killed
 		int x = 0, y = 0;
 		int deltaX[] = { 0, 0, -1, 1, 0 };
 		int deltaY[] = { -1, 1, 0, 0, 0 };
@@ -148,19 +151,21 @@ public class MazeGame {
 		} while (mazeMap[dragon.getY() + y][dragon.getX() + x] == 'X'
 				|| mazeMap[dragon.getY() + y][dragon.getX() + x] == 'S');
 
-		// the dragon moves if only is not near the hero
+		// the dragon only moves if not adjacent (if he is, then the game is
+		// over)
 		if (!GameObject.adjacentPosition(dragon, hero)) {
-			// delete the old cell and move the dragon to the new cell
+			// blank the previous cell and move the dragon to the new one
 			mazeMap[dragon.getY()][dragon.getX()] = ' ';
 			mazeMap[dragon.getY() + y][dragon.getX() + x] = dragon.getState();
 			updateObject(dragon, dragon.getX() + x, dragon.getY() + y,
 					dragon.getState());
-			// if the dragon goes to a cell with a sword the status changes to F
+			// if the dragon goes to the cell which has the sword the status
+			// changes to F
 			if (GameObject.samePosition(dragon, sword)) {
 				mazeMap[dragon.getY()][dragon.getX()] = 'F';
 				updateObject(dragon, dragon.getX(), dragon.getY(), 'F');
-				// if the new position of the dragon is without the sword, he
-				// returns to state D
+				// when the dragon returns to a position other than the sword's
+				// the status go back to normal
 			} else if (GameObject.adjacentPosition(dragon, sword)
 					&& dragon.getState() == 'F') {
 				updateObject(dragon, dragon.getX(), dragon.getY(), 'D');
@@ -191,7 +196,7 @@ public class MazeGame {
 			y = 0;
 			break;
 		}
-		// only moves the heroe if the new cell isn't a wall and if he's not
+		// only moves the hero if the new cell isn't a wall and if he's not
 		// unarmed and going to the exit
 		if (mazeMap[hero.getY() + y][hero.getX() + x] != 'X'
 				&& !(hero.getX() + x == exit.getX()
@@ -202,13 +207,13 @@ public class MazeGame {
 					hero.getState());
 
 		}
-		// if the hero is in the same cell of the sword, goes to the state
+		// if the hero is in the same cell of the sword, changes his state to
 		// "Armed"
 		if (GameObject.samePosition(hero, sword)) {
 			updateObject(hero, hero.getX(), hero.getY(), 'A');
 			mazeMap[hero.getY()][hero.getX()] = hero.getState();
 		}
-		// if the hero is near the dragon and is armed, the dragon dies
+		// if the hero is near the dragon and armed, the dragon dies
 		if (GameObject.adjacentPosition(hero, dragon) && hero.getState() == 'A') {
 			mazeMap[dragon.getY()][dragon.getX()] = ' ';
 			// bug fix 1
