@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.Math;
+import java.util.Scanner;
 
 /********************************************************
  * This class defines a maze game
@@ -12,7 +13,7 @@ public class MazeGame {
 	private static GameObject hero;
 	private static GameObject exit;
 	private static GameObject sword;
-	private static int mazeDim[] = { 16, 16 };
+	private static int mazeDim[] = { 10, 10 };
 	private static char[][] mazeMap = {
 			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
 			{ 'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
@@ -27,7 +28,25 @@ public class MazeGame {
 
 	/* main() ================== */
 	public static void main(String args[]) throws IOException {
-		generateMaze(mazeDim[0], mazeDim[1]);
+		Scanner in = new Scanner(System.in);
+		char opt;
+		int x = 0, y = 0;
+		do {  //ask if the user wants a random maze or the default one
+			System.out.print("Generate random maze (Y-N): ");
+			opt = in.nextLine().toCharArray()[0];
+			opt = Character.toUpperCase(opt);
+		} while (opt != 'Y' && opt != 'N');
+		if (opt == 'Y') { //ask the maze dimension
+			System.out.print("X Dimension: ");
+			x = in.nextInt();
+			System.out.print("Y Dimension: ");
+			y = in.nextInt();
+			x = Math.abs(x);
+			y = Math.abs(y);
+			mazeDim[0] = x;
+			mazeDim[1] = y;
+			generateMaze(mazeDim[0], mazeDim[1]);
+		}
 		play();
 	}
 
@@ -50,10 +69,10 @@ public class MazeGame {
 		sword = new GameObject('E', 1, 8);
 		mazeMap[sword.getY()][sword.getX()] = sword.getState();
 
-		dragon = new GameObject('D', 2, 6);
+		dragon = new GameObject('D', 1, 3);
 		mazeMap[dragon.getY()][dragon.getX()] = dragon.getState();
 
-		exit = new GameObject('S', mazeDim[0] - 1, mazeDim[1] - 2);
+		exit = new GameObject('S', mazeDim[0] - 1, mazeDim[1] - 5);
 		mazeMap[exit.getY()][exit.getX()] = exit.getState();
 	}
 
