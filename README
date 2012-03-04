@@ -16,6 +16,8 @@
 		* MazeGame.java : Commented all sections. Optimized function moveDragon() and dragon killing bug fixed (1).	
 	(3) 2012-03-03 André Freitas
 		* MazeGame.java : Added maze random generation using function recursiveMazeGen(mazeMap, xi, xf, yi, yf)
+	(4) 2012-03-03 Vasco Gonçalves
+		* MazeGame.java : Added option to ask the user if he wants to generate a random maze and its dimension.
 
 == BUGS FIXED ==
 	(1) 2012-03-03 André Freitas
