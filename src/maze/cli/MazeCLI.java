@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import maze.logic.MazeGame;
+
 public class MazeCLI {
 
 	// read keyboard char input
@@ -15,6 +17,16 @@ public class MazeCLI {
 		} while (chars[0] != 'W' && chars[0] != 'A' && chars[0] != 'S'
 				&& chars[0] != 'D');
 		return chars[0];
+	}
+
+	// prints the maze in the standard output
+	public static void printMaze() {
+		for (int i = 0; i < MazeGame.mazeDim[1]; i++) {
+			for (int n = 0; n < MazeGame.mazeDim[0]; n++) {
+				System.out.print(MazeGame.mazeMap[i][n] + " ");
+			}
+			System.out.print('\n');
+		}
 	}
 
 }

@@ -14,8 +14,8 @@ public class MazeGame {
 	private static GameObject hero;
 	private static GameObject exit;
 	private static GameObject sword;
-	private static int mazeDim[] = { 10, 10 };
-	private static char[][] mazeMap = {
+	public static int mazeDim[] = { 10, 10 };
+	public static char[][] mazeMap = {
 			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
 			{ 'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
 			{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
@@ -26,9 +26,6 @@ public class MazeGame {
 			{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
 			{ 'X', 'E', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X' },
 			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
-MazeGame(int op){
-	if (op==1) return;
-}
 	/* main() ================== */
 	public static void main(String args[]) throws IOException {
 		Scanner in = new Scanner(System.in);
@@ -57,11 +54,11 @@ MazeGame(int op){
 	private static void play() throws IOException {
 		setupObjects();
 		do {
-			printMaze();
+			MazeCLI.printMaze();
 			moveHero(MazeCLI.readKeyboardArrow());
 			moveDragon();
 		} while (!gameOver());
-		printMaze();
+		MazeCLI.printMaze();
 	}
 
 	// setup the objects with their initial positions and states
@@ -77,16 +74,6 @@ MazeGame(int op){
 
 		exit = new GameObject('S', mazeDim[0] - 1, mazeDim[1] - 5);
 		mazeMap[exit.getY()][exit.getX()] = exit.getState();
-	}
-
-	// prints the maze in the standard output
-	private static void printMaze() {
-		for (int i = 0; i < mazeDim[1]; i++) {
-			for (int n = 0; n < mazeDim[0]; n++) {
-				System.out.print(mazeMap[i][n] + " ");
-			}
-			System.out.print('\n');
-		}
 	}
 
 	// this function evaluates if the game is over by checking if the hero is
