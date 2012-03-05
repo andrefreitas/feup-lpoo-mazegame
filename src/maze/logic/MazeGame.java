@@ -51,7 +51,7 @@ public class MazeGame {
 	}
 
 	// this function is called by main and is the game cycle itself
-	private static void play() throws IOException {
+	public static void play() throws IOException {
 		setupObjects();
 		do {
 			MazeCLI.printMaze();
@@ -62,7 +62,7 @@ public class MazeGame {
 	}
 
 	// setup the objects with their initial positions and states
-	private static void setupObjects() {
+	public static void setupObjects() {
 		hero = new GameObject('H', 1, 1);
 		mazeMap[hero.getY()][hero.getX()] = hero.getState();
 
@@ -79,13 +79,13 @@ public class MazeGame {
 	// this function evaluates if the game is over by checking if the hero is
 	// adjacent to the dragon and unarmed or if he's armed and exited the
 	// dungeon
-	private static boolean gameOver() {
+	public static boolean gameOver() {
 		return ((GameObject.samePosition(hero, exit) && hero.getState() == 'A') || (GameObject
 				.adjacentPosition(hero, dragon) && hero.getState() == 'H'));
 	}
 
 	// random maze generation
-	private static void generateMaze(int m, int n) {
+	public static void generateMaze(int m, int n) {
 		// attention: m x n matrix => array[n][m]
 		mazeMap = new char[n][m];
 		// fill with blank spaces
@@ -103,7 +103,7 @@ public class MazeGame {
 	}
 
 	// recursive algorithm for maze generation
-	private static void recursiveMazeGen(char[][] maze, int xi, int xf, int yi,
+	public static void recursiveMazeGen(char[][] maze, int xi, int xf, int yi,
 			int yf) {
 		if (Math.abs(xf - xi) < 4 | Math.abs(yf - yi) < 4)
 			return; // if the wall is impossible to create, does nothing
@@ -145,7 +145,7 @@ public class MazeGame {
 	}
 
 	// move the dragon randomly
-	private static void moveDragon() {
+	public static void moveDragon() {
 		if (dragon.getState() == 'K')
 			return; // solves bug1 which would make the dragon continue moving
 					// even after killed
@@ -185,7 +185,7 @@ public class MazeGame {
 	}
 
 	// move the hero by receiving an input
-	private static void moveHero(char direction) {
+	public static void moveHero(char direction) {
 		int x = 0, y = 0;
 		switch (direction) {
 		case 'W':
@@ -231,7 +231,7 @@ public class MazeGame {
 	}
 
 	// Update a gameobject calling the set functions
-	private static void updateObject(GameObject a, int x, int y, char state) {
+	public static void updateObject(GameObject a, int x, int y, char state) {
 		a.setY(y);
 		a.setX(x);
 		a.setState(state);
