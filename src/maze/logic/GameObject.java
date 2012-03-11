@@ -5,9 +5,9 @@ package maze.logic;
 public class GameObject {
 	
 	/* Attributes ================== */
-	protected char state; // the state that appears in the maze cell
-	protected int x; // the x-axis position
-	protected int y; // the y-axis position
+	public char state; // the state that appears in the maze cell
+	public int x; // the x-axis position
+	public int y; // the y-axis position
 	
 	/* Constructor *================== */
 	public GameObject(char state, int x, int y) {
