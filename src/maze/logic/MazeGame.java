@@ -10,10 +10,10 @@ import maze.cli.MazeCLI;
  ********************************************************/
 public class MazeGame {
 	/* Attributes ================== */
-	private static GameObject dragon;
-	private static GameObject hero;
-	private static GameObject exit;
-	private static GameObject sword;
+	public static GameObject dragon;
+	public static GameObject hero;
+	public static GameObject exit;
+	public static GameObject sword;
 	public static int mazeDim[] = { 10, 10 };
 	public static char[][] mazeMap = {
 			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
@@ -26,6 +26,17 @@ public class MazeGame {
 			{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
 			{ 'X', 'E', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X' },
 			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
+	private static char[][] backupMaze={
+		{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
+		{ 'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+		{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
+		{ 'X', 'D', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
+		{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
+		{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', 'X', ' ', 'S' },
+		{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
+		{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
+		{ 'X', 'E', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X' },
+		{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 	/* main() ================== */
 	public static void main(String args[]) throws IOException {
 		Scanner in = new Scanner(System.in);
@@ -236,6 +247,10 @@ public class MazeGame {
 		a.setX(x);
 		a.setState(state);
 
+	}
+	// put maze map to default
+	public static void resetDefaultMaze(){
+		mazeMap=backupMaze.clone();
 	}
 
 }

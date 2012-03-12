@@ -18,9 +18,18 @@
 		* MazeGame.java : Added maze random generation using function recursiveMazeGen(mazeMap, xi, xf, yi, yf)
 	(4) 2012-03-03 Vasco Gonçalves
 		* MazeGame.java : Added option to ask the user if he wants to generate a random maze and its dimension.
+	(5) 2012-03-03 Vasco Gonçalves, André Freitas
+		* Package maze.logic: Changed attributes to public so the maze.test can acess them.
+		* Package maze.test: Added tests regarding the game logic and gameobject class.
+		
 
 == BUGS FIXED ==
 	(1) 2012-03-03 André Freitas
 		* Problem: the dragon still moves after being killed and hero disappears if in the same position as the dragon
 		* Solution: when the hero kills the dragon, its state goes to 'K' (killed) and the positions 
 		are set to x=-1 and y=-1.
+
+== BUGS DETECTED ==
+	(1) 2012-03-03 André Freitas
+		* Problem: the maze have chambers with spaces of 2 units when the max is 1. 
+		* To Do: in maze recursive algorithm, don't generate points that cross subchambers exits
