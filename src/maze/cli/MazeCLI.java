@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import maze.logic.Maze;
+import maze.logic.MazeGame;
 
 public class MazeCLI {
 
@@ -21,9 +21,9 @@ public class MazeCLI {
 
 	// prints the maze in the standard output
 	public static void printMaze() {
-		for (int i = 0; i < Maze.mazeDim[1]; i++) {
-			for (int n = 0; n < Maze.mazeDim[0]; n++) {
-				System.out.print(Maze.mazeMap[i][n] + " ");
+		for (int i = 0; i < MazeGame.maze.mazeDim[1]; i++) {
+			for (int n = 0; n < MazeGame.maze.mazeDim[0]; n++) {
+				System.out.print(MazeGame.maze.mazeMap[i][n] + " ");
 			}
 			System.out.print('\n');
 		}

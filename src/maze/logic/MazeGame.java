@@ -9,6 +9,7 @@ import maze.cli.MazeCLI;
  * This class defines a maze game
  ********************************************************/
 public class MazeGame {
+	public static Maze maze = new Maze();
 	/* main() ================== */
 	public static void main(String args[]) throws IOException {
 		Scanner in = new Scanner(System.in);
@@ -26,9 +27,9 @@ public class MazeGame {
 			y = in.nextInt();
 			x = Math.abs(x);
 			y = Math.abs(y);
-			Maze.mazeDim[0] = x;
-			Maze.mazeDim[1] = y;
-			generateMaze(Maze.mazeDim[0], Maze.mazeDim[1]);
+			maze.mazeDim[0] = x;
+			maze.mazeDim[1] = y;
+			generateMaze(maze.mazeDim[0], maze.mazeDim[1]);
 		}
 		play();
 	}
@@ -46,43 +47,43 @@ public class MazeGame {
 
 	// setup the objects with their initial positions and states
 	public static void setupObjects() {
-		Maze.hero =new ObjectIOMove('H', 1, 1);
-		Maze.mazeMap[Maze.hero.getY()][Maze.hero.getX()] = Maze.hero.getState();
+		maze.hero =new ObjectIOMove('H', 1, 1);
+		maze.mazeMap[maze.hero.getY()][maze.hero.getX()] = maze.hero.getState();
 
-		Maze.sword = new GameObject('E', 1, 8);
-		Maze.mazeMap[Maze.sword.getY()][Maze.sword.getX()] = Maze.sword.getState();
+		maze.sword = new GameObject('E', 1, 8);
+		maze.mazeMap[maze.sword.getY()][maze.sword.getX()] = maze.sword.getState();
 
-		Maze.dragon = new ObjectSelfMove('D', 1, 3);
-		Maze.mazeMap[Maze.dragon.getY()][Maze.dragon.getX()] = Maze.dragon.getState();
+		maze.dragon = new ObjectSelfMove('D', 1, 3);
+		maze.mazeMap[maze.dragon.getY()][maze.dragon.getX()] = maze.dragon.getState();
 
-		Maze.exit = new GameObject('S', Maze.mazeDim[0] - 1, Maze.mazeDim[1] - 5);
-		Maze.mazeMap[Maze.exit.getY()][Maze.exit.getX()] = Maze.exit.getState();
+		maze.exit = new GameObject('S', maze.mazeDim[0] - 1, maze.mazeDim[1] - 5);
+		maze.mazeMap[maze.exit.getY()][maze.exit.getX()] = maze.exit.getState();
 	}
 
 	// this function evaluates if the game is over by checking if the hero is
 	// adjacent to the dragon and unarmed or if he's armed and exited the
 	// dungeon
 	public static boolean gameOver() {
-		return ((GameObject.samePosition(Maze.hero, Maze.exit) && Maze.hero.getState() == 'A') || (GameObject
-				.adjacentPosition(Maze.hero, Maze.dragon) && Maze.hero.getState() == 'H'));
+		return ((GameObject.samePosition(maze.hero, maze.exit) && maze.hero.getState() == 'A') || (GameObject
+				.adjacentPosition(maze.hero, maze.dragon) && maze.hero.getState() == 'H'));
 	}
 
 	// random maze generation
 	public static void generateMaze(int m, int n) {
 		// attention: m x n matrix => array[n][m]
-		Maze.mazeMap = new char[n][m];
+		maze.mazeMap = new char[n][m];
 		// fill with blank spaces
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < m; j++)
-				Maze.mazeMap[i][j] = ' ';
+				maze.mazeMap[i][j] = ' ';
 		// fill with walls
 		for (int i = 0; i < m; i++) {
-			Maze.mazeMap[0][i] = 'X';
-			Maze.mazeMap[i][0] = 'X';
-			Maze.mazeMap[n - 1][i] = 'X';
-			Maze.mazeMap[i][m - 1] = 'X';
+			maze.mazeMap[0][i] = 'X';
+			maze.mazeMap[i][0] = 'X';
+			maze.mazeMap[n - 1][i] = 'X';
+			maze.mazeMap[i][m - 1] = 'X';
 		}
-		recursiveMazeGen(Maze.mazeMap, 0, m - 1, 0, n - 1);
+		recursiveMazeGen(maze.mazeMap, 0, m - 1, 0, n - 1);
 	}
 
 	// recursive algorithm for maze generation

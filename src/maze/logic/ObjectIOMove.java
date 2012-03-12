@@ -29,26 +29,26 @@ public class ObjectIOMove extends GameObject {
 		}
 		// only moves the hero if the new cell isn't a wall and if he's not
 		// unarmed and going to the exit
-		if (Maze.mazeMap[Maze.hero.getY() + y][Maze.hero.getX() + x] != 'X'
-				&& !(Maze.hero.getX() + x == Maze.exit.getX()
-						&& Maze.hero.getY() + y == Maze.exit.getY() && Maze.hero.getState() == 'H')) {
-			Maze.mazeMap[Maze.hero.getY()][Maze.hero.getX()] = ' ';
-			Maze.mazeMap[Maze.hero.getY() + y][Maze.hero.getX() + x] = Maze.hero.getState();
-			MazeGame.updateObject(Maze.hero, Maze.hero.getX() + x, Maze.hero.getY() + y,
-					Maze.hero.getState());
+		if (MazeGame.maze.mazeMap[MazeGame.maze.hero.getY() + y][MazeGame.maze.hero.getX() + x] != 'X'
+				&& !(MazeGame.maze.hero.getX() + x == MazeGame.maze.exit.getX()
+						&& MazeGame.maze.hero.getY() + y == MazeGame.maze.exit.getY() && MazeGame.maze.hero.getState() == 'H')) {
+			MazeGame.maze.mazeMap[MazeGame.maze.hero.getY()][MazeGame.maze.hero.getX()] = ' ';
+			MazeGame.maze.mazeMap[MazeGame.maze.hero.getY() + y][MazeGame.maze.hero.getX() + x] = MazeGame.maze.hero.getState();
+			MazeGame.updateObject(MazeGame.maze.hero, MazeGame.maze.hero.getX() + x, MazeGame.maze.hero.getY() + y,
+					MazeGame.maze.hero.getState());
 	
 		}
 		// if the hero is in the same cell of the sword, changes his state to
 		// "Armed"
-		if (GameObject.samePosition(Maze.hero, Maze.sword)) {
-			MazeGame.updateObject(Maze.hero, Maze.hero.getX(), Maze.hero.getY(), 'A');
-			Maze.mazeMap[Maze.hero.getY()][Maze.hero.getX()] = Maze.hero.getState();
+		if (GameObject.samePosition(MazeGame.maze.hero, MazeGame.maze.sword)) {
+			MazeGame.updateObject(MazeGame.maze.hero, MazeGame.maze.hero.getX(), MazeGame.maze.hero.getY(), 'A');
+			MazeGame.maze.mazeMap[MazeGame.maze.hero.getY()][MazeGame.maze.hero.getX()] = MazeGame.maze.hero.getState();
 		}
 		// if the hero is near the dragon and armed, the dragon dies
-		if (GameObject.adjacentPosition(Maze.hero, Maze.dragon) && Maze.hero.getState() == 'A') {
-			Maze.mazeMap[Maze.dragon.getY()][Maze.dragon.getX()] = ' ';
+		if (GameObject.adjacentPosition(MazeGame.maze.hero, MazeGame.maze.dragon) && MazeGame.maze.hero.getState() == 'A') {
+			MazeGame.maze.mazeMap[MazeGame.maze.dragon.getY()][MazeGame.maze.dragon.getX()] = ' ';
 			// bug fix 1
-			MazeGame.updateObject(Maze.dragon, -1, -1, 'K');
+			MazeGame.updateObject(MazeGame.maze.dragon, -1, -1, 'K');
 		}
 	}
 	

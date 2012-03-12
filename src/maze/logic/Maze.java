@@ -4,8 +4,8 @@ package maze.logic;
  ********************************************************/
 public class Maze {
 	/* Attributes ================== */
-	public static int mazeDim[] = { 10, 10 };
-	public static char[][] mazeMap = {
+	public int mazeDim[] = { 10, 10 };
+	public char[][] mazeMap = {
 	{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
 	{ 'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
 	{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
@@ -16,9 +16,9 @@ public class Maze {
 	{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
 	{ 'X', 'E', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X' },
 	{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
-	public static ObjectSelfMove dragon;
-	public static ObjectIOMove hero;
-	public static GameObject exit;
-	public static GameObject sword;
+	public ObjectSelfMove dragon;
+	public ObjectIOMove hero;
+	public GameObject exit;
+	public GameObject sword;
 
 }

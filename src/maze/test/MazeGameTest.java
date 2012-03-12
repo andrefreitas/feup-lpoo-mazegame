@@ -1,5 +1,4 @@
 package maze.test;
-import maze.logic.Maze;
 import maze.logic.MazeGame;
 import maze.logic.ObjectIOMove;
 import static org.junit.Assert.*;
@@ -13,20 +12,20 @@ public class MazeGameTest {
 		MazeGame.setupObjects();
 		// test hero impossible moves
 		ObjectIOMove.moveHero('W');
-		assertEquals(Maze.hero.getX(), 1);
-		assertEquals(Maze.hero.getY(), 1);
+		assertEquals(MazeGame.maze.hero.getX(), 1);
+		assertEquals(MazeGame.maze.hero.getY(), 1);
 		ObjectIOMove.moveHero('A');
-		assertEquals(Maze.hero.getX(), 1);
-		assertEquals(Maze.hero.getY(), 1);
+		assertEquals(MazeGame.maze.hero.getX(), 1);
+		assertEquals(MazeGame.maze.hero.getY(), 1);
 		// test possible moves
 		ObjectIOMove.moveHero('D');
-		assertEquals(Maze.hero.getX(), 2);
-		assertEquals(Maze.hero.getY(), 1);
+		assertEquals(MazeGame.maze.hero.getX(), 2);
+		assertEquals(MazeGame.maze.hero.getY(), 1);
 		ObjectIOMove.moveHero('D');
 		ObjectIOMove.moveHero('D');
 		ObjectIOMove.moveHero('S');
-		assertEquals(Maze.hero.getX(), 4);
-		assertEquals(Maze.hero.getY(), 2);
+		assertEquals(MazeGame.maze.hero.getX(), 4);
+		assertEquals(MazeGame.maze.hero.getY(), 2);
 	}
 	@Test
 	public void testHeroDie(){
@@ -43,8 +42,8 @@ public class MazeGameTest {
 		for(int i=0; i<4;i++)
 			ObjectIOMove.moveHero('S');
 		ObjectIOMove.moveHero('D');
-		assertEquals(Maze.hero.getX(),8);
-		assertEquals(Maze.hero.getY(),5);
+		assertEquals(MazeGame.maze.hero.getX(),8);
+		assertEquals(MazeGame.maze.hero.getY(),5);
 	}
 	@Test
 	public void testHeroKillDragon(){
@@ -60,13 +59,13 @@ public class MazeGameTest {
 		// go the sword, now kill the dragon
 		for(int i=0; i<4;i++)
 			ObjectIOMove.moveHero('W');
-		assertEquals(Maze.dragon.getState(),'K');
-		assertEquals(Maze.mazeMap[3][1],' ');
+		assertEquals(MazeGame.maze.dragon.getState(),'K');
+		assertEquals(MazeGame.maze.mazeMap[3][1],' ');
 	}
 	@Test
 	public void testHeroArmed(){
 		MazeGame.setupObjects();
-		assertEquals(Maze.hero.getState(),'H');
+		assertEquals(MazeGame.maze.hero.getState(),'H');
 		for(int i=0; i<3;i++)
 			ObjectIOMove.moveHero('D');
 		for(int i=0; i<4;i++)
@@ -75,12 +74,12 @@ public class MazeGameTest {
 			ObjectIOMove.moveHero('A');
 		for(int i=0; i<4;i++)
 			ObjectIOMove.moveHero('S');
-		assertEquals(Maze.hero.getState(),'A');
+		assertEquals(MazeGame.maze.hero.getState(),'A');
 	}
 	
 	@Test
 	public void testHeroCanExit(){
-		MazeGame.updateObject(Maze.hero, 8, 5, 'A');
+		MazeGame.updateObject(MazeGame.maze.hero, 8, 5, 'A');
 		ObjectIOMove.moveHero('D');
 		assertEquals(MazeGame.gameOver(),true);
 	}

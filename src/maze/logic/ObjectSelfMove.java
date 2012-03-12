@@ -8,7 +8,7 @@ public class ObjectSelfMove extends GameObject {
 
 	// move the dragon randomly
 	public static void moveDragon() {
-		if (Maze.dragon.getState() == 'K')
+		if (MazeGame.maze.dragon.getState() == 'K')
 			return; // solves bug1 which would make the dragon continue moving
 					// even after killed
 		int x = 0, y = 0;
@@ -19,29 +19,29 @@ public class ObjectSelfMove extends GameObject {
 			int i = r.nextInt(5);
 			x = deltaX[i];
 			y = deltaY[i];
-		} while (Maze.mazeMap[Maze.dragon.getY() + y][Maze.dragon.getX() + x] == 'X'
-				|| Maze.mazeMap[Maze.dragon.getY() + y][Maze.dragon.getX() + x] == 'S');
+		} while (MazeGame.maze.mazeMap[MazeGame.maze.dragon.getY() + y][MazeGame.maze.dragon.getX() + x] == 'X'
+				|| MazeGame.maze.mazeMap[MazeGame.maze.dragon.getY() + y][MazeGame.maze.dragon.getX() + x] == 'S');
 	
 		// the dragon only moves if not adjacent (if he is, then the game is
 		// over)
-		if (!GameObject.adjacentPosition(Maze.dragon, Maze.hero)) {
+		if (!GameObject.adjacentPosition(MazeGame.maze.dragon, MazeGame.maze.hero)) {
 			// blank the previous cell and move the dragon to the new one
-			Maze.mazeMap[Maze.dragon.getY()][Maze.dragon.getX()] = ' ';
-			Maze.mazeMap[Maze.dragon.getY() + y][Maze.dragon.getX() + x] = Maze.dragon.getState();
-			MazeGame.updateObject(Maze.dragon, Maze.dragon.getX() + x, Maze.dragon.getY() + y,
-					Maze.dragon.getState());
+			MazeGame.maze.mazeMap[MazeGame.maze.dragon.getY()][MazeGame.maze.dragon.getX()] = ' ';
+			MazeGame.maze.mazeMap[MazeGame.maze.dragon.getY() + y][MazeGame.maze.dragon.getX() + x] = MazeGame.maze.dragon.getState();
+			MazeGame.updateObject(MazeGame.maze.dragon, MazeGame.maze.dragon.getX() + x, MazeGame.maze.dragon.getY() + y,
+					MazeGame.maze.dragon.getState());
 			// if the dragon goes to the cell which has the sword the status
 			// changes to F
-			if (GameObject.samePosition(Maze.dragon, Maze.sword)) {
-				Maze.mazeMap[Maze.dragon.getY()][Maze.dragon.getX()] = 'F';
-				MazeGame.updateObject(Maze.dragon, Maze.dragon.getX(), Maze.dragon.getY(), 'F');
+			if (GameObject.samePosition(MazeGame.maze.dragon, MazeGame.maze.sword)) {
+				MazeGame.maze.mazeMap[MazeGame.maze.dragon.getY()][MazeGame.maze.dragon.getX()] = 'F';
+				MazeGame.updateObject(MazeGame.maze.dragon, MazeGame.maze.dragon.getX(), MazeGame.maze.dragon.getY(), 'F');
 				// when the dragon returns to a position other than the sword's
 				// the status go back to normal
-			} else if (GameObject.adjacentPosition(Maze.dragon, Maze.sword)
-					&& Maze.dragon.getState() == 'F') {
-				MazeGame.updateObject(Maze.dragon, Maze.dragon.getX(), Maze.dragon.getY(), 'D');
-				Maze.mazeMap[Maze.dragon.getY()][Maze.dragon.getX()] = 'D';
-				Maze.mazeMap[Maze.sword.getY()][Maze.sword.getX()] = 'E';
+			} else if (GameObject.adjacentPosition(MazeGame.maze.dragon, MazeGame.maze.sword)
+					&& MazeGame.maze.dragon.getState() == 'F') {
+				MazeGame.updateObject(MazeGame.maze.dragon, MazeGame.maze.dragon.getX(), MazeGame.maze.dragon.getY(), 'D');
+				MazeGame.maze.mazeMap[MazeGame.maze.dragon.getY()][MazeGame.maze.dragon.getX()] = 'D';
+				MazeGame.maze.mazeMap[MazeGame.maze.sword.getY()][MazeGame.maze.sword.getX()] = 'E';
 			}
 		}
 	}
