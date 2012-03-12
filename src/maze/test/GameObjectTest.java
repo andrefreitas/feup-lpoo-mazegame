@@ -54,7 +54,7 @@ public class GameObjectTest {
 		g1.setY(3);
 		assertEquals(3, g1.y);
 	}
-
+ 
 	@Test
 	public void testSamePosition() {
 		GameObject g1 = new GameObject('A', 1, 2);

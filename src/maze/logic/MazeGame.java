@@ -9,34 +9,6 @@ import maze.cli.MazeCLI;
  * This class defines a maze game
  ********************************************************/
 public class MazeGame {
-	/* Attributes ================== */
-	public static GameObject dragon;
-	public static GameObject hero;
-	public static GameObject exit;
-	public static GameObject sword;
-	public static int mazeDim[] = { 10, 10 };
-	public static char[][] mazeMap = {
-			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
-			{ 'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-			{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-			{ 'X', 'D', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-			{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-			{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', 'X', ' ', 'S' },
-			{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-			{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-			{ 'X', 'E', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X' },
-			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
-	private static char[][] backupMaze={
-		{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
-		{ 'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-		{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-		{ 'X', 'D', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-		{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-		{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', 'X', ' ', 'S' },
-		{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-		{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-		{ 'X', 'E', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X' },
-		{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 	/* main() ================== */
 	public static void main(String args[]) throws IOException {
 		Scanner in = new Scanner(System.in);
@@ -54,9 +26,9 @@ public class MazeGame {
 			y = in.nextInt();
 			x = Math.abs(x);
 			y = Math.abs(y);
-			mazeDim[0] = x;
-			mazeDim[1] = y;
-			generateMaze(mazeDim[0], mazeDim[1]);
+			Maze.mazeDim[0] = x;
+			Maze.mazeDim[1] = y;
+			generateMaze(Maze.mazeDim[0], Maze.mazeDim[1]);
 		}
 		play();
 	}
@@ -66,51 +38,51 @@ public class MazeGame {
 		setupObjects();
 		do {
 			MazeCLI.printMaze();
-			moveHero(MazeCLI.readKeyboardArrow());
-			moveDragon();
+			ObjectIOMove.moveHero(MazeCLI.readKeyboardArrow());
+			ObjectSelfMove.moveDragon();
 		} while (!gameOver());
 		MazeCLI.printMaze();
 	}
 
 	// setup the objects with their initial positions and states
 	public static void setupObjects() {
-		hero = new GameObject('H', 1, 1);
-		mazeMap[hero.getY()][hero.getX()] = hero.getState();
+		Maze.hero =new ObjectIOMove('H', 1, 1);
+		Maze.mazeMap[Maze.hero.getY()][Maze.hero.getX()] = Maze.hero.getState();
 
-		sword = new GameObject('E', 1, 8);
-		mazeMap[sword.getY()][sword.getX()] = sword.getState();
+		Maze.sword = new GameObject('E', 1, 8);
+		Maze.mazeMap[Maze.sword.getY()][Maze.sword.getX()] = Maze.sword.getState();
 
-		dragon = new GameObject('D', 1, 3);
-		mazeMap[dragon.getY()][dragon.getX()] = dragon.getState();
+		Maze.dragon = new ObjectSelfMove('D', 1, 3);
+		Maze.mazeMap[Maze.dragon.getY()][Maze.dragon.getX()] = Maze.dragon.getState();
 
-		exit = new GameObject('S', mazeDim[0] - 1, mazeDim[1] - 5);
-		mazeMap[exit.getY()][exit.getX()] = exit.getState();
+		Maze.exit = new GameObject('S', Maze.mazeDim[0] - 1, Maze.mazeDim[1] - 5);
+		Maze.mazeMap[Maze.exit.getY()][Maze.exit.getX()] = Maze.exit.getState();
 	}
 
 	// this function evaluates if the game is over by checking if the hero is
 	// adjacent to the dragon and unarmed or if he's armed and exited the
 	// dungeon
 	public static boolean gameOver() {
-		return ((GameObject.samePosition(hero, exit) && hero.getState() == 'A') || (GameObject
-				.adjacentPosition(hero, dragon) && hero.getState() == 'H'));
+		return ((GameObject.samePosition(Maze.hero, Maze.exit) && Maze.hero.getState() == 'A') || (GameObject
+				.adjacentPosition(Maze.hero, Maze.dragon) && Maze.hero.getState() == 'H'));
 	}
 
 	// random maze generation
 	public static void generateMaze(int m, int n) {
 		// attention: m x n matrix => array[n][m]
-		mazeMap = new char[n][m];
+		Maze.mazeMap = new char[n][m];
 		// fill with blank spaces
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < m; j++)
-				mazeMap[i][j] = ' ';
+				Maze.mazeMap[i][j] = ' ';
 		// fill with walls
 		for (int i = 0; i < m; i++) {
-			mazeMap[0][i] = 'X';
-			mazeMap[i][0] = 'X';
-			mazeMap[n - 1][i] = 'X';
-			mazeMap[i][m - 1] = 'X';
+			Maze.mazeMap[0][i] = 'X';
+			Maze.mazeMap[i][0] = 'X';
+			Maze.mazeMap[n - 1][i] = 'X';
+			Maze.mazeMap[i][m - 1] = 'X';
 		}
-		recursiveMazeGen(mazeMap, 0, m - 1, 0, n - 1);
+		recursiveMazeGen(Maze.mazeMap, 0, m - 1, 0, n - 1);
 	}
 
 	// recursive algorithm for maze generation
@@ -155,102 +127,12 @@ public class MazeGame {
 		recursiveMazeGen(maze, x, xf, y, yf);
 	}
 
-	// move the dragon randomly
-	public static void moveDragon() {
-		if (dragon.getState() == 'K')
-			return; // solves bug1 which would make the dragon continue moving
-					// even after killed
-		int x = 0, y = 0;
-		int deltaX[] = { 0, 0, -1, 1, 0 };
-		int deltaY[] = { -1, 1, 0, 0, 0 };
-		java.util.Random r = new java.util.Random();
-		do {
-			int i = r.nextInt(5);
-			x = deltaX[i];
-			y = deltaY[i];
-		} while (mazeMap[dragon.getY() + y][dragon.getX() + x] == 'X'
-				|| mazeMap[dragon.getY() + y][dragon.getX() + x] == 'S');
-
-		// the dragon only moves if not adjacent (if he is, then the game is
-		// over)
-		if (!GameObject.adjacentPosition(dragon, hero)) {
-			// blank the previous cell and move the dragon to the new one
-			mazeMap[dragon.getY()][dragon.getX()] = ' ';
-			mazeMap[dragon.getY() + y][dragon.getX() + x] = dragon.getState();
-			updateObject(dragon, dragon.getX() + x, dragon.getY() + y,
-					dragon.getState());
-			// if the dragon goes to the cell which has the sword the status
-			// changes to F
-			if (GameObject.samePosition(dragon, sword)) {
-				mazeMap[dragon.getY()][dragon.getX()] = 'F';
-				updateObject(dragon, dragon.getX(), dragon.getY(), 'F');
-				// when the dragon returns to a position other than the sword's
-				// the status go back to normal
-			} else if (GameObject.adjacentPosition(dragon, sword)
-					&& dragon.getState() == 'F') {
-				updateObject(dragon, dragon.getX(), dragon.getY(), 'D');
-				mazeMap[dragon.getY()][dragon.getX()] = 'D';
-				mazeMap[sword.getY()][sword.getX()] = 'E';
-			}
-		}
-	}
-
-	// move the hero by receiving an input
-	public static void moveHero(char direction) {
-		int x = 0, y = 0;
-		switch (direction) {
-		case 'W':
-			x = 0;
-			y = -1;
-			break;
-		case 'S':
-			x = 0;
-			y = 1;
-			break;
-		case 'A':
-			x = -1;
-			y = 0;
-			break;
-		case 'D':
-			x = 1;
-			y = 0;
-			break;
-		}
-		// only moves the hero if the new cell isn't a wall and if he's not
-		// unarmed and going to the exit
-		if (mazeMap[hero.getY() + y][hero.getX() + x] != 'X'
-				&& !(hero.getX() + x == exit.getX()
-						&& hero.getY() + y == exit.getY() && hero.getState() == 'H')) {
-			mazeMap[hero.getY()][hero.getX()] = ' ';
-			mazeMap[hero.getY() + y][hero.getX() + x] = hero.getState();
-			updateObject(hero, hero.getX() + x, hero.getY() + y,
-					hero.getState());
-
-		}
-		// if the hero is in the same cell of the sword, changes his state to
-		// "Armed"
-		if (GameObject.samePosition(hero, sword)) {
-			updateObject(hero, hero.getX(), hero.getY(), 'A');
-			mazeMap[hero.getY()][hero.getX()] = hero.getState();
-		}
-		// if the hero is near the dragon and armed, the dragon dies
-		if (GameObject.adjacentPosition(hero, dragon) && hero.getState() == 'A') {
-			mazeMap[dragon.getY()][dragon.getX()] = ' ';
-			// bug fix 1
-			updateObject(dragon, -1, -1, 'K');
-		}
-	}
-
 	// Update a gameobject calling the set functions
 	public static void updateObject(GameObject a, int x, int y, char state) {
 		a.setY(y);
 		a.setX(x);
 		a.setState(state);
 
-	}
-	// put maze map to default
-	public static void resetDefaultMaze(){
-		mazeMap=backupMaze.clone();
 	}
 
 }
