@@ -2,8 +2,6 @@ package maze.test;
 import maze.logic.Maze;
 import maze.logic.MazeGame;
 import maze.logic.ObjectIOMove;
-import maze.cli.MazeCLI;
-
 import static org.junit.Assert.*;
 
 import org.junit.Test;

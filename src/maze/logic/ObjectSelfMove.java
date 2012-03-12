@@ -1,7 +1,5 @@
 package maze.logic;
 
-import java.util.Random;
-
 public class ObjectSelfMove extends GameObject {
 
 	public ObjectSelfMove(char state, int x, int y) {
