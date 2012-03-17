@@ -1,4 +1,7 @@
 package maze.logic;
+
+import java.util.ArrayList;
+
 /********************************************************
  * This class defines a generic maze
  ********************************************************/
@@ -16,8 +19,8 @@ public class Maze {
 	{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
 	{ 'X', 'E', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X' },
 	{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
-	public ObjectSelfMove dragon;
-	public ObjectIOMove hero;
+	public DragonObject dragon;
+	public heroObject hero;
 	public GameObject exit;
 	public GameObject sword;
 
