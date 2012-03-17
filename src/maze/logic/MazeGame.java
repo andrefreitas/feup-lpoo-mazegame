@@ -2,6 +2,7 @@ package maze.logic;
 
 import java.io.IOException;
 import java.lang.Math;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import maze.cli.MazeCLI;
@@ -41,8 +42,11 @@ public class MazeGame {
 		d = in.nextInt();
 		
 		// How many dragons?
-		System.out.println("How many Dragons? (>=1 and <=3):");
-		nDragons=in.nextInt();
+		do{
+			System.out.println("How many Dragons? (>=1 and <=3):");
+			nDragons=in.nextInt();
+		}
+		while(nDragons<1 || nDragons>3);
 		play();
 	}
 
@@ -52,7 +56,7 @@ public class MazeGame {
 		do {
 			MazeCLI.printMaze();
 			maze.hero.move(MazeCLI.readKeyboardArrow());
-			maze.dragon.move();
+			maze.moveDragons();
 		} while (!gameOver());
 		MazeCLI.printMaze();
 	}
@@ -65,25 +69,38 @@ public class MazeGame {
 		maze.sword = new GameObject('E', 1, 8);
 		maze.mazeMap[maze.sword.getY()][maze.sword.getX()] = maze.sword.getState();
 
-		maze.dragon = new DragonObject('D', 1, 3);
-		maze.mazeMap[maze.dragon.getY()][maze.dragon.getX()] = maze.dragon.getState();
-		if(d==2) maze.dragon.enableCanMove();
-		if(d==3) {
-			maze.dragon.enableCanMove();
-			maze.dragon.enableCanSleep();
-		}
-		
 
 		maze.exit = new GameObject('S', maze.mazeDim[0] - 1, maze.mazeDim[1] - 5);
 		maze.mazeMap[maze.exit.getY()][maze.exit.getX()] = maze.exit.getState();
+		
+		// Dragons --->
+		maze.dragons=new ArrayList<DragonObject>();
+		maze.dragons.add(new DragonObject('D', 1, 3));
+		maze.mazeMap[maze.dragons.get(0).getY()][maze.dragons.get(0).getX()] = maze.dragons.get(0).getState();
+		if(d==2) DragonObject.enableCanMove();
+		if(d==3) {
+			DragonObject.enableCanMove();
+			DragonObject.enableCanSleep();
+		}
+		if(nDragons>1){
+			for(int i=1; i<nDragons; i++){
+				maze.dragons.add(new DragonObject('D', 1+3+i, 3+3+i));
+				maze.mazeMap[maze.dragons.get(i).getY()][maze.dragons.get(i).getX()] = maze.dragons.get(i).getState();
+			}
+		}
+		// -->
+		
 	}
 
 	// this function evaluates if the game is over by checking if the hero is
 	// adjacent to the dragon and unarmed or if he's armed and exited the
 	// dungeon
 	public static boolean gameOver() {
-		return ((GameObject.samePosition(maze.hero, maze.exit) && maze.hero.getState() == 'A') || (GameObject
-				.adjacentPosition(maze.hero, maze.dragon) && (maze.hero.getState() == 'H' && maze.dragon.getState()=='D')));
+		if (GameObject.samePosition(maze.hero, maze.exit) && maze.hero.getState() == 'A')  return true;
+		for(int i=0; i<maze.dragons.size(); i++)
+			if (GameObject.adjacentPosition(maze.hero, maze.dragons.get(i)) && (maze.hero.getState() == 'H' && (maze.dragons.get(i).getState()=='D' || maze.dragons.get(i).getState()=='F')) ) return true;
+				
+		return false;
 	}
 
 	// Update a gameobject calling the set functions

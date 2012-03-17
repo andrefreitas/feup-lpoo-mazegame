@@ -20,8 +20,15 @@ public class Maze {
 	{ 'X', 'E', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X' },
 	{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 	public DragonObject dragon;
+	public ArrayList<DragonObject> dragons;
 	public heroObject hero;
 	public GameObject exit;
 	public GameObject sword;
+	
+	public void moveDragons(){
+		for (int i=0; i<dragons.size(); i++){
+			dragons.get(i).move();
+		}
+	}
 
 }
