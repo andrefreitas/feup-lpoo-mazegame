@@ -19,7 +19,6 @@ public class Maze {
 	{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
 	{ 'X', 'E', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X' },
 	{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
-	public DragonObject dragon;
 	public ArrayList<DragonObject> dragons;
 	public heroObject hero;
 	public GameObject exit;

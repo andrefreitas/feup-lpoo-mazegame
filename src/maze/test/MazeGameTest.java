@@ -58,7 +58,7 @@ public class MazeGameTest {
 		// go the sword, now kill the dragon
 		for(int i=0; i<4;i++)
 			MazeGame.maze.hero.move('W');
-		assertEquals(MazeGame.maze.dragon.getState(),'K');
+		assertEquals(MazeGame.maze.dragons.get(0).getState(),'K');
 		assertEquals(MazeGame.maze.mazeMap[3][1],' ');
 	}
 	@Test
@@ -81,5 +81,13 @@ public class MazeGameTest {
 		MazeGame.updateObject(MazeGame.maze.hero, 8, 5, 'A');
 		MazeGame.maze.hero.move('D');
 		assertEquals(MazeGame.gameOver(),true);
+	}
+	
+	@Test
+	public void testDragonSleepingKill(){
+		MazeGame.setupObjects();
+		MazeGame.maze.hero.move('S');
+		MazeGame.maze.dragons.get(0).setState('d');
+		assertEquals(false,MazeGame.gameOver());
 	}
 }
