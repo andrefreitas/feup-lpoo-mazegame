@@ -20,7 +20,6 @@ public class MazeGame {
 		Scanner in = new Scanner(System.in);
 		char opt;
 		int x = 0, y = 0;
-		MazeGUI.init();
 		do {  //ask if the user wants a random maze or the default one
 		
 			System.out.print("Generate random maze (Y-N): ");
@@ -37,9 +36,6 @@ public class MazeGame {
 			maze.mazeDim[0] = x;
 			maze.mazeDim[1] = y;
 			MazeBuilder.generateMaze(maze.mazeDim[0], maze.mazeDim[1]);
-			MazeCLI.printMaze();
-			if(true) return ;
-			
 		}
 		// Evaluate if the player wants a static dragon, a dragon that moves or a dragon that moves and sleeps
 		System.out.println("Choose the type of dragon that you want:");
@@ -53,6 +49,7 @@ public class MazeGame {
 			nDragons=in.nextInt();
 		}
 		while(nDragons<1 || nDragons>3);
+		MazeGUI.init();
 		play();
 	}
 
