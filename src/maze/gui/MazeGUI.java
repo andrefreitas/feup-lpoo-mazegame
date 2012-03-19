@@ -1,20 +1,19 @@
 package maze.gui;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 import javax.swing.*;
 
 import maze.logic.MazeGame;
 
 public class MazeGUI {
-	private static JFrame frame;
-	private static ArrayList<JLabel> maze = new ArrayList<JLabel>();
+	private JFrame frame;
 
-	public static void init() {
+	public void init() {
 		frame = new JFrame("Maze Game");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new GridLayout(MazeGame.maze.mazeDim[0], MazeGame.maze.mazeDim[1]));
+		frame.setMinimumSize(new Dimension(500, 500));
+		frame.setContentPane(new GamePanel());
 		// Criar "widgets" e adicionar à área de conteúdo
 		createWidgets();
 		addWidgets(frame.getContentPane());
@@ -24,24 +23,30 @@ public class MazeGUI {
 
 	}
 
-	private static  void addWidgets(Container contentPane) {
-		for(int i=0;i<10;i++)
-			contentPane.add(maze.get(i));
+	private void addWidgets(Container contentPane) {
 	}
 
-	private static  void createWidgets() {
-		StringBuffer tempString = new StringBuffer();
-		for(int i=0;i<MazeGame.maze.mazeDim[0];i++)
-		{
-			for(int j=0;j<MazeGame.maze.mazeDim[1];j++)
-			{
-				if(MazeGame.maze.mazeMap[i][j]==' ')
-					tempString.append("  ");
-				else
-					tempString.append(MazeGame.maze.mazeMap[i][j]);
-			}
-			maze.add(new JLabel(tempString.toString()));
-			tempString.delete(0, tempString.length());
+	private void createWidgets() {
+
+	}
+
+	public class GamePanel extends JPanel {
+		public GamePanel() {
+			super();
+		}
+		
+		public GamePanel(LayoutManager l) {
+			super(l);
+		}
+
+		public void paint(Graphics g) {
+			super.paint(g);
+			for (int i = 1; i <= MazeGame.maze.mazeDim[0]; i++)
+				for (int j = 0; j < MazeGame.maze.mazeDim[1]; j++)
+					g.drawChars(MazeGame.maze.mazeMap[i - 1], j, 1, j * 20,
+							i * 20);
+
 		}
 	}
+
 }

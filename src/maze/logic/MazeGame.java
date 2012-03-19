@@ -49,7 +49,7 @@ public class MazeGame {
 			nDragons=in.nextInt();
 		}
 		while(nDragons<1 || nDragons>3);
-		MazeGUI.init();
+		new MazeGUI().init();
 		play();
 	}
 
