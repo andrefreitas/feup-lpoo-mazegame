@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import maze.cli.MazeCLI;
+import maze.gui.*;
 /********************************************************
  * This class defines a maze game
  ********************************************************/
 public class MazeGame {
+	
 	public static Maze maze = new Maze();
 	static int d; // dragon option
 	static int nDragons; // number of dragons
@@ -18,7 +20,9 @@ public class MazeGame {
 		Scanner in = new Scanner(System.in);
 		char opt;
 		int x = 0, y = 0;
+		MazeGUI.init();
 		do {  //ask if the user wants a random maze or the default one
+		
 			System.out.print("Generate random maze (Y-N): ");
 			opt = in.nextLine().toCharArray()[0];
 			opt = Character.toUpperCase(opt);
@@ -33,6 +37,8 @@ public class MazeGame {
 			maze.mazeDim[0] = x;
 			maze.mazeDim[1] = y;
 			MazeBuilder.generateMaze(maze.mazeDim[0], maze.mazeDim[1]);
+			MazeCLI.printMaze();
+			if(true) return ;
 			
 		}
 		// Evaluate if the player wants a static dragon, a dragon that moves or a dragon that moves and sleeps
