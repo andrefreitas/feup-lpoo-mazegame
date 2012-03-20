@@ -12,7 +12,8 @@ public class MazeGUI {
 	public void init() {
 		frame = new JFrame("Maze Game");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setMinimumSize(new Dimension(500, 500));
+		frame.setMinimumSize(new Dimension((MazeGame.maze.mazeDim[0]+1) * 20,
+				(MazeGame.maze.mazeDim[1]+2) * 20));
 		frame.setContentPane(new GamePanel());
 		// Criar "widgets" e adicionar à área de conteúdo
 		createWidgets();
@@ -34,7 +35,7 @@ public class MazeGUI {
 		public GamePanel() {
 			super();
 		}
-		
+
 		public GamePanel(LayoutManager l) {
 			super(l);
 		}
@@ -42,8 +43,8 @@ public class MazeGUI {
 		public void paint(Graphics g) {
 			super.paint(g);
 			for (int i = 1; i <= MazeGame.maze.mazeDim[0]; i++)
-				for (int j = 0; j < MazeGame.maze.mazeDim[1]; j++)
-					g.drawChars(MazeGame.maze.mazeMap[i - 1], j, 1, j * 20,
+				for (int j = 1; j <= MazeGame.maze.mazeDim[1]; j++)
+					g.drawChars(MazeGame.maze.mazeMap[i - 1], j-1, 1, j * 20,
 							i * 20);
 
 		}
