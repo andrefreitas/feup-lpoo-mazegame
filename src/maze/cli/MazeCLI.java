@@ -21,8 +21,8 @@ public class MazeCLI {
 
 	// prints the maze in the standard output
 	public static void printMaze() {
-		for (int i = 0; i < MazeGame.maze.mazeDim[1]; i++) {
-			for (int n = 0; n < MazeGame.maze.mazeDim[0]; n++) {
+		for (int i = 0; i < MazeGame.maze.mazeDim; i++) {
+			for (int n = 0; n < MazeGame.maze.mazeDim; n++) {
 				System.out.print(MazeGame.maze.mazeMap[i][n] + " ");
 			}
 			System.out.print('\n');

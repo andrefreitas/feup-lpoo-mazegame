@@ -3,21 +3,21 @@ package maze.logic;
 public abstract class MazeBuilder {
 
 	// random maze generation
-	public static void generateMaze(int m, int n) {
+	public static void generateMaze(int dim) {
 		// attention: m x n matrix => array[n][m]
-		MazeGame.maze.mazeMap = new char[n][m];
+		MazeGame.maze.mazeMap = new char[dim][dim];
 		// fill with blank spaces
-		for (int i = 0; i < n; i++)
-			for (int j = 0; j < m; j++)
+		for (int i = 0; i < dim; i++)
+			for (int j = 0; j < dim; j++)
 				MazeGame.maze.mazeMap[i][j] = ' ';
 		// fill with walls
-		for (int i = 0; i < m; i++) {
+		for (int i = 0; i < dim; i++) {
 			MazeGame.maze.mazeMap[0][i] = 'X';
 			MazeGame.maze.mazeMap[i][0] = 'X';
-			MazeGame.maze.mazeMap[n - 1][i] = 'X';
-			MazeGame.maze.mazeMap[i][m - 1] = 'X';
+			MazeGame.maze.mazeMap[dim - 1][i] = 'X';
+			MazeGame.maze.mazeMap[i][dim - 1] = 'X';
 		}
-		MazeBuilder.recursiveMazeGen(MazeGame.maze.mazeMap, 0, m - 1, 0, n - 1);
+		MazeBuilder.recursiveMazeGen(MazeGame.maze.mazeMap, 0, dim - 1, 0, dim - 1);
 	}
 
 	// recursive algorithm for maze generation

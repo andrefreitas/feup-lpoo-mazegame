@@ -7,7 +7,7 @@ import java.util.ArrayList;
  ********************************************************/
 public class Maze {
 	/* Attributes ================== */
-	public int mazeDim[] = { 10, 10 };
+	public int mazeDim = 10;
 	public char[][] mazeMap = {
 	{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
 	{ 'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },

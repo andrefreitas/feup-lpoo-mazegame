@@ -19,7 +19,7 @@ public class MazeGame {
 	public static void main(String args[]) throws IOException {
 		Scanner in = new Scanner(System.in);
 		char opt;
-		int x = 0, y = 0;
+		int dim = 0;
 		do {  //ask if the user wants a random maze or the default one
 		
 			System.out.print("Generate random maze (Y-N): ");
@@ -27,15 +27,11 @@ public class MazeGame {
 			opt = Character.toUpperCase(opt);
 		} while (opt != 'Y' && opt != 'N');
 		if (opt == 'Y') { //ask the maze dimension
-			System.out.print("X Dimension: ");
-			x = in.nextInt();
-			System.out.print("Y Dimension: ");
-			y = in.nextInt();
-			x = Math.abs(x);
-			y = Math.abs(y);
-			maze.mazeDim[0] = x;
-			maze.mazeDim[1] = y;
-			MazeBuilder.generateMaze(maze.mazeDim[0], maze.mazeDim[1]);
+			System.out.print("X and Y Dimension: ");
+			dim = in.nextInt();
+			dim = Math.abs(dim);
+			maze.mazeDim = dim;
+			MazeBuilder.generateMaze(maze.mazeDim);
 		}
 		// Evaluate if the player wants a static dragon, a dragon that moves or a dragon that moves and sleeps
 		System.out.println("Choose the type of dragon that you want:");
@@ -73,7 +69,7 @@ public class MazeGame {
 		maze.mazeMap[maze.sword.getY()][maze.sword.getX()] = maze.sword.getState();
 
 
-		maze.exit = new GameObject('S', maze.mazeDim[0] - 1, maze.mazeDim[1] - 5);
+		maze.exit = new GameObject('S', maze.mazeDim - 1, maze.mazeDim - 5);
 		maze.mazeMap[maze.exit.getY()][maze.exit.getX()] = maze.exit.getState();
 		
 		// Dragons --->
