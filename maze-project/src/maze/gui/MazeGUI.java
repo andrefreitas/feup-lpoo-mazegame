@@ -48,7 +48,7 @@ public class MazeGUI {
 
 	}
 
-	private void gameOver() {
+	public void gameOver() {
 		System.exit(0);
 
 	}

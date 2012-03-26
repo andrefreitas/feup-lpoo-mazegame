@@ -35,7 +35,7 @@ public class MazeGame {
 			dim = in.nextInt();
 			dim = Math.abs(dim);
 			maze.mazeDim = dim;
-			MazeBuilder.generateMaze(maze.mazeDim);
+			MazeBuilder.generateMaze(maze.mazeDim, maze);
 		}
 		// Evaluate if the player wants a static dragon, a dragon that moves or
 		// a dragon that moves and sleeps
@@ -87,6 +87,7 @@ public class MazeGame {
 				wait(2);
 
 			} while (!gameOver());
+			gui.gameOver();
 		}
 	}
 
