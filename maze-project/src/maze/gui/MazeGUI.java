@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.*;
 
+import maze.cli.MazeCLI;
 import maze.logic.MazeGame;
 
 public class MazeGUI {
@@ -14,8 +15,8 @@ public class MazeGUI {
 	public void init() {
 		frame = new JFrame("Maze Game");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setMinimumSize(new Dimension((MazeGame.maze.mazeDim + 1) * 20,
-				(MazeGame.maze.mazeDim + 2) * 20));
+		int winSize = ((MazeGame.maze.mazeDim / 2) * 2 + 2) * 20;
+		frame.setMinimumSize(new Dimension(winSize, winSize));
 		frame.setContentPane(new GamePanel());
 		// Redimensionar e mostrar a janela
 		frame.pack();
@@ -32,6 +33,7 @@ public class MazeGUI {
 			public void keyReleased(KeyEvent e) {
 				MazeGame.maze.hero.move(Character.toUpperCase(e.getKeyChar()));
 				frame.repaint();
+				MazeCLI.printMaze();
 				if (MazeGame.gameOver())
 					gameOver();
 
