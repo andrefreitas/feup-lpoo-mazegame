@@ -14,7 +14,7 @@ public class MazeGUI {
 	public void init() {
 		frame = new JFrame("Maze Game");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		int winSize = ((MazeGame.maze.mazeDim / 2) * 2 + 2) * 20;
+		int winSize = MazeGame.maze.mazeDim * 22;
 		frame.setMinimumSize(new Dimension(winSize, winSize));
 		frame.setContentPane(new GamePanel());
 		// Redimensionar e mostrar a janela
@@ -55,6 +55,11 @@ public class MazeGUI {
 
 	// Game Panel that show the maze
 	public class GamePanel extends JPanel {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		public GamePanel() {
 			super();
 		}
