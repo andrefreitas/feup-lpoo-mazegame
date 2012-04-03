@@ -6,7 +6,6 @@ import java.awt.event.KeyListener;
 
 import javax.swing.*;
 
-import maze.cli.MazeCLI;
 import maze.logic.MazeGame;
 
 public class MazeGUI {
@@ -33,7 +32,6 @@ public class MazeGUI {
 			public void keyReleased(KeyEvent e) {
 				MazeGame.maze.hero.move(Character.toUpperCase(e.getKeyChar()));
 				frame.repaint();
-				MazeCLI.printMaze();
 				if (MazeGame.gameOver())
 					gameOver();
 
