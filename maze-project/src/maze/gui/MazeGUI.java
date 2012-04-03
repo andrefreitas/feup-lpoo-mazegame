@@ -25,20 +25,19 @@ public class MazeGUI {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				MazeGame.maze.hero.move(Character.toUpperCase(e.getKeyChar()));
-				frame.repaint();
-				if (MazeGame.gameOver())
-					gameOver();
 
 			}
 
 			@Override
 			public void keyPressed(KeyEvent e) {
+				MazeGame.maze.hero.move(Character.toUpperCase(e.getKeyChar()));
+				frame.repaint();
+				if (MazeGame.gameOver())
+					gameOver();
 
 			}
 

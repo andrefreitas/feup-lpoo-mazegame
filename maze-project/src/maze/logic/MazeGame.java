@@ -14,7 +14,7 @@ import maze.gui.*;
 public class MazeGame {
 
 	public static Maze maze = new Maze();
-	static int d; // dragon option
+	static int dragonOption; // dragon option
 	static int nDragons; // number of dragons
 	static boolean ui = true;
 	static MazeGUI gui;
@@ -43,14 +43,14 @@ public class MazeGame {
 		System.out
 				.print("1 - Static Dragon\n2 - Dragon that moves\n3 - Dragon that moves and sleep\n");
 		System.out.print("Option:");
-		d = in.nextInt();
+		dragonOption = in.nextInt();
 
 		// How many dragons?
 		do {
 			System.out.println("How many Dragons? (>=1 and <=3):");
 			nDragons = in.nextInt();
 		} while (nDragons < 1 || nDragons > 3);
-		
+
 		// create a new Mazegui instance
 		if (ui) {
 			gui = new MazeGUI();
@@ -93,33 +93,63 @@ public class MazeGame {
 
 	// setup the objects with their initial positions and states
 	public static void setupObjects() {
-		maze.hero = new heroObject('H', 1, 1);
+		java.util.Random r = new java.util.Random();
+		// Setup hero
+		int limitGen = maze.mazeDim / 4;
+		int x, y;
+		do {
+			x = r.nextInt(limitGen);
+			y = r.nextInt(limitGen);
+
+		} while (maze.mazeMap[x][y] == 'X');
+		maze.hero = new heroObject('H', x, y);
 		maze.mazeMap[maze.hero.getY()][maze.hero.getX()] = maze.hero.getState();
 
-		maze.sword = new GameObject('E', 1, 8);
+		// Setup sword
+		do {
+			x = r.nextInt(maze.mazeDim);
+			y = r.nextInt(maze.mazeDim);
+
+		} while (maze.mazeMap[x][y] == 'X' || maze.mazeMap[x][y] == 'H');
+		maze.sword = new GameObject('E', x, y);
 		maze.mazeMap[maze.sword.getY()][maze.sword.getX()] = maze.sword
 				.getState();
 
-		maze.exit = new GameObject('S', maze.mazeDim - 1, maze.mazeDim - 5);
+		// Setup exit
+
+		do {
+			y = r.nextInt((maze.mazeDim - 1) / 2 - 1) + (maze.mazeDim - 1) / 2;
+		} while (maze.mazeMap[y][maze.mazeDim - 2] == 'X');
+		maze.exit = new GameObject('S', maze.mazeDim - 1, y);
 		maze.mazeMap[maze.exit.getY()][maze.exit.getX()] = maze.exit.getState();
 
 		// Dragons --->
-		maze.dragons = new ArrayList<DragonObject>();
-		maze.dragons.add(new DragonObject('D', 1, 3));
-		maze.mazeMap[maze.dragons.get(0).getY()][maze.dragons.get(0).getX()] = maze.dragons
-				.get(0).getState();
-		if (d == 2)
+		if (dragonOption == 2)
 			DragonObject.enableCanMove();
-		if (d == 3) {
+		if (dragonOption == 3) {
 			DragonObject.enableCanMove();
 			DragonObject.enableCanSleep();
 		}
-		if (nDragons > 1) {
-			for (int i = 1; i < nDragons; i++) {
-				maze.dragons.add(new DragonObject('D', 1 + 3 + i, 3 + 3 + i));
-				maze.mazeMap[maze.dragons.get(i).getY()][maze.dragons.get(i)
-						.getX()] = maze.dragons.get(i).getState();
-			}
+		maze.dragons = new ArrayList<DragonObject>();
+
+		for (int i = 0; i < nDragons; i++) {
+			int n = 0;
+			do {
+				n++;
+				x = r.nextInt(maze.mazeDim);
+				y = r.nextInt(maze.mazeDim);
+				if (n == 1)
+					maze.dragons.add(new DragonObject('D', x, y));
+				else
+					maze.dragons.set(i, new DragonObject('D', x, y));
+
+			} while (maze.mazeMap[x][y] == 'X'
+					|| maze.mazeMap[x][y] == 'E'
+					|| maze.mazeMap[x][y] == 'D'
+					|| GameObject.adjacentPosition(maze.dragons.get(i),
+							maze.hero) || maze.mazeMap[x][y] == 'H');
+			maze.mazeMap[maze.dragons.get(i).getY()][maze.dragons.get(i).getX()] = maze.dragons
+					.get(i).getState();
 		}
 		// -->
 
