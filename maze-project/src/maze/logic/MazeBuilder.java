@@ -1,29 +1,30 @@
 package maze.logic;
 
 import java.util.ArrayList;
+
 /**
  * ******************************************************
  * This class defines a maze builder
  * ******************************************************
  */
 public abstract class MazeBuilder {
-    /* Receives the maze and the dimension and generates the chambers
-     * @param dim the dimension n x n of the maze
-     * @param maze the maze object
+    /*
+     * Receives the maze and the dimension and generates the chambers @param dim
+     * the dimension n x n of the maze @param maze the maze object
      */
+
     public static void generateMaze(int dim, Maze maze) {
         maze.mazeMap = new char[dim][dim];
         maze.mazeMap = dfs(dim, 0.75, 0.75);
     }
 
-    /* This is the DGS algorithm, that starts with the maze full of walls
-     * and starts opening paths. All Chambers have access to all the maze.
-     * Credit goes to http://en.wikipedia.org/wiki/Maze_generation_algorithm
-     * @param size the size of the maze
-     * @param complexity the complexity of the maze
-     * @param density the density of the maze
-     * @return an array of chars
-     * 
+    /*
+     * This is the DGS algorithm, that starts with the maze full of walls and
+     * starts opening paths. All Chambers have access to all the maze. Credit
+     * goes to http://en.wikipedia.org/wiki/Maze_generation_algorithm @param
+     * size the size of the maze @param complexity the complexity of the maze
+     * @param density the density of the maze @return an array of chars
+     *
      */
     public static char[][] dfs(int size, double complexity, double density) {
         // Convert size to odd number
@@ -48,7 +49,7 @@ public abstract class MazeBuilder {
             int y = r.nextInt(size / 2 + 1) * 2;
             maze[y][x] = true;
             for (int j = 0; j < complexity; j++) {
-                ArrayList<int[]> neighbours = new ArrayList<int[]>();
+                ArrayList<int[]> neighbours = new ArrayList<>();
                 if (x > 1) {
                     int aux[] = {0, 0};
                     aux[0] = y;

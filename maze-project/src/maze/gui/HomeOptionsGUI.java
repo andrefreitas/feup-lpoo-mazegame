@@ -17,11 +17,15 @@ import maze.logic.MazeGame;
 public class HomeOptionsGUI extends javax.swing.JFrame {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
      * Creates new form HomeOptionsGUI
      */
     public HomeOptionsGUI() {
         initComponents();
-         setMinimumSize(new Dimension(420,430));
+        setMinimumSize(new Dimension(420, 430));
     }
 
     /**
@@ -102,25 +106,25 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
         getContentPane().add(jLabel5);
         jLabel5.setBounds(60, 240, 92, 18);
 
-        jLabel6.setText("↑");
+        jLabel6.setText("^");
         getContentPane().add(jLabel6);
         jLabel6.setBounds(70, 260, 30, 18);
         getContentPane().add(jTextField2);
         jTextField2.setBounds(90, 260, 30, 28);
 
-        jLabel7.setText("←");
+        jLabel7.setText("<");
         getContentPane().add(jLabel7);
         jLabel7.setBounds(140, 260, 13, 18);
         getContentPane().add(jTextField3);
         jTextField3.setBounds(160, 260, 30, 30);
 
-        jLabel8.setText("↓");
+        jLabel8.setText("|_|");
         getContentPane().add(jLabel8);
         jLabel8.setBounds(210, 260, 13, 18);
         getContentPane().add(jTextField4);
         jTextField4.setBounds(230, 260, 30, 28);
 
-        jLabel9.setText("→");
+        jLabel9.setText(">");
         getContentPane().add(jLabel9);
         jLabel9.setBounds(280, 260, 13, 18);
         getContentPane().add(jTextField5);
@@ -152,9 +156,14 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-            MazeGame.setOptions(30,3,3);
+        MazeGame.setOptions(30, 3, 3);
+        MazeGame.optionsSet = true;
+        try {
             MazeGame.startGui();
-     
+        } catch (IOException ex) {
+            Logger.getLogger(HomeOptionsGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -177,13 +186,7 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HomeOptionsGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HomeOptionsGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HomeOptionsGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(HomeOptionsGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -193,13 +196,14 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
 
+            @Override
             public void run() {
                 new HomeOptionsGUI().setVisible(true);
             }
         });
     }
-    
-        public static void showGui() {
+
+    public static void showGui() {
         /*
          * Set the Nimbus look and feel
          */
@@ -216,13 +220,7 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HomeOptionsGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HomeOptionsGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HomeOptionsGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(HomeOptionsGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -232,13 +230,12 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
 
+            @Override
             public void run() {
                 new HomeOptionsGUI().setVisible(true);
             }
         });
     }
-    
-        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;

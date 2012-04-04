@@ -67,6 +67,7 @@ public class GameObject {
         return (a.getX() == b.getX() && a.getY() == b.getY());
     }
     // this function evaluates if 2 objects are adjacent to each other
+
     public static boolean adjacentPosition(GameObject a, GameObject b) {
         if (java.lang.Math.abs(a.getX() - b.getX()) == 1) {
             return (a.getY() - b.getY() == 0);

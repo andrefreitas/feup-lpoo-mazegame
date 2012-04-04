@@ -1,16 +1,16 @@
-
 package maze.gui;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import javax.swing.ImageIcon;
 
 public class HomeGUI extends javax.swing.JFrame {
 
-
-    public HomeGUI() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public HomeGUI() {
         initComponents();
-        setMinimumSize(new Dimension(400,330));
+        setMinimumSize(new Dimension(400, 330));
     }
 
     /**
@@ -49,10 +49,10 @@ public class HomeGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            HomeOptionsGUI  optionsGui=new HomeOptionsGUI();
-            this.setVisible(false);
-            optionsGui.showGui();
-            
+        HomeOptionsGUI optionsGui = new HomeOptionsGUI();
+        this.setVisible(false);
+        HomeOptionsGUI.showGui();
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -75,13 +75,7 @@ public class HomeGUI extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HomeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HomeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HomeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(HomeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -91,14 +85,17 @@ public class HomeGUI extends javax.swing.JFrame {
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
 
+            @Override
             public void run() {
                 new HomeGUI().setVisible(true);
             }
         });
     }
-    
-    public static void showGui(){
+
+    public static void showGui() {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
+            @Override
             public void run() {
                 new HomeGUI().setVisible(true);
             }

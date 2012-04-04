@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.LayoutManager;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import maze.logic.MazeGame;
@@ -18,7 +17,7 @@ public class MazeGUI {
         frame = new JFrame("Maze Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         int winSize = MazeGame.maze.mazeDim * 23;
-        frame.setMinimumSize(new Dimension(winSize, winSize+15));
+        frame.setMinimumSize(new Dimension(winSize, winSize + 15));
         frame.setContentPane(new GamePanel());
         frame.pack();
         frame.setVisible(true);
@@ -43,10 +42,10 @@ public class MazeGUI {
 
             }
         };
-        
 
-        
-        
+
+
+
         frame.getContentPane().addKeyListener(keyList);
         frame.getContentPane().setFocusable(true);
 

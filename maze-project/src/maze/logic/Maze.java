@@ -1,11 +1,13 @@
 package maze.logic;
 
 import java.util.ArrayList;
+
 /**
  * This class defines a maze that have a map and its objects
  */
 public class Maze {
     // the dimension of the maze: default is 10
+
     public int mazeDim = 10;
     // the maze array of chars: default is this
     public char[][] mazeMap = {
@@ -27,14 +29,15 @@ public class Maze {
     public GameObject exit;
     // a sword
     public GameObject sword;
-    
+
     // call every dragon to move
     public void moveDragons() {
         for (int i = 0; i < dragons.size(); i++) {
             dragons.get(i).move();
         }
     }
-    public void setDim(int dim){
-        mazeDim=dim;
+
+    public void setDim(int dim) {
+        mazeDim = dim;
     }
 }

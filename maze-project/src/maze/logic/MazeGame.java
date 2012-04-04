@@ -2,9 +2,9 @@ package maze.logic;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 import maze.cli.MazeCLI;
-import maze.gui.*;
+import maze.gui.HomeGUI;
+import maze.gui.MazeGUI;
 
 /**
  * ******************************************************
@@ -17,8 +17,6 @@ public class MazeGame {
     public static Maze maze = new Maze();
     // The option about the dragon type
     static int dragonOption;
-    // The options have been set?
-    static boolean optionSet=false;
     // The number of dragons
     static int nDragons;
     // Enables the gui
@@ -27,6 +25,7 @@ public class MazeGame {
     static MazeGUI gameGui;
     // The home screen gui
     static HomeGUI homeGui;
+    public static boolean optionsSet = false;
 
     public static void main(String args[]) throws IOException {
         // Variables for options
@@ -36,41 +35,14 @@ public class MazeGame {
         if (!enableGui) {
             MazeCLI.askOptions(mazeDim, dragonOption, nDragons);
             maze.setDim(mazeDim);
-            optionSet=true;
             MazeBuilder.generateMaze(mazeDim, maze);
-            play();
         } // With GUI
         else {
-            homeGui.showGui();
+            HomeGUI.showGui();
+            do {
+                wait(1);
+            } while (!optionsSet);
         }
-       
-    }
-    
-    public static void setOptions(int mazeDim, int dragonOp, int nDrag){
-        optionSet=true;
-        maze.setDim(mazeDim);
-        dragonOption=dragonOp;
-        nDragons=nDrag;
-    }
-    
-    public static void startGui() throws IOException{
-            gameGui = new MazeGUI();
-            gameGui.init();
-            MazeBuilder.generateMaze(maze.mazeDim, maze);
-            play();
-    }
-
-    // Wait implementation
-    public static void wait(int n) {
-        long t0, t1;
-        t0 = System.currentTimeMillis();
-        do {
-            t1 = System.currentTimeMillis();
-        } while (t1 - t0 < 1000);
-    }
-
-    // this function is called by main and is the game cycle itself
-    public static void play() throws IOException {
         setupObjects();
         if (!enableGui) {
             // CLI interface
@@ -90,6 +62,28 @@ public class MazeGame {
             } while (!gameOver());
             gameGui.gameOver();
         }
+
+    }
+
+    public static void setOptions(int mazeDim, int dragonOp, int nDrag) {
+        maze.setDim(mazeDim);
+        dragonOption = dragonOp;
+        nDragons = nDrag;
+    }
+
+    public static void startGui() throws IOException {
+        MazeBuilder.generateMaze(maze.mazeDim, maze);
+        gameGui = new MazeGUI();
+        gameGui.init();
+    }
+
+    // Wait implementation
+    public static void wait(int n) {
+        long t0, t1;
+        t0 = System.currentTimeMillis();
+        do {
+            t1 = System.currentTimeMillis();
+        } while (t1 - t0 < 1000);
     }
 
     // setup the objects with their initial positions and states
@@ -132,7 +126,7 @@ public class MazeGame {
             DragonObject.enableCanMove();
             DragonObject.enableCanSleep();
         }
-        maze.dragons = new ArrayList<DragonObject>();
+        maze.dragons = new ArrayList<>();
 
         for (int i = 0; i < nDragons; i++) {
             int n = 0;
