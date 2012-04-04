@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.LayoutManager;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import maze.logic.MazeGame;
@@ -16,10 +17,9 @@ public class MazeGUI {
     public void init() {
         frame = new JFrame("Maze Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        int winSize = MazeGame.maze.mazeDim * 22;
-        frame.setMinimumSize(new Dimension(winSize, winSize));
+        int winSize = MazeGame.maze.mazeDim * 23;
+        frame.setMinimumSize(new Dimension(winSize, winSize+15));
         frame.setContentPane(new GamePanel());
-        // Redimensionar e mostrar a janela
         frame.pack();
         frame.setVisible(true);
         KeyListener keyList = new KeyListener() {
@@ -43,6 +43,10 @@ public class MazeGUI {
 
             }
         };
+        
+
+        
+        
         frame.getContentPane().addKeyListener(keyList);
         frame.getContentPane().setFocusable(true);
 

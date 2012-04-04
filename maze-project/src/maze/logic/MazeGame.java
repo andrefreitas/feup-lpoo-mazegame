@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import maze.cli.MazeCLI;
-import maze.gui.MazeGUI;
+import maze.gui.*;
 
 /**
  * ******************************************************
@@ -12,52 +12,52 @@ import maze.gui.MazeGUI;
  * ******************************************************
  */
 public class MazeGame {
+    // The maze of the game
 
     public static Maze maze = new Maze();
-    static int dragonOption; // dragon option
-    static int nDragons; // number of dragons
-    static boolean ui = true;
-    static MazeGUI gui;
+    // The option about the dragon type
+    static int dragonOption;
+    // The options have been set?
+    static boolean optionSet=false;
+    // The number of dragons
+    static int nDragons;
+    // Enables the gui
+    static boolean enableGui = true;
+    // The game gui
+    static MazeGUI gameGui;
+    // The home screen gui
+    static HomeGUI homeGui;
 
-    /*
-     * main() ==================
-     */
     public static void main(String args[]) throws IOException {
-        Scanner in = new Scanner(System.in);
-        char opt;
-        int dim;
-        do { // ask if the user wants a random maze or the default one
+        // Variables for options
+        int mazeDim = 30;
 
-            System.out.print("Generate random maze (Y-N): ");
-            opt = in.nextLine().toCharArray()[0];
-            opt = Character.toUpperCase(opt);
-        } while (opt != 'Y' && opt != 'N');
-        if (opt == 'Y') { // ask the maze dimension
-            System.out.print("X and Y Dimension: ");
-            dim = in.nextInt();
-            dim = Math.abs(dim);
-            maze.mazeDim = dim;
+        // Without GUI
+        if (!enableGui) {
+            MazeCLI.askOptions(mazeDim, dragonOption, nDragons);
+            maze.setDim(mazeDim);
+            optionSet=true;
+            MazeBuilder.generateMaze(mazeDim, maze);
+            play();
+        } // With GUI
+        else {
+            homeGui.showGui();
+        }
+       
+    }
+    
+    public static void setOptions(int mazeDim, int dragonOp, int nDrag){
+        optionSet=true;
+        maze.setDim(mazeDim);
+        dragonOption=dragonOp;
+        nDragons=nDrag;
+    }
+    
+    public static void startGui() throws IOException{
+            gameGui = new MazeGUI();
+            gameGui.init();
             MazeBuilder.generateMaze(maze.mazeDim, maze);
-        }
-        // Evaluate if the player wants a static dragon, a dragon that moves or
-        // a dragon that moves and sleeps
-        System.out.println("Choose the type of dragon that you want:");
-        System.out.print("1 - Static Dragon\n2 - Dragon that moves\n3 - Dragon that moves and sleep\n");
-        System.out.print("Option:");
-        dragonOption = in.nextInt();
-
-        // How many dragons?
-        do {
-            System.out.println("How many Dragons? (>=1 and <=3):");
-            nDragons = in.nextInt();
-        } while (nDragons < 1 || nDragons > 3);
-
-        // create a new Mazegui instance
-        if (ui) {
-            gui = new MazeGUI();
-            gui.init();
-        }
-        play();
+            play();
     }
 
     // Wait implementation
@@ -72,7 +72,7 @@ public class MazeGame {
     // this function is called by main and is the game cycle itself
     public static void play() throws IOException {
         setupObjects();
-        if (!ui) {
+        if (!enableGui) {
             // CLI interface
             do {
                 MazeCLI.printMaze();
@@ -84,11 +84,11 @@ public class MazeGame {
             // GUI interface
             do {
                 maze.moveDragons();
-                gui.frame.repaint();
+                gameGui.frame.repaint();
                 wait(2);
 
             } while (!gameOver());
-            gui.gameOver();
+            gameGui.gameOver();
         }
     }
 
@@ -96,6 +96,7 @@ public class MazeGame {
     public static void setupObjects() {
         java.util.Random r = new java.util.Random();
         // Setup hero
+
         int limitGen = maze.mazeDim / 4;
         int x, y;
         do {
@@ -152,13 +153,10 @@ public class MazeGame {
                     maze.hero) || maze.mazeMap[x][y] == 'H');
             maze.mazeMap[maze.dragons.get(i).getY()][maze.dragons.get(i).getX()] = maze.dragons.get(i).getState();
         }
-        // -->
+
 
     }
 
-    // this function evaluates if the game is over by checking if the hero is
-    // adjacent to the dragon and unarmed or if he's armed and exited the
-    // dungeon
     public static boolean gameOver() {
         if (GameObject.samePosition(maze.hero, maze.exit)
                 && maze.hero.getState() == 'A') {

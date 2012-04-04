@@ -28,7 +28,7 @@ public class heroObject extends ObjectIOMove {
                 ypos = 0;
                 break;
         }
-        // only moves the hero if the new cell isn't a wall,if he's
+        // only moves the hero if the new cell isn't a wall, if he's
         // unarmed and going to the exit or if a dragon is next to him
         if (MazeGame.maze.mazeMap[MazeGame.maze.hero.getY() + ypos][MazeGame.maze.hero.getX() + xpos] != 'X'
                 && MazeGame.maze.mazeMap[MazeGame.maze.hero.getY() + ypos][MazeGame.maze.hero.getX() + xpos] != 'd'

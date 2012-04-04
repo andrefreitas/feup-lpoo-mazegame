@@ -1,15 +1,30 @@
 package maze.logic;
 
 import java.util.ArrayList;
-
+/**
+ * ******************************************************
+ * This class defines a maze builder
+ * ******************************************************
+ */
 public abstract class MazeBuilder {
-
+    /* Receives the maze and the dimension and generates the chambers
+     * @param dim the dimension n x n of the maze
+     * @param maze the maze object
+     */
     public static void generateMaze(int dim, Maze maze) {
         maze.mazeMap = new char[dim][dim];
         maze.mazeMap = dfs(dim, 0.75, 0.75);
     }
 
-    // http://en.wikipedia.org/wiki/Maze_generation_algorithm
+    /* This is the DGS algorithm, that starts with the maze full of walls
+     * and starts opening paths. All Chambers have access to all the maze.
+     * Credit goes to http://en.wikipedia.org/wiki/Maze_generation_algorithm
+     * @param size the size of the maze
+     * @param complexity the complexity of the maze
+     * @param density the density of the maze
+     * @return an array of chars
+     * 
+     */
     public static char[][] dfs(int size, double complexity, double density) {
         // Convert size to odd number
         size = ((size / 2) * 2 + 1);
@@ -75,7 +90,7 @@ public abstract class MazeBuilder {
             }
 
         }
-        // move to an array of chars
+        // move to array of chars
         char[][] mazeChar = new char[size][size];
         for (int l = 0; l < size; l++) {
             for (int m = 0; m < size; m++) {
