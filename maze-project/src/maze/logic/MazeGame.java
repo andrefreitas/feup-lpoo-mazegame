@@ -26,6 +26,7 @@ public class MazeGame {
     // The home screen gui
     static HomeGUI homeGui;
     public static boolean optionsSet = false;
+    public static char moveChars[] = {'W', 'A', 'S', 'D'};
 
     public static void main(String args[]) throws IOException {
         // Variables for options
@@ -65,10 +66,11 @@ public class MazeGame {
 
     }
 
-    public static void setOptions(int mazeDim, int dragonOp, int nDrag) {
+    public static void setOptions(int mazeDim, int dragonOp, int nDrag, char moveChars[]) {
         maze.setDim(mazeDim);
         dragonOption = dragonOp;
         nDragons = nDrag;
+        MazeGame.moveChars=moveChars;
     }
 
     public static void startGui() throws IOException {

@@ -10,23 +10,21 @@ public class heroObject extends ObjectIOMove {
     @Override
     public void move(char direction) {
         int xpos = 0, ypos = 0;
-        switch (direction) {
-            case 'W':
-                xpos = 0;
-                ypos = -1;
-                break;
-            case 'S':
-                xpos = 0;
-                ypos = 1;
-                break;
-            case 'A':
-                xpos = -1;
-                ypos = 0;
-                break;
-            case 'D':
-                xpos = 1;
-                ypos = 0;
-                break;
+        if (direction == MazeGame.moveChars[0]) {
+            xpos = 0;
+            ypos = -1;
+        } else if (direction == MazeGame.moveChars[1]) {
+            xpos = -1;
+            ypos = 0;
+        } else if (direction == MazeGame.moveChars[2]) {
+            xpos = 0;
+            ypos = 1;
+        } else if (direction == MazeGame.moveChars[3]) {
+            xpos = 1;
+            ypos = 0;
+        }
+        else {
+            return;
         }
         // only moves the hero if the new cell isn't a wall, if he's
         // unarmed and going to the exit or if a dragon is next to him

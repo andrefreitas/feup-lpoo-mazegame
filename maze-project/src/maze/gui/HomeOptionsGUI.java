@@ -17,10 +17,11 @@ import maze.logic.MazeGame;
 public class HomeOptionsGUI extends javax.swing.JFrame {
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	/**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
      * Creates new form HomeOptionsGUI
      */
     public HomeOptionsGUI() {
@@ -62,18 +63,21 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
         setTitle("Game Options");
         getContentPane().setLayout(null);
 
-        jLabel2.setText("Maze Size:");
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel2.setText("<html>\nMaze Size\n(between 10 and 50):");
+        jLabel2.setToolTipText("");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(150, 100, 80, 20);
+        jLabel2.setBounds(150, 100, 80, 50);
 
         jLabel3.setText("Dragons:");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(150, 130, 70, 30);
+        jLabel3.setBounds(150, 150, 70, 30);
 
         jLabel4.setText("Dragons Behaviour:");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(150, 160, 160, 20);
+        jLabel4.setBounds(150, 180, 160, 20);
 
+        buttonGroup1.add(jRadioButton1);
         jRadioButton1.setLabel("Frozen");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,8 +85,9 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jRadioButton1);
-        jRadioButton1.setBounds(150, 180, 123, 24);
+        jRadioButton1.setBounds(150, 200, 123, 23);
 
+        buttonGroup1.add(jRadioButton2);
         jRadioButton2.setLabel("Can move");
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,45 +95,66 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jRadioButton2);
-        jRadioButton2.setBounds(150, 200, 94, 24);
+        jRadioButton2.setBounds(150, 220, 73, 23);
 
+        buttonGroup1.add(jRadioButton3);
+        jRadioButton3.setSelected(true);
         jRadioButton3.setLabel("Can move and sleep");
         getContentPane().add(jRadioButton3);
-        jRadioButton3.setBounds(150, 220, 180, 20);
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(230, 100, 80, 30);
+        jRadioButton3.setBounds(150, 240, 180, 20);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jTextField1.setText("30");
+        getContentPane().add(jTextField1);
+        jTextField1.setBounds(230, 110, 80, 30);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3" }));
         getContentPane().add(jComboBox1);
-        jComboBox1.setBounds(230, 130, 80, 28);
+        jComboBox1.setBounds(230, 160, 56, 20);
 
         jLabel5.setText("Control Keys:");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(60, 240, 92, 18);
+        jLabel5.setBounds(60, 260, 65, 14);
 
-        jLabel6.setText("^");
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("↑");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(70, 260, 30, 18);
+        jLabel6.setBounds(70, 280, 10, 20);
+
+        jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField2.setText("W");
+        jTextField2.setToolTipText("");
         getContentPane().add(jTextField2);
-        jTextField2.setBounds(90, 260, 30, 28);
+        jTextField2.setBounds(90, 280, 30, 30);
 
-        jLabel7.setText("<");
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("←");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(140, 260, 13, 18);
+        jLabel7.setBounds(140, 280, 11, 20);
+
+        jTextField3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField3.setText("A");
         getContentPane().add(jTextField3);
-        jTextField3.setBounds(160, 260, 30, 30);
+        jTextField3.setBounds(160, 280, 30, 30);
 
-        jLabel8.setText("|_|");
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("↓");
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(210, 260, 13, 18);
-        getContentPane().add(jTextField4);
-        jTextField4.setBounds(230, 260, 30, 28);
+        jLabel8.setBounds(206, 280, 10, 20);
 
-        jLabel9.setText(">");
+        jTextField4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField4.setText("S");
+        getContentPane().add(jTextField4);
+        jTextField4.setBounds(230, 280, 30, 30);
+
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("→");
         getContentPane().add(jLabel9);
-        jLabel9.setBounds(280, 260, 13, 18);
+        jLabel9.setBounds(280, 280, 11, 20);
+
+        jTextField5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField5.setText("D");
         getContentPane().add(jTextField5);
-        jTextField5.setBounds(300, 260, 30, 30);
+        jTextField5.setBounds(300, 280, 30, 30);
 
         jButton1.setText("Let's play!");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -137,7 +163,7 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(90, 300, 220, 40);
+        jButton1.setBounds(90, 320, 220, 30);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/GameOptions.png"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -145,26 +171,52 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
-
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    int radioButtonSelected = 3;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        MazeGame.setOptions(30, 3, 3);
-        MazeGame.optionsSet = true;
-        try {
-            MazeGame.startGui();
-        } catch (IOException ex) {
-            Logger.getLogger(HomeOptionsGUI.class.getName()).log(Level.SEVERE, null, ex);
+        boolean proceed = true;
+        if (!jTextField1.getText().isEmpty() && !jTextField2.getText().isEmpty()
+                && !jTextField3.getText().isEmpty()
+                && !jTextField4.getText().isEmpty()
+                && !jTextField5.getText().isEmpty()) {
+            int mazeDim = 30;
+            try {
+                mazeDim = Integer.parseInt(jTextField1.getText());
+            } catch (NumberFormatException ex) {
+                proceed = false;
+            }
+            if (proceed) {
+                if (mazeDim >= 10 && mazeDim <= 50) {
+                    int dragonOp = radioButtonSelected;
+                    int nDragons = Integer.parseInt(jComboBox1.getSelectedItem().toString());
+                    char moveChars[] = {Character.toUpperCase(jTextField2.getText().charAt(0)),
+                        Character.toUpperCase(jTextField3.getText().charAt(0)),
+                        Character.toUpperCase(jTextField4.getText().charAt(0)),
+                        Character.toUpperCase(jTextField5.getText().charAt(0))};
+                    MazeGame.setOptions(mazeDim, dragonOp, nDragons, moveChars);
+                    try {
+                        MazeGame.startGui();
+                    } catch (IOException ex) {
+                        Logger.getLogger(HomeOptionsGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    MazeGame.optionsSet = true;
+                    this.dispose();
+                }
+            }
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        radioButtonSelected = 1;
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        radioButtonSelected = 2;
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {
+        radioButtonSelected = 3;
+    }
 
     /**
      * @param args the command line arguments
