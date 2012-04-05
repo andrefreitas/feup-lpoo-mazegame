@@ -1,6 +1,8 @@
 package maze.logic;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import maze.cli.MazeCLI;
 import maze.gui.HomeGUI;
@@ -14,11 +16,7 @@ import maze.gui.MazeGUI;
 public class MazeGame {
     // The maze of the game
 
-    public static Maze maze = new Maze();
-    // The option about the dragon type
-    static int dragonOption;
-    // The number of dragons
-    static int nDragons;
+    public static Maze maze;
     // Enables the gui
     static boolean enableGui = true;
     // The game gui
@@ -26,25 +24,42 @@ public class MazeGame {
     // The home screen gui
     static HomeGUI homeGui;
     public static boolean optionsSet = false;
-    public static char moveChars[] = {'W', 'A', 'S', 'D'};
 
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]) throws IOException, ClassNotFoundException {
         // Variables for options
-        int mazeDim=0;
-
-        // Without GUI
-        if (!enableGui) {
-            MazeCLI.askOptions(mazeDim, dragonOption, nDragons);
-            maze.setDim(mazeDim);
-            MazeBuilder.generateMaze(mazeDim, maze);
-        } // With GUI
-        else {
-            HomeGUI.showGui();
-            do {
-                wait(1);
-            } while (!optionsSet);
+        int mazeDim = 30;
+        boolean saveExists = true;
+        ObjectInputStream is = null;
+        try {
+            is = new ObjectInputStream(
+                    new FileInputStream("save.dat"));
+            maze = (Maze) is.readObject();
+        } catch (IOException e) {
+            saveExists = false;
+        } finally {
+            if (is != null) {
+                is.close();
+            }
         }
-        setupObjects();
+
+        if (!saveExists) {
+            maze = new Maze();
+            // Without GUI
+            if (!enableGui) {
+                MazeCLI.askOptions(mazeDim, Maze.dragonOption, Maze.nDragons);
+                maze.setDim(mazeDim);
+                MazeBuilder.generateMaze(mazeDim, maze);
+            } // With GUI
+            else {
+                HomeGUI.showGui();
+                do {
+                    wait(1);
+                } while (!optionsSet);
+            }
+            setupObjects();
+        } else {
+            optionsSet = true;
+        }
         if (!enableGui) {
             // CLI interface
             do {
@@ -68,9 +83,9 @@ public class MazeGame {
 
     public static void setOptions(int mazeDim, int dragonOp, int nDrag, char moveChars[]) {
         maze.setDim(mazeDim);
-        dragonOption = dragonOp;
-        nDragons = nDrag;
-        MazeGame.moveChars=moveChars;
+        Maze.dragonOption = dragonOp;
+        Maze.nDragons = nDrag;
+        Maze.moveChars = moveChars;
     }
 
     public static void startGui() throws IOException {
@@ -121,16 +136,16 @@ public class MazeGame {
         maze.mazeMap[maze.exit.getY()][maze.exit.getX()] = maze.exit.getState();
 
         // Dragons --->
-        if (dragonOption == 2) {
+        if (Maze.dragonOption == 2) {
             DragonObject.enableCanMove();
         }
-        if (dragonOption == 3) {
+        if (Maze.dragonOption == 3) {
             DragonObject.enableCanMove();
             DragonObject.enableCanSleep();
         }
         maze.dragons = new ArrayList<>();
 
-        for (int i = 0; i < nDragons; i++) {
+        for (int i = 0; i < Maze.nDragons; i++) {
             int n = 0;
             do {
                 n++;
