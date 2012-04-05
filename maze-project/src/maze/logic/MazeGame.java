@@ -30,7 +30,7 @@ public class MazeGame {
 
     public static void main(String args[]) throws IOException {
         // Variables for options
-        int mazeDim = 30;
+        int mazeDim=0;
 
         // Without GUI
         if (!enableGui) {

@@ -5,12 +5,13 @@ import java.awt.Dimension;
 public class HomeGUI extends javax.swing.JFrame {
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	public HomeGUI() {
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
+    public HomeGUI() {
         initComponents();
-        setMinimumSize(new Dimension(400, 330));
+        pack();
     }
 
     /**

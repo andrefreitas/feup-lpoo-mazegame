@@ -26,7 +26,7 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
      */
     public HomeOptionsGUI() {
         initComponents();
-        setMinimumSize(new Dimension(420, 430));
+        setMinimumSize(new Dimension(400, 390));
     }
 
     /**
@@ -179,9 +179,10 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
                 && !jTextField3.getText().isEmpty()
                 && !jTextField4.getText().isEmpty()
                 && !jTextField5.getText().isEmpty()) {
-            int mazeDim = 30;
+            int mazeDim = 0;
             try {
                 mazeDim = Integer.parseInt(jTextField1.getText());
+
             } catch (NumberFormatException ex) {
                 proceed = false;
             }

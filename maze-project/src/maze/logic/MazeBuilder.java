@@ -14,6 +14,8 @@ public abstract class MazeBuilder {
      */
 
     public static void generateMaze(int dim, Maze maze) {
+        dim= ((dim / 2) * 2 + 1);
+        maze.setDim(dim);
         maze.mazeMap = new char[dim][dim];
         maze.mazeMap = dfs(dim, 0.75, 0.75);
     }
@@ -28,11 +30,9 @@ public abstract class MazeBuilder {
      */
     public static char[][] dfs(int size, double complexity, double density) {
         // Convert size to odd number
-        size = ((size / 2) * 2 + 1);
         complexity = (int) (complexity * (5 * (size + size)));
         density = (int) (density * (size / 2 * size / 2));
         boolean maze[][] = new boolean[size][size];
-        MazeGame.maze.mazeDim = size;
 
         // fill the borders
         for (int i = 0; i < size; i++) {
