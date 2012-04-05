@@ -5,6 +5,11 @@ import java.awt.Graphics;
 import java.awt.LayoutManager;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import maze.logic.MazeGame;
@@ -34,6 +39,25 @@ public class MazeGUI {
 
             @Override
             public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    ObjectOutputStream os = null;
+                    try {
+                        os = new ObjectOutputStream(
+                                new FileOutputStream("save.dat"));
+                        os.writeObject(MazeGame.maze);
+                    } catch (IOException ex) {
+                    } finally {
+                        if (os != null) {
+                            try {
+                                os.close();
+                            } catch (IOException ex) {
+                                Logger.getLogger(MazeGUI.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            System.exit(0);
+                        }
+                    }
+
+                }
                 MazeGame.maze.hero.move(Character.toUpperCase(e.getKeyChar()));
                 frame.repaint();
                 if (MazeGame.gameOver()) {

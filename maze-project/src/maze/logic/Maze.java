@@ -1,11 +1,12 @@
 package maze.logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * This class defines a maze that have a map and its objects
  */
-public class Maze {
+public class Maze implements Serializable {
     // the dimension of the maze: default is 10
 
     public int mazeDim = 10;
@@ -29,6 +30,11 @@ public class Maze {
     public GameObject exit;
     // a sword
     public GameObject sword;
+    public static char moveChars[] = {'W', 'A', 'S', 'D'};
+    // The number of dragons
+    static int nDragons;
+    // The option about the dragon type
+    static int dragonOption;
 
     // call every dragon to move
     public void moveDragons() {
