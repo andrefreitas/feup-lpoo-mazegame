@@ -55,10 +55,11 @@ public class MazeGame {
                 is.close();
             }
         }
-
+        if (!saveExists) {
+            maze = new Maze();
+        }
         do {
             if (!saveExists) {
-                maze = new Maze();
                 // Without GUI
                 if (!enableGui) {
                     MazeCLI.askOptions(mazeDim, maze.dragonOption, maze.nDragons);
@@ -93,23 +94,23 @@ public class MazeGame {
                 startGui();
                 // GUI interface
                 do {
+                    wait(2);
                     maze.moveDragons();
                     gameGui.repaint();
-                    wait(2);
-
                 } while (gameOver() == 0);
                 File f = new File("save.dat");
                 f.delete();
-                if(!gameOver)
+                if (!gameOver) {
                     gameGui.gameOver(gameOver());
-                gameOver=false;
-                optionsSet=false;
+                }
+                gameOver = false;
+                optionsSet = false;
             }
 
 
-        } while(true);
+        } while (true);
 
-    
+
     }
 
     public static void setOptions(int mazeDim, int dragonOp, int nDrag, char moveChars[]) {
