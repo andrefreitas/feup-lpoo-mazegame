@@ -51,13 +51,10 @@ public class HomeGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int n = JOptionPane.showConfirmDialog(this, "Are you sure you want to start a new game?", "Start new game", JOptionPane.YES_NO_OPTION);
-        if (n == 0) {
-            System.out.println("Op: " + n);
-            HomeOptionsGUI optionsGui = new HomeOptionsGUI();
-            this.setVisible(false);
-            HomeOptionsGUI.showGui();
-        }
+
+        HomeOptionsGUI optionsGui = new HomeOptionsGUI();
+        this.setVisible(false);
+        HomeOptionsGUI.showGui();
 
     }//GEN-LAST:event_jButton1ActionPerformed
 

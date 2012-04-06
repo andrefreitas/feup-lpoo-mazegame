@@ -1,28 +1,20 @@
 package maze.logic;
 
-public class DragonObject extends ObjectSelfMove {
+import java.io.Serializable;
+
+public class DragonObject extends ObjectSelfMove implements Serializable {
 
     protected boolean isSleeping = false;
     protected int sleepSteps;
-    protected static boolean canSleep = false;
-    protected static boolean canMove = false;
-
     public DragonObject(char state, int x, int y) {
         super(state, x, y);
     }
 
-    public static void enableCanSleep() {
-        canSleep = true;
-    }
-
-    public static void enableCanMove() {
-        canMove = true;
-    }
     // move the dragon randomly
 
     @Override
     public void move() {
-        if (this.getState() == 'K' || canMove == false) {
+        if (this.getState() == 'K' || MazeGame.maze.dragonsCanMove == false) {
             return; // solves bug1 which would make the dragon continue moving
         }					// even after killed
         int xpos = 0, ypos = 0;
@@ -31,7 +23,7 @@ public class DragonObject extends ObjectSelfMove {
         java.util.Random r = new java.util.Random();
         // Handle sleeping
         int sleep;
-        if (canSleep) {
+        if (MazeGame.maze.dragonsCanSleep) {
             if (isSleeping == false) {
                 sleep = r.nextInt(100);
                 if (sleep < 20) {

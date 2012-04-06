@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import maze.logic.MazeBuilder;
 import maze.logic.MazeGame;
 
 /**
@@ -195,13 +196,10 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
                         Character.toUpperCase(jTextField4.getText().charAt(0)),
                         Character.toUpperCase(jTextField5.getText().charAt(0))};
                     MazeGame.setOptions(mazeDim, dragonOp, nDragons, moveChars);
-                    try {
-                        MazeGame.startGui();
-                    } catch (IOException ex) {
-                        Logger.getLogger(HomeOptionsGUI.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    MazeBuilder.generateMaze(MazeGame.maze.mazeDim, MazeGame.maze);
+                    MazeGame.setupObjects();
                     MazeGame.optionsSet = true;
-                    this.dispose();
+                    this.setVisible(false);
                 }
             }
         }

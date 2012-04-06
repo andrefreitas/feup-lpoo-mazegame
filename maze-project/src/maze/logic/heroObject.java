@@ -10,16 +10,16 @@ public class heroObject extends ObjectIOMove {
     @Override
     public void move(char direction) {
         int xpos = 0, ypos = 0;
-        if (direction == Maze.moveChars[0]) {
+        if (direction == MazeGame.maze.moveChars[0]) {
             xpos = 0;
             ypos = -1;
-        } else if (direction == Maze.moveChars[1]) {
+        } else if (direction == MazeGame.maze.moveChars[1]) {
             xpos = -1;
             ypos = 0;
-        } else if (direction == Maze.moveChars[2]) {
+        } else if (direction == MazeGame.maze.moveChars[2]) {
             xpos = 0;
             ypos = 1;
-        } else if (direction == Maze.moveChars[3]) {
+        } else if (direction == MazeGame.maze.moveChars[3]) {
             xpos = 1;
             ypos = 0;
         }

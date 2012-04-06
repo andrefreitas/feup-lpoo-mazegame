@@ -1,9 +1,11 @@
 package maze.logic;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import maze.cli.MazeCLI;
 import maze.gui.HomeGUI;
 import maze.gui.MazeGUI;
@@ -22,8 +24,9 @@ public class MazeGame {
     // The game gui
     static MazeGUI gameGui;
     // The home screen gui
-    static HomeGUI homeGui;
+    public static HomeGUI homeGui = new HomeGUI();
     public static boolean optionsSet = false;
+    public static boolean gameOver = false;
 
     public static void main(String args[]) throws IOException, ClassNotFoundException {
         // Variables for options
@@ -33,65 +36,91 @@ public class MazeGame {
         try {
             is = new ObjectInputStream(
                     new FileInputStream("save.dat"));
-            maze = (Maze) is.readObject();
         } catch (IOException e) {
             saveExists = false;
         } finally {
+            homeGui.setVisible(true);
             if (is != null) {
+                int n = JOptionPane.showConfirmDialog(homeGui, "Do you want to load the previous game?", "Load Game", JOptionPane.YES_NO_OPTION);
+                if (n == 0) {
+                    maze = (Maze) is.readObject();
+                    homeGui.setVisible(false);
+                } else {
+                    //if user doesn't want to load, delete the save file
+                    is.close();
+                    File f = new File("save.dat");
+                    f.delete();
+                    saveExists = false;
+                }
                 is.close();
             }
         }
 
-        if (!saveExists) {
-            maze = new Maze();
-            // Without GUI
-            if (!enableGui) {
-                MazeCLI.askOptions(mazeDim, Maze.dragonOption, Maze.nDragons);
-                maze.setDim(mazeDim);
-                MazeBuilder.generateMaze(mazeDim, maze);
-            } // With GUI
-            else {
-                HomeGUI.showGui();
-                do {
-                    wait(1);
-                } while (!optionsSet);
+        do {
+            if (!saveExists) {
+                maze = new Maze();
+                // Without GUI
+                if (!enableGui) {
+                    MazeCLI.askOptions(mazeDim, maze.dragonOption, maze.nDragons);
+                    maze.setDim(mazeDim);
+                    MazeBuilder.generateMaze(mazeDim, maze);
+                } // With GUI
+                else {
+                    do {
+                        wait(1);
+                    } while (!optionsSet);
+                }
+                if (maze.dragonOption == 2) {
+                    maze.dragonsCanMove = true;
+                }
+                if (maze.dragonOption == 3) {
+                    maze.dragonsCanMove = true;
+                    maze.dragonsCanSleep = true;
+                }
+
+            } else {
+                optionsSet = true;
             }
-            setupObjects();
-        } else {
-            optionsSet = true;
-        }
-        if (!enableGui) {
-            // CLI interface
-            do {
+            if (!enableGui) {
+                // CLI interface
+                do {
+                    MazeCLI.printMaze();
+                    maze.hero.move(MazeCLI.readKeyboardArrow());
+                    maze.moveDragons();
+                } while (gameOver() == 0);
                 MazeCLI.printMaze();
-                maze.hero.move(MazeCLI.readKeyboardArrow());
-                maze.moveDragons();
-            } while (!gameOver());
-            MazeCLI.printMaze();
-        } else {
-            // GUI interface
-            do {
-                maze.moveDragons();
-                gameGui.frame.repaint();
-                wait(2);
+            } else {
+                startGui();
+                // GUI interface
+                do {
+                    maze.moveDragons();
+                    gameGui.repaint();
+                    wait(2);
 
-            } while (!gameOver());
-            gameGui.gameOver();
-        }
+                } while (gameOver() == 0);
+                File f = new File("save.dat");
+                f.delete();
+                if(!gameOver)
+                    gameGui.gameOver(gameOver());
+                gameOver=false;
+                optionsSet=false;
+            }
 
+
+        } while(true);
+
+    
     }
 
     public static void setOptions(int mazeDim, int dragonOp, int nDrag, char moveChars[]) {
         maze.setDim(mazeDim);
-        Maze.dragonOption = dragonOp;
-        Maze.nDragons = nDrag;
-        Maze.moveChars = moveChars;
+        maze.dragonOption = dragonOp;
+        maze.nDragons = nDrag;
+        maze.moveChars = moveChars;
     }
 
     public static void startGui() throws IOException {
-        MazeBuilder.generateMaze(maze.mazeDim, maze);
         gameGui = new MazeGUI();
-        gameGui.init();
     }
 
     // Wait implementation
@@ -135,17 +164,9 @@ public class MazeGame {
         maze.exit = new GameObject('S', maze.mazeDim - 1, y);
         maze.mazeMap[maze.exit.getY()][maze.exit.getX()] = maze.exit.getState();
 
-        // Dragons --->
-        if (Maze.dragonOption == 2) {
-            DragonObject.enableCanMove();
-        }
-        if (Maze.dragonOption == 3) {
-            DragonObject.enableCanMove();
-            DragonObject.enableCanSleep();
-        }
         maze.dragons = new ArrayList<>();
 
-        for (int i = 0; i < Maze.nDragons; i++) {
+        for (int i = 0; i < maze.nDragons; i++) {
             int n = 0;
             do {
                 n++;
@@ -168,19 +189,19 @@ public class MazeGame {
 
     }
 
-    public static boolean gameOver() {
+    public static int gameOver() {
         if (GameObject.samePosition(maze.hero, maze.exit)
                 && maze.hero.getState() == 'A') {
-            return true;
+            return 2;
         }
         for (int i = 0; i < maze.dragons.size(); i++) {
             if (GameObject.adjacentPosition(maze.hero, maze.dragons.get(i))
                     && (maze.hero.getState() == 'H' && (maze.dragons.get(i).getState() == 'D' || maze.dragons.get(i).getState() == 'F'))) {
-                return true;
+                return 1;
             }
         }
 
-        return false;
+        return 0;
     }
 
     // Update a gameobject calling the set functions

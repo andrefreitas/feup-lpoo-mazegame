@@ -3,6 +3,8 @@ package maze.gui;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -10,10 +12,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import maze.logic.MazeGame;
 
-public class MazeGUI {
+public class MazeGUI extends JFrame {
 
     private Image wallIcon;
     private Image heroIcon;
@@ -23,23 +26,22 @@ public class MazeGUI {
     private Image swordIcon;
     private Image exitIcon;
     private Image sandIcon;
-    public JFrame frame;
     public JButton exit;
 
-    public Image loadImage(String path){
+    private Image loadImage(String path) {
         return Toolkit.getDefaultToolkit().getImage(getClass().getResource(path));
-        
+
     }
-    public void init() {
-        frame = new JFrame("Maze Game");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        int winSize = (MazeGame.maze.mazeDim +1)* 30;
-        frame.setMinimumSize(new Dimension(winSize-30, winSize+30));
-        frame.setContentPane(new GamePanel());  
-        exit=new JButton("Exit Game");
+
+    public MazeGUI() {
+        super("Maze Game");
+        int winSize = (MazeGame.maze.mazeDim + 1) * 30;
+        setMinimumSize(new Dimension(winSize - 30, winSize + 30));
+        setContentPane(new GamePanel());
+        exit = new JButton("Exit Game");
         // Exit button
-        frame.add(exit);
-        frame.setVisible(true);
+        add(exit);
+        setVisible(true);
         // Game icons
         wallIcon = loadImage("/resources/wallIcon.png");
         heroIcon = loadImage("/resources/heroIcon.png");
@@ -65,46 +67,77 @@ public class MazeGUI {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                    ObjectOutputStream os = null;
-                    try {
-                        os = new ObjectOutputStream(
-                                new FileOutputStream("save.dat"));
-                        os.writeObject(MazeGame.maze);
-                    } catch (IOException ex) {
-                    } finally {
-                        if (os != null) {
-                            try {
-                                os.close();
-                            } catch (IOException ex) {
-                                Logger.getLogger(MazeGUI.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                            System.exit(0);
-                        }
-                    }
-
+                    closeGame();
                 }
                 MazeGame.maze.hero.move(Character.toUpperCase(e.getKeyChar()));
-                frame.repaint();
-                     
-                if (MazeGame.gameOver()) {
-                    gameOver();
-                }
+                repaint();
+                if(MazeGame.gameOver()>0)
+                    gameOver(MazeGame.gameOver());
 
             }
         };
+        addWindowListener(new WindowAdapter() {
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                closeGame();
+            }
+        });
 
 
 
 
-        frame.getContentPane().addKeyListener(keyList);
-        frame.getContentPane().setFocusable(true);
-  
+        getContentPane().addKeyListener(keyList);
+        getContentPane().setFocusable(true);
+
 
     }
 
-    public void gameOver() {
-        System.exit(0);
+    public void gameOver(int overStatus) {
+        MazeGame.gameOver=true;
+        if(overStatus==2)
+        {
+            JOptionPane.showMessageDialog(this, "CONGRATULATIONS! You Won!", "YOU WON", JOptionPane.DEFAULT_OPTION);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Too bad! You Died!", "YOU DIED", JOptionPane.ERROR_MESSAGE);
+        }
+        int n = JOptionPane.showConfirmDialog(this, "Do you want to play another game?", "Restart", JOptionPane.YES_NO_OPTION);
+        if(n==0)
+        {
+            this.setVisible(false);
+            MazeGame.homeGui.setVisible(true);
+        }
+        else
+        {
+            System.exit(0);
+        }
 
+    }
+
+    public void closeGame() {
+        int n = JOptionPane.showConfirmDialog(this, "Do you want to save the current game?", "Save Game", JOptionPane.YES_NO_OPTION);
+        if (n == 0) {
+            ObjectOutputStream os = null;
+            try {
+                os = new ObjectOutputStream(
+                        new FileOutputStream("save.dat"));
+                os.writeObject(MazeGame.maze);
+            } catch (IOException ex) {
+            } finally {
+                if (os != null) {
+                    try {
+                        os.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(MazeGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    System.exit(0);
+                }
+            }
+        } else {
+            System.exit(0);
+        }
     }
 
     // Game Panel that show the maze
@@ -114,7 +147,7 @@ public class MazeGUI {
 
         public GamePanel() {
             super();
-            this.setBackground(Color.WHITE);
+            setBackground(Color.WHITE);
         }
 
         public GamePanel(LayoutManager l) {
@@ -154,7 +187,7 @@ public class MazeGUI {
                             break;
                         default:
                             g.drawImage(sandIcon, (i - 1) * 30, (j - 1) * 30, null);
-                           
+
                     }
 
                 }

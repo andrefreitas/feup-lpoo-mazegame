@@ -30,11 +30,13 @@ public class Maze implements Serializable {
     public GameObject exit;
     // a sword
     public GameObject sword;
-    public static char moveChars[] = {'W', 'A', 'S', 'D'};
+    public char moveChars[] = {'W', 'A', 'S', 'D'};
     // The number of dragons
-    static int nDragons;
+    public int nDragons;
     // The option about the dragon type
-    static int dragonOption;
+    public int dragonOption;
+    public boolean dragonsCanSleep=false;
+    public boolean dragonsCanMove=false;
 
     // call every dragon to move
     public void moveDragons() {
