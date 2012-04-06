@@ -1,15 +1,21 @@
 package maze.gui;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.LayoutManager;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -18,18 +24,28 @@ import maze.logic.MazeGame;
 
 public class MazeGUI extends JFrame {
 
-    private Image wallIcon;
-    private Image heroIcon;
-    private Image heroArmedIcon;
-    private Image dragonIcon;
-    private Image dragonSleepIcon;
-    private Image swordIcon;
-    private Image exitIcon;
-    private Image sandIcon;
+    private BufferedImage wallIcon;
+    private BufferedImage heroIcon;
+    private BufferedImage heroArmedIcon;
+    private BufferedImage dragonIcon;
+    private BufferedImage dragonSleepIcon;
+    private BufferedImage swordIcon;
+    private BufferedImage exitIcon;
+    private BufferedImage sandIcon;
     public JButton exit;
 
-    private Image loadImage(String path) {
-        return Toolkit.getDefaultToolkit().getImage(getClass().getResource(path));
+    private void readImages() {
+        try {
+            wallIcon = ImageIO.read(new File("src/resources/wallIcon.png"));
+            heroIcon = ImageIO.read(new File("src/resources/heroIcon.png"));
+            heroArmedIcon = ImageIO.read(new File("src/resources/heroArmedIcon.png"));
+            dragonIcon = ImageIO.read(new File("src/resources/dragonIcon.png"));
+            dragonSleepIcon = ImageIO.read(new File("src/resources/dragonSleepIcon.png"));
+            swordIcon = ImageIO.read(new File("src/resources/swordIcon.png"));
+            exitIcon = ImageIO.read(new File("src/resources/exitIcon.png"));
+            sandIcon = ImageIO.read(new File("src/resources/sandIcon.png"));
+        } catch (IOException e) {
+        }
 
     }
 
@@ -40,15 +56,7 @@ public class MazeGUI extends JFrame {
         setContentPane(new GamePanel());
         setVisible(true);
         // Game icons
-        wallIcon = loadImage("/resources/wallIcon.png");
-        heroIcon = loadImage("/resources/heroIcon.png");
-        heroArmedIcon = loadImage("/resources/heroArmedIcon.png");
-        dragonIcon = loadImage("/resources/dragonIcon.png");
-        dragonSleepIcon = loadImage("/resources/dragonSleepIcon.png");
-        swordIcon = loadImage("/resources/swordIcon.png");
-        exitIcon = loadImage("/resources/exitIcon.png");
-        sandIcon = loadImage("/resources/sandIcon.png");
-
+        readImages();
         // Exit button
         KeyListener keyList = new KeyListener() {
 
@@ -68,8 +76,9 @@ public class MazeGUI extends JFrame {
                 }
                 MazeGame.maze.hero.move(Character.toUpperCase(e.getKeyChar()));
                 repaint();
-                if(MazeGame.gameOver()>0)
+                if (MazeGame.gameOver() > 0) {
                     gameOver(MazeGame.gameOver());
+                }
 
             }
         };
@@ -86,28 +95,23 @@ public class MazeGUI extends JFrame {
 
         getContentPane().addKeyListener(keyList);
         getContentPane().setFocusable(true);
+        getContentPane().requestFocus();
 
 
     }
 
     public void gameOver(int overStatus) {
-        MazeGame.gameOver=true;
-        if(overStatus==2)
-        {
+        MazeGame.gameOver = true;
+        if (overStatus == 2) {
             JOptionPane.showMessageDialog(this, "CONGRATULATIONS! You Won!", "YOU WON", JOptionPane.DEFAULT_OPTION);
-        }
-        else
-        {
+        } else {
             JOptionPane.showMessageDialog(this, "Too bad! You Died!", "YOU DIED", JOptionPane.ERROR_MESSAGE);
         }
         int n = JOptionPane.showConfirmDialog(this, "Do you want to play another game?", "Restart", JOptionPane.YES_NO_OPTION);
-        if(n==0)
-        {
+        if (n == 0) {
             this.setVisible(false);
             MazeGame.homeGui.setVisible(true);
-        }
-        else
-        {
+        } else {
             System.exit(0);
         }
 
@@ -152,8 +156,8 @@ public class MazeGUI extends JFrame {
         }
 
         @Override
-        public void paint(Graphics g) {
-            super.paint(g);
+        public void paintComponent(Graphics g) {
+            super.paintComponent(g);
             for (int i = 1; i <= MazeGame.maze.mazeDim; i++) {
                 for (int j = 1; j <= MazeGame.maze.mazeDim; j++) { //
                     // g.drawChars(MazeGame.maze.mazeMap[i - 1], j - 1, 1, j * 20, i * 20);
