@@ -35,7 +35,10 @@ public class MazeGUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         int winSize = (MazeGame.maze.mazeDim +1)* 30;
         frame.setMinimumSize(new Dimension(winSize-30, winSize+30));
-        frame.setContentPane(new GamePanel());           
+        frame.setContentPane(new GamePanel());  
+        exit=new JButton("Exit Game");
+        // Exit button
+        frame.add(exit);
         frame.setVisible(true);
         // Game icons
         wallIcon = loadImage("/resources/wallIcon.png");
@@ -46,8 +49,7 @@ public class MazeGUI {
         swordIcon = loadImage("/resources/swordIcon.png");
         exitIcon = loadImage("/resources/exitIcon.png");
         sandIcon = loadImage("/resources/sandIcon.png");
-        exit=new JButton("Exit Game");
-        frame.add(exit);
+
         // Exit button
         KeyListener keyList = new KeyListener() {
 
@@ -83,6 +85,7 @@ public class MazeGUI {
                 }
                 MazeGame.maze.hero.move(Character.toUpperCase(e.getKeyChar()));
                 frame.repaint();
+                     
                 if (MazeGame.gameOver()) {
                     gameOver();
                 }
@@ -95,6 +98,7 @@ public class MazeGUI {
 
         frame.getContentPane().addKeyListener(keyList);
         frame.getContentPane().setFocusable(true);
+  
 
     }
 
@@ -106,9 +110,6 @@ public class MazeGUI {
     // Game Panel that show the maze
     public class GamePanel extends JPanel {
 
-        /**
-         *
-         */
         private static final long serialVersionUID = 1L;
 
         public GamePanel() {
