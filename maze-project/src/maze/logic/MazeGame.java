@@ -29,7 +29,7 @@ public class MazeGame {
     public static boolean optionsSet = false;
     public static boolean gameOver = false;
 
-    public static void main(String args[]) throws IOException, ClassNotFoundException {
+    public static void main(String args[]) throws IOException, ClassNotFoundException, InterruptedException {
         // Variables for options
         int mazeDim = 30;
         boolean saveExists = true;
@@ -69,7 +69,7 @@ public class MazeGame {
                 } // With GUI
                 else {
                     do {
-                        wait(1);
+                        Thread.sleep(500);
                     } while (!optionsSet);
                 }
                 if (maze.dragonOption == 2) {
@@ -95,7 +95,7 @@ public class MazeGame {
                 startGui();
                 // GUI interface
                 do {
-                    wait(2);
+                    Thread.sleep(2000);
                     maze.moveDragons();
                     gameGui.repaint();
                 } while (gameOver() == 0);
@@ -123,15 +123,6 @@ public class MazeGame {
 
     public static void startGui() throws IOException {
         gameGui = new MazeGUI();
-    }
-
-    // Wait implementation
-    public static void wait(int n) {
-        long t0, t1;
-        t0 = System.currentTimeMillis();
-        do {
-            t1 = System.currentTimeMillis();
-        } while (t1 - t0 < 1000);
     }
 
     // setup the objects with their initial positions and states

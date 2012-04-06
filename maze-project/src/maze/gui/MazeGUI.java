@@ -5,11 +5,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -18,18 +20,24 @@ import maze.logic.MazeGame;
 
 public class MazeGUI extends JFrame {
 
-    private Image wallIcon;
-    private Image heroIcon;
-    private Image heroArmedIcon;
-    private Image dragonIcon;
-    private Image dragonSleepIcon;
-    private Image swordIcon;
-    private Image exitIcon;
-    private Image sandIcon;
+    private BufferedImage wallIcon;
+    private BufferedImage heroIcon;
+    private BufferedImage heroArmedIcon;
+    private BufferedImage dragonIcon;
+    private BufferedImage dragonSleepIcon;
+    private BufferedImage swordIcon;
+    private BufferedImage exitIcon;
+    private BufferedImage sandIcon;
     public JButton exit;
 
-    private Image loadImage(String path) {
-        return Toolkit.getDefaultToolkit().getImage(getClass().getResource(path));
+    private BufferedImage loadImage(String path) {
+        BufferedImage img=null;
+        try {
+            img = ImageIO.read(getClass().getResource(path));
+        } catch (IOException ex) {
+            System.exit(1);
+        }
+        return img;
 
     }
 
