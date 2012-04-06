@@ -98,6 +98,7 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
         getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, 80, 30));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3" }));
+        jComboBox1.setSelectedIndex(2);
         getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, 56, 30));
 
         jLabel5.setText("Control Keys:");
