@@ -85,7 +85,7 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jRadioButton1);
-        jRadioButton1.setBounds(150, 200, 123, 23);
+        jRadioButton1.setBounds(150, 200, 123, 24);
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setLabel("Can move");
@@ -95,7 +95,7 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jRadioButton2);
-        jRadioButton2.setBounds(150, 220, 73, 23);
+        jRadioButton2.setBounds(150, 220, 94, 24);
 
         buttonGroup1.add(jRadioButton3);
         jRadioButton3.setSelected(true);
@@ -109,11 +109,11 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3" }));
         getContentPane().add(jComboBox1);
-        jComboBox1.setBounds(230, 160, 56, 20);
+        jComboBox1.setBounds(230, 160, 56, 28);
 
         jLabel5.setText("Control Keys:");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(60, 260, 65, 14);
+        jLabel5.setBounds(60, 260, 92, 18);
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("↑");
@@ -129,7 +129,7 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("←");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(140, 280, 11, 20);
+        jLabel7.setBounds(140, 280, 13, 20);
 
         jTextField3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField3.setText("A");
@@ -149,7 +149,7 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("→");
         getContentPane().add(jLabel9);
-        jLabel9.setBounds(280, 280, 11, 20);
+        jLabel9.setBounds(280, 280, 13, 20);
 
         jTextField5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField5.setText("D");

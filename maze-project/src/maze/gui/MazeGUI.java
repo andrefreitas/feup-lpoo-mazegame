@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import maze.logic.MazeGame;
@@ -23,7 +24,12 @@ public class MazeGUI {
     private Image exitIcon;
     private Image sandIcon;
     public JFrame frame;
+    public JButton exit;
 
+    public Image loadImage(String path){
+        return Toolkit.getDefaultToolkit().getImage(getClass().getResource(path));
+        
+    }
     public void init() {
         frame = new JFrame("Maze Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,14 +38,17 @@ public class MazeGUI {
         frame.setContentPane(new GamePanel());           
         frame.setVisible(true);
         // Game icons
-        wallIcon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/resources/wallIcon.png"));
-        heroIcon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/resources/heroIcon.png"));
-        heroArmedIcon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/resources/heroArmedIcon.png"));
-        dragonIcon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/resources/dragonIcon.png"));
-        dragonSleepIcon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/resources/dragonSleepIcon.png"));
-        swordIcon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/resources/swordIcon.png"));
-        exitIcon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/resources/exitIcon.png"));
-        sandIcon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/resources/sandIcon.png"));
+        wallIcon = loadImage("/resources/wallIcon.png");
+        heroIcon = loadImage("/resources/heroIcon.png");
+        heroArmedIcon = loadImage("/resources/heroArmedIcon.png");
+        dragonIcon = loadImage("/resources/dragonIcon.png");
+        dragonSleepIcon = loadImage("/resources/dragonSleepIcon.png");
+        swordIcon = loadImage("/resources/swordIcon.png");
+        exitIcon = loadImage("/resources/exitIcon.png");
+        sandIcon = loadImage("/resources/sandIcon.png");
+        exit=new JButton("Exit Game");
+        frame.add(exit);
+        // Exit button
         KeyListener keyList = new KeyListener() {
 
             @Override
