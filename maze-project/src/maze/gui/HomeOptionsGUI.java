@@ -4,10 +4,6 @@
  */
 package maze.gui;
 
-import java.awt.Dimension;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import maze.logic.MazeBuilder;
 import maze.logic.MazeGame;
 
@@ -27,7 +23,6 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
      */
     public HomeOptionsGUI() {
         initComponents();
-        setMinimumSize(new Dimension(400, 390));
     }
 
     /**
@@ -62,21 +57,19 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Game Options");
-        getContentPane().setLayout(null);
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("<html>\nMaze Size\n(between 10 and 50):");
         jLabel2.setToolTipText("");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(150, 100, 80, 50);
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 80, 50));
 
         jLabel3.setText("Dragons:");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(150, 150, 70, 30);
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 70, 30));
 
         jLabel4.setText("Dragons Behaviour:");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(150, 180, 160, 20);
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 160, 20));
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setLabel("Frozen");
@@ -85,8 +78,7 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
                 jRadioButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jRadioButton1);
-        jRadioButton1.setBounds(150, 200, 123, 24);
+        getContentPane().add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, 123, -1));
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setLabel("Can move");
@@ -95,67 +87,54 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
                 jRadioButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jRadioButton2);
-        jRadioButton2.setBounds(150, 220, 94, 24);
+        getContentPane().add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, -1, -1));
 
         buttonGroup1.add(jRadioButton3);
         jRadioButton3.setSelected(true);
         jRadioButton3.setLabel("Can move and sleep");
-        getContentPane().add(jRadioButton3);
-        jRadioButton3.setBounds(150, 240, 180, 20);
+        getContentPane().add(jRadioButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 180, 20));
 
         jTextField1.setText("30");
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(230, 110, 80, 30);
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, 80, 30));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3" }));
-        getContentPane().add(jComboBox1);
-        jComboBox1.setBounds(230, 160, 56, 28);
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, 56, 30));
 
         jLabel5.setText("Control Keys:");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(60, 260, 92, 18);
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, -1, -1));
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("↑");
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(70, 280, 10, 20);
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 280, 10, 20));
 
         jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField2.setText("W");
         jTextField2.setToolTipText("");
-        getContentPane().add(jTextField2);
-        jTextField2.setBounds(90, 280, 30, 30);
+        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 280, 30, 30));
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("←");
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(140, 280, 13, 20);
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 280, -1, 20));
 
         jTextField3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField3.setText("A");
-        getContentPane().add(jTextField3);
-        jTextField3.setBounds(160, 280, 30, 30);
+        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 30, 30));
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("↓");
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(206, 280, 10, 20);
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 280, 10, 20));
 
         jTextField4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField4.setText("S");
-        getContentPane().add(jTextField4);
-        jTextField4.setBounds(230, 280, 30, 30);
+        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 30, 30));
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("→");
-        getContentPane().add(jLabel9);
-        jLabel9.setBounds(280, 280, 13, 20);
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 280, -1, 20));
 
         jTextField5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField5.setText("D");
-        getContentPane().add(jTextField5);
-        jTextField5.setBounds(300, 280, 30, 30);
+        getContentPane().add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 280, 30, 30));
 
         jButton1.setText("Let's play!");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -163,12 +142,10 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(90, 320, 220, 30);
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, 220, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/GameOptions.png"))); // NOI18N
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 400, 390);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 390));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -237,8 +214,21 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HomeOptionsGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(HomeGUI.class.getName()).log(
+                    java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+
+            java.util.logging.Logger.getLogger(HomeGUI.class.getName()).log(
+                    java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+
+            java.util.logging.Logger.getLogger(HomeGUI.class.getName()).log(
+                    java.util.logging.Level.SEVERE, null, ex);
+
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(HomeGUI.class.getName()).log(
+                    java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -271,8 +261,21 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HomeOptionsGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(HomeGUI.class.getName()).log(
+                    java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+
+            java.util.logging.Logger.getLogger(HomeGUI.class.getName()).log(
+                    java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+
+            java.util.logging.Logger.getLogger(HomeGUI.class.getName()).log(
+                    java.util.logging.Level.SEVERE, null, ex);
+
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(HomeGUI.class.getName()).log(
+                    java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

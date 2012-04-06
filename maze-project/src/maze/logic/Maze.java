@@ -35,8 +35,8 @@ public class Maze implements Serializable {
     public int nDragons;
     // The option about the dragon type
     public int dragonOption;
-    public boolean dragonsCanSleep=false;
-    public boolean dragonsCanMove=false;
+    public boolean dragonsCanSleep = false;
+    public boolean dragonsCanMove = false;
 
     // call every dragon to move
     public void moveDragons() {

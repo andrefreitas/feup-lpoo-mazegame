@@ -35,10 +35,8 @@ public class MazeGUI extends JFrame {
 
     public MazeGUI() {
         super("Maze Game");
-        int winSize = (MazeGame.maze.mazeDim + 1) * 30;
-        setMinimumSize(new Dimension(winSize - 30, winSize + 30));
+        int winSize = MazeGame.maze.mazeDim * 30;
         setContentPane(new GamePanel());
-        setVisible(true);
         // Game icons
         wallIcon = loadImage("/resources/wallIcon.png");
         heroIcon = loadImage("/resources/heroIcon.png");
@@ -54,7 +52,6 @@ public class MazeGUI extends JFrame {
 
             @Override
             public void keyTyped(KeyEvent e) {
-                // TODO Auto-generated method stub
             }
 
             @Override
@@ -68,8 +65,9 @@ public class MazeGUI extends JFrame {
                 }
                 MazeGame.maze.hero.move(Character.toUpperCase(e.getKeyChar()));
                 repaint();
-                if(MazeGame.gameOver()>0)
+                if (MazeGame.gameOver() > 0) {
                     gameOver(MazeGame.gameOver());
+                }
 
             }
         };
@@ -81,34 +79,29 @@ public class MazeGUI extends JFrame {
             }
         });
 
-
-
-
         getContentPane().addKeyListener(keyList);
         getContentPane().setFocusable(true);
+        getContentPane().setPreferredSize(new Dimension(winSize, winSize));
+        setResizable(false);
+        setVisible(true);
+        pack();
         getContentPane().requestFocus();
 
 
     }
 
     public void gameOver(int overStatus) {
-        MazeGame.gameOver=true;
-        if(overStatus==2)
-        {
+        MazeGame.gameOver = true;
+        if (overStatus == 2) {
             JOptionPane.showMessageDialog(this, "CONGRATULATIONS! You Won!", "YOU WON", JOptionPane.DEFAULT_OPTION);
-        }
-        else
-        {
+        } else {
             JOptionPane.showMessageDialog(this, "Too bad! You Died!", "YOU DIED", JOptionPane.ERROR_MESSAGE);
         }
         int n = JOptionPane.showConfirmDialog(this, "Do you want to play another game?", "Restart", JOptionPane.YES_NO_OPTION);
-        if(n==0)
-        {
+        if (n == 0) {
             this.setVisible(false);
             MazeGame.homeGui.setVisible(true);
-        }
-        else
-        {
+        } else {
             System.exit(0);
         }
 
@@ -176,7 +169,7 @@ public class MazeGUI extends JFrame {
                             break;
                         case 'F':
                             g.drawImage(swordIcon, (i - 1) * 30, (j - 1) * 30, null);
-                            break; //TODO: change later
+                            break; //TODO: Create Dragon with Sword icon
                         case 'S':
                             g.drawImage(exitIcon, (i - 1) * 30, (j - 1) * 30, null);
                             break;

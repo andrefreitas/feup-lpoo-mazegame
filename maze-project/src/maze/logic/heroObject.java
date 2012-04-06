@@ -9,7 +9,7 @@ public class heroObject extends ObjectIOMove {
     // move the hero by receiving an input
     @Override
     public void move(char direction) {
-        int xpos = 0, ypos = 0;
+        int xpos, ypos;
         if (direction == MazeGame.maze.moveChars[0]) {
             xpos = 0;
             ypos = -1;

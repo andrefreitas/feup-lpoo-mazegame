@@ -28,8 +28,8 @@ public class MazeCLI {
             System.out.print('\n');
         }
     }
-    // asks the game options 
 
+    // asks the game options
     public static void askOptions(int mazeDim, int dragonOption, int nDragons) {
         char opt;
         Scanner in = new Scanner(System.in);
@@ -44,8 +44,7 @@ public class MazeCLI {
         // If yes, what are the dimensons?
         if (opt == 'Y') {
             System.out.print("X and Y Dimension: ");
-            mazeDim = in.nextInt();
-            mazeDim = Math.abs(mazeDim);
+            mazeDim = Math.abs(in.nextInt());
         }
 
         // What kind of dragons you want?

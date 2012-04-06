@@ -6,12 +6,12 @@ public class DragonObject extends ObjectSelfMove implements Serializable {
 
     protected boolean isSleeping = false;
     protected int sleepSteps;
+
     public DragonObject(char state, int x, int y) {
         super(state, x, y);
     }
 
     // move the dragon randomly
-
     @Override
     public void move() {
         if (this.getState() == 'K' || MazeGame.maze.dragonsCanMove == false) {

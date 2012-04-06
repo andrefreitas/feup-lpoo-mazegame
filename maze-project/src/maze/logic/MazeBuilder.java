@@ -49,7 +49,7 @@ public abstract class MazeBuilder {
             int y = r.nextInt(size / 2 + 1) * 2;
             maze[y][x] = true;
             for (int j = 0; j < complexity; j++) {
-                ArrayList<int[]> neighbours = new ArrayList<>();
+                ArrayList<int[]> neighbours = new ArrayList<int[]>();
                 if (x > 1) {
                     int aux[] = {0, 0};
                     aux[0] = y;

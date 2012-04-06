@@ -20,6 +20,7 @@ public class MazeGame {
 
     public static Maze maze;
     // Enables the gui
+    //TODO Verify CLI interface
     static boolean enableGui = true;
     // The game gui
     static MazeGUI gameGui;
@@ -165,7 +166,7 @@ public class MazeGame {
         maze.exit = new GameObject('S', maze.mazeDim - 1, y);
         maze.mazeMap[maze.exit.getY()][maze.exit.getX()] = maze.exit.getState();
 
-        maze.dragons = new ArrayList<>();
+        maze.dragons = new ArrayList<DragonObject>();
 
         for (int i = 0; i < maze.nDragons; i++) {
             int n = 0;

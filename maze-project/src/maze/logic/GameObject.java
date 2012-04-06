@@ -7,7 +7,7 @@ import java.io.Serializable;
  * This class defines a generic object in the maze
  * ******************************************************
  */
-public class GameObject implements Serializable{
+public class GameObject implements Serializable {
 
     /*
      * Attributes ==================
