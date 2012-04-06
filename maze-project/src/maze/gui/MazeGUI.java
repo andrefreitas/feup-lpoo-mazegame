@@ -38,9 +38,6 @@ public class MazeGUI extends JFrame {
         int winSize = (MazeGame.maze.mazeDim + 1) * 30;
         setMinimumSize(new Dimension(winSize - 30, winSize + 30));
         setContentPane(new GamePanel());
-        exit = new JButton("Exit Game");
-        // Exit button
-        add(exit);
         setVisible(true);
         // Game icons
         wallIcon = loadImage("/resources/wallIcon.png");
