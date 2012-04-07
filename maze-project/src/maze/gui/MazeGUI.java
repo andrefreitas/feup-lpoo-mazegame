@@ -25,6 +25,7 @@ public class MazeGUI extends JFrame {
     private BufferedImage heroArmedIcon;
     private BufferedImage dragonIcon;
     private BufferedImage dragonSleepIcon;
+    private BufferedImage dragonSwordIcon;
     private BufferedImage swordIcon;
     private BufferedImage exitIcon;
     private BufferedImage sandIcon;
@@ -51,6 +52,7 @@ public class MazeGUI extends JFrame {
         heroArmedIcon = loadImage("/resources/heroArmedIcon.png");
         dragonIcon = loadImage("/resources/dragonIcon.png");
         dragonSleepIcon = loadImage("/resources/dragonSleepIcon.png");
+        dragonSwordIcon = loadImage("/resources/dragonSwordIcon.png");
         swordIcon = loadImage("/resources/swordIcon.png");
         exitIcon = loadImage("/resources/exitIcon.png");
         sandIcon = loadImage("/resources/sandIcon.png");
@@ -176,8 +178,8 @@ public class MazeGUI extends JFrame {
                             g.drawImage(swordIcon, (i - 1) * 30, (j - 1) * 30, null);
                             break;
                         case 'F':
-                            g.drawImage(swordIcon, (i - 1) * 30, (j - 1) * 30, null);
-                            break; //TODO: Create Dragon with Sword icon
+                            g.drawImage(dragonSwordIcon, (i - 1) * 30, (j - 1) * 30, null);
+                            break;
                         case 'S':
                             g.drawImage(exitIcon, (i - 1) * 30, (j - 1) * 30, null);
                             break;
