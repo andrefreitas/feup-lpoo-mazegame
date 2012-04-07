@@ -41,11 +41,24 @@ public class MazeInteractiveBuilder {
     private JButton putExit;
     //Exit button
     private JButton exitButton;
+    // Max ocurrences
+    private int exitMax = 1;
+    private int heroMax = 1;
+    private int dragonMax = 3;
+    private int swordMax = 1;
 
+    // This main exists for test purpose
     public static void main(String[] args) {
-        MazeInteractiveBuilder builder = new MazeInteractiveBuilder(20);
+        MazeInteractiveBuilder builder = new MazeInteractiveBuilder(10);
 
     }
+
+    static void run() {
+        MazeInteractiveBuilder builder = new MazeInteractiveBuilder(20);
+    }
+    /*
+     * Constructor of the interactive builder @param d the dimension of the maze
+     */
 
     public MazeInteractiveBuilder(int d) {
         // Maze dimensions
@@ -65,8 +78,8 @@ public class MazeInteractiveBuilder {
         mazeMatrix = new JPanel(new GridLayout(d, d, 0, 0));
         mazeButtons = new JPanel(new GridLayout(7, 1, 0, 10));
         container = new JPanel(new GridLayout(1, 2, 10, 0));
-        populateMatrix();
-        populateMazeButtons();
+        populateMaze();
+        populateBuildingButtons();
 
         // Setup the container
         container.add(mazeMatrix);
@@ -77,10 +90,13 @@ public class MazeInteractiveBuilder {
         window.setVisible(true);
 
     }
+    /*
+     * Populate the basic maze with walls and sand
+     */
 
-    private void populateMatrix() {
+    private void populateMaze() {
 
-        // Populate the array of chars walls
+        // Populate all the maze with sand
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
                 mazeCells[i][j] = new mazeCell(j, i);
@@ -88,8 +104,7 @@ public class MazeInteractiveBuilder {
                 maze[i][j] = ' ';
             }
         }
-        // Populate walls
-
+        // Populate all the walls
         for (int i = 0; i < dimension; i++) {
             // Top
             mazeCells[0][i].setValue('X');
@@ -105,7 +120,7 @@ public class MazeInteractiveBuilder {
             maze[i][dimension - 1] = 'X';
 
         }
-        // Populate the jPanel
+        // Populate the jPanel with the mazeCells
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
                 mazeMatrix.add(mazeCells[i][j]);
@@ -114,7 +129,10 @@ public class MazeInteractiveBuilder {
 
     }
 
-    private void populateMazeButtons() {
+    /*
+     * Populate the buttons to Build objects in the maze
+     */
+    private void populateBuildingButtons() {
 
         // Create Wall button
         putWall = new JButton("Put Wall");
@@ -161,7 +179,7 @@ public class MazeInteractiveBuilder {
             }
         });
 
-        //Create Exit button
+        // Create Exit button
         putExit = new JButton("Put Exit");
         putExit.addActionListener(new ActionListener() {
 
@@ -176,14 +194,14 @@ public class MazeInteractiveBuilder {
             public void actionPerformed(ActionEvent e) {
                 for (int i = 0; i < dimension; i++) {
                     for (int j = 0; j < dimension; j++) {
-
                         System.out.print(maze[i][j] + " ");
                     }
                     System.out.println("");
                 }
             }
         });
-        // add to jpanel
+
+        // Add to jpanel
         mazeButtons.add(putWall);
         mazeButtons.add(putSand);
         mazeButtons.add(putDragon);
@@ -193,8 +211,10 @@ public class MazeInteractiveBuilder {
         mazeButtons.add(exitButton);
 
     }
-    // Class for each cell
 
+    /*
+     * Setup the icons of the maze
+     */
     private void setupIcons() {
         wallIcon = new ImageIcon(getClass().getResource("/resources/wallIcon.png"));
         heroIcon = new ImageIcon(getClass().getResource("/resources/heroIcon.png"));
@@ -204,10 +224,15 @@ public class MazeInteractiveBuilder {
         sandIcon = new ImageIcon(getClass().getResource("/resources/sandIcon.png"));
     }
 
+    /*
+     * Class for a button of type MazeCell This Button have 3 adittional
+     * parameters:the x, y and the value of the cell, that is the object that is
+     * beeing store in that position.
+     */
     public class mazeCell extends JButton {
 
-        public final int x;
-        public final int y;
+        public int x;
+        public int y;
         public char val;
 
         public void setValue(char val) {
@@ -220,24 +245,119 @@ public class MazeInteractiveBuilder {
             this.y = y;
             this.val = ' ';
             this.setIcon(sandIcon);
-            this.setSize(30, 30);
-            this.setMaximumSize(new Dimension(30,30));
-            this.setMinimumSize(new Dimension(30,30));
-            this.setPreferredSize(new Dimension(30,30));
             addActionListener(new ActionListener() {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    // Get the button position
                     int x = ((mazeCell) e.getSource()).x;
                     int y = ((mazeCell) e.getSource()).y;
-                    ((mazeCell) e.getSource()).setIcon(selectIcon(valueSelected));
-                    ((mazeCell) e.getSource()).setValue(valueSelected);
-                    maze[y][x] = valueSelected;
+
+                    // Evaluate the ocurrence
+                    int oldVal = ((mazeCell) e.getSource()).val;
+                    int newVal = valueSelected;
+                    if (checkOcurrence(oldVal, newVal)) {
+
+                        // Set the icon and value in the button
+                        ((mazeCell) e.getSource()).setIcon(selectIcon(valueSelected));
+                        ((mazeCell) e.getSource()).setValue(valueSelected);
+
+                        // Update the value in the maze array of chars
+                        maze[y][x] = valueSelected;
+                    }
                 }
             });
 
         }
     }
+
+    /*
+     * Check the ocurrence of a specified object and evaluates, basing in the
+     * limits, if it's possible or not
+     *
+     * @param oldVal the existing value @param newVal the new value @return true
+     * if the limits of objects are respected
+     */
+    private boolean checkOcurrence(int oldVal, int newVal) {
+        // Evaluates the new value
+        switch (newVal) {
+            // Dragon
+            case 'D':
+                if (oldVal != 'D') {
+                    if (dragonMax > 0) {
+                        dragonMax--;
+                    } else {
+                        return false;
+                    }
+                }
+                break;
+            // Sword
+            case 'E':
+                if (oldVal != 'E') {
+                    if (swordMax > 0) {
+                        swordMax--;
+                    } else {
+                        return false;
+                    }
+                }
+                break;
+            // Hero 
+            case 'H':
+                if (oldVal != 'H') {
+                    if (heroMax > 0) {
+                        heroMax--;
+                    } else {
+                        return false;
+                    }
+                }
+                break;
+            // Exit 
+            case 'S':
+                if (oldVal != 'S') {
+                    if (exitMax > 0) {
+                        exitMax--;
+                    } else {
+                        return false;
+                    }
+                }
+                break;
+        }
+        //-->
+        // Evaluates the old value
+        switch (oldVal) {
+            // Dragon
+            case 'D':
+                if (newVal != 'D') {
+                    dragonMax++;
+                }
+                break;
+            // Sword
+            case 'E':
+                if (newVal != 'E') {
+                    swordMax++;
+                }
+                break;
+            // Hero 
+            case 'H':
+                if (newVal != 'H') {
+                    heroMax++;
+                }
+                break;
+            // Exit 
+            case 'S':
+                if (newVal != 'S') {
+                    exitMax++;
+                }
+                break;
+        }
+
+
+        return true;
+    }
+    /*
+     * This function returns an ImageIcon depending on the value given @param
+     * val the character value of the icon
+     */
 
     public ImageIcon selectIcon(char val) {
         ImageIcon aux;
@@ -262,6 +382,10 @@ public class MazeInteractiveBuilder {
         return aux;
     }
 
+    /*
+     * Loads an image and return it as a buffered image @param path the full
+     * path of the image
+     */
     private BufferedImage loadImage(String path) {
         BufferedImage img = null;
         try {
