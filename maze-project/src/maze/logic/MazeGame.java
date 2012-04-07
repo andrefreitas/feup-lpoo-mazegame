@@ -21,7 +21,7 @@ public class MazeGame {
     public static Maze maze;
     // Enables the gui
     //TODO Verify CLI interface
-    static boolean enableGui = false;
+    static boolean enableGui = true;
     // The game gui
     static MazeGUI gameGui;
     // The home screen gui
