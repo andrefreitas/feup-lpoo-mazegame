@@ -44,7 +44,25 @@ public class Maze implements Serializable {
             dragons.get(i).move();
         }
     }
+    public void setHero(heroObject h){
+        hero=h;
+    }
+    
+    
+    public void setExit(GameObject e){
+        exit=e;
+    }
+     public void setSword(GameObject s){
+        sword=s;
+    }
 
+     public void setDragons(ArrayList<DragonObject> d){
+         dragons=d;
+     }
+     public void setMazeMap(char[][] mazeM){
+         mazeMap=mazeM;
+     }
+     
     public void setDim(int dim) {
         mazeDim = dim;
     }

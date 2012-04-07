@@ -3,14 +3,17 @@
  */
 package maze.gui;
 
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import maze.logic.*;
 
 public class MazeInteractiveBuilder {
     // Window and containers
@@ -25,6 +28,7 @@ public class MazeInteractiveBuilder {
     private char[][] maze;
     private char valueSelected;
     private mazeCell[][] mazeCells;
+    private int dragonOption = 3;
     // Maze Icons
     private Icon wallIcon;
     private Icon heroIcon;
@@ -54,7 +58,13 @@ public class MazeInteractiveBuilder {
     }
 
     static void run() {
-        MazeInteractiveBuilder builder = new MazeInteractiveBuilder(20);
+        String mazeDimString;
+        int mazeDim;
+        do {
+            mazeDimString = JOptionPane.showInputDialog(null, "Enter the Maze Dimension\n(between 10 and 35): ", 20);
+            mazeDim = Integer.parseInt(mazeDimString);
+        } while (mazeDim < 10 | mazeDim > 35);
+        MazeInteractiveBuilder builder = new MazeInteractiveBuilder(mazeDim);
     }
     /*
      * Constructor of the interactive builder @param d the dimension of the maze
@@ -192,12 +202,27 @@ public class MazeInteractiveBuilder {
         exitButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                for (int i = 0; i < dimension; i++) {
-                    for (int j = 0; j < dimension; j++) {
-                        System.out.print(maze[i][j] + " ");
+
+
+                if (isMinimalComplete()) {
+
+                    for (int i = 0; i < dimension; i++) {
+                        for (int j = 0; j < dimension; j++) {
+                            System.out.print(maze[i][j] + " ");
+                        }
+                        System.out.println("");
                     }
-                    System.out.println("");
+
+                    // prepazeMaze Data and go
+                    prepareMazeData();
+                    window.setVisible(false);
+                } // Maze is not complete!
+                else {
+                    JOptionPane.showMessageDialog(window, "The maze isn't complete!");
                 }
+
+
+
             }
         });
 
@@ -210,6 +235,92 @@ public class MazeInteractiveBuilder {
         mazeButtons.add(putExit);
         mazeButtons.add(exitButton);
 
+    }
+
+    /*
+     * This functions fetch all the Maze Objects and the configuration values of
+     * the game
+     */
+    private void prepareMazeData() {
+        // (1) Set the maze options
+        char moveChars[] = {'W', 'A', 'S', 'D'};
+        MazeGame.setOptions(dimension, dragonOption, 3 - dragonMax, moveChars);
+
+        // (2) Fetch all the objects
+        ArrayList<DragonObject> dragons = new ArrayList<DragonObject>();
+        heroObject hero=null;
+        GameObject exit=null;
+        GameObject sword=null;
+        for (int i = 0; i < dimension; i++) {
+            for (int j = 0; j < dimension; j++) {
+                switch (maze[i][j]) {
+                    case 'D':
+                        dragons.add(new DragonObject('D', j, i));
+                        break;
+                    case 'H':
+                        hero = new heroObject('H', j, i);
+                        break;
+                    case 'S': {
+                        exit = new GameObject('S', j, i);
+                    }
+                    break;
+                    case 'E':
+                        sword = new GameObject('E', j, i);
+                        break;
+                }
+            }
+        }
+        
+        // (3) set that objects
+        MazeGame.maze.setDragons(dragons);
+        MazeGame.maze.setHero(hero);
+        MazeGame.maze.setExit(exit);
+        MazeGame.maze.setSword(sword);
+        MazeGame.maze.setMazeMap(maze);
+        // Say the options are set and the game is ready to start!
+        MazeGame.optionsSet = true;
+
+        }
+
+    
+
+    
+
+    private boolean isMinimalComplete() {
+        //  Check limit walls
+        for (int i = 0; i < dimension; i++) {
+            // Top
+            if (maze[0][i] == ' ') {
+                return false;
+            }
+            // Bottom
+            if (maze[dimension - 1][i] == ' ') {
+                return false;
+            }
+            // Left
+            if (maze[i][0] == ' ') {
+                return false;
+            }
+            // Right
+            if (maze[i][dimension - 1] == ' ') {
+                return false;
+            }
+        }
+
+        if (exitMax == 1) {
+            return false;
+        }
+        if (swordMax == 1) {
+            return false;
+        }
+        if (heroMax == 1) {
+            return false;
+        }
+        if (dragonMax == 3) {
+            return false;
+        }
+        // Check minimal objects
+        return true;
     }
 
     /*
