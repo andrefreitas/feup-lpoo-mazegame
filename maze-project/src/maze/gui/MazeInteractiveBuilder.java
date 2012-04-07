@@ -3,6 +3,7 @@
  */
 package maze.gui;
 
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -12,10 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import maze.logic.DragonObject;
-import maze.logic.GameObject;
-import maze.logic.MazeGame;
-import maze.logic.heroObject;
+import maze.logic.*;
 
 public class MazeInteractiveBuilder {
     // Window and containers
@@ -150,7 +148,6 @@ public class MazeInteractiveBuilder {
         putWall = new JButton("Put Wall");
         putWall.addActionListener(new ActionListener() {
 
-            @Override
             public void actionPerformed(ActionEvent e) {
                 valueSelected = 'X';
             }
@@ -160,7 +157,6 @@ public class MazeInteractiveBuilder {
         putSand = new JButton("Put Sand");
         putSand.addActionListener(new ActionListener() {
 
-            @Override
             public void actionPerformed(ActionEvent e) {
                 valueSelected = ' ';
             }
@@ -170,7 +166,6 @@ public class MazeInteractiveBuilder {
         putDragon = new JButton("Put Dragon");
         putDragon.addActionListener(new ActionListener() {
 
-            @Override
             public void actionPerformed(ActionEvent e) {
                 valueSelected = 'D';
             }
@@ -180,7 +175,6 @@ public class MazeInteractiveBuilder {
         putHero = new JButton("Put Hero");
         putHero.addActionListener(new ActionListener() {
 
-            @Override
             public void actionPerformed(ActionEvent e) {
                 valueSelected = 'H';
             }
@@ -190,7 +184,6 @@ public class MazeInteractiveBuilder {
         putSword = new JButton("Put Sword");
         putSword.addActionListener(new ActionListener() {
 
-            @Override
             public void actionPerformed(ActionEvent e) {
                 valueSelected = 'E';
             }
@@ -200,7 +193,6 @@ public class MazeInteractiveBuilder {
         putExit = new JButton("Put Exit");
         putExit.addActionListener(new ActionListener() {
 
-            @Override
             public void actionPerformed(ActionEvent e) {
                 valueSelected = 'S';
             }
@@ -209,7 +201,6 @@ public class MazeInteractiveBuilder {
         exitButton = new JButton("Exit and Start Game");
         exitButton.addActionListener(new ActionListener() {
 
-            @Override
             public void actionPerformed(ActionEvent e) {
 
 
