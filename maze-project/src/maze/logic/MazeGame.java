@@ -21,7 +21,7 @@ public class MazeGame {
     public static Maze maze;
     // Enables the gui
     //TODO Verify CLI interface
-    static boolean enableGui = true;
+    static boolean enableGui = false;
     // The game gui
     static MazeGUI gameGui;
     // The home screen gui
@@ -40,7 +40,7 @@ public class MazeGame {
         } catch (IOException e) {
             saveExists = false;
         } finally {
-            homeGui.setVisible(true);
+            if(enableGui) homeGui.setVisible(true);
             if (is != null) {
                 int n = JOptionPane.showConfirmDialog(homeGui, "Do you want to load the previous game?", "Load Game", JOptionPane.YES_NO_OPTION);
                 if (n == 0) {
@@ -83,8 +83,12 @@ public class MazeGame {
             } else {
                 optionsSet = true;
             }
+            
+            
+            // Start the game
             if (!enableGui) {
                 // CLI interface
+                setupObjects();
                 do {
                     MazeCLI.printMaze();
                     maze.hero.move(MazeCLI.readKeyboardArrow());
