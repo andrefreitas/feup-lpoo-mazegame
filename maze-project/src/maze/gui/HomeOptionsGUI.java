@@ -94,7 +94,7 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
         jRadioButton3.setLabel("Can move and sleep");
         getContentPane().add(jRadioButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 180, 20));
 
-        jTextField1.setText("30");
+        jTextField1.setText("20");
         getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, 80, 30));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3" }));

@@ -1,6 +1,9 @@
 package maze.gui;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.LayoutManager;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
@@ -107,7 +110,7 @@ public class MazeGUI extends JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Too bad! You Died!", "YOU DIED", JOptionPane.ERROR_MESSAGE);
         }
-        int n = JOptionPane.showConfirmDialog(this, "Do you want to play another game?", "Restart", JOptionPane.YES_NO_OPTION);
+        int n = JOptionPane.showConfirmDialog(this, "Do you want to play again?", "Restart", JOptionPane.YES_NO_OPTION);
         if (n == 0) {
             this.setVisible(false);
             MazeGame.homeGui.setVisible(true);

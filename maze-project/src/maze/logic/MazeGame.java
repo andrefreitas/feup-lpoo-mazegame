@@ -40,7 +40,9 @@ public class MazeGame {
         } catch (IOException e) {
             saveExists = false;
         } finally {
-            if(enableGui) homeGui.setVisible(true);
+            if (enableGui) {
+                homeGui.setVisible(true);
+            }
             if (is != null) {
                 int n = JOptionPane.showConfirmDialog(homeGui, "Do you want to load the previous game?", "Load Game", JOptionPane.YES_NO_OPTION);
                 if (n == 0) {
@@ -63,9 +65,7 @@ public class MazeGame {
             if (!saveExists) {
                 // Without GUI
                 if (!enableGui) {
-                    MazeCLI.askOptions(mazeDim, maze.dragonOption, maze.nDragons);
-                    maze.setDim(mazeDim);
-                    MazeBuilder.generateMaze(mazeDim, maze);
+                    MazeCLI.askOptions();
                 } // With GUI
                 else {
                     do {
@@ -83,18 +83,17 @@ public class MazeGame {
             } else {
                 optionsSet = true;
             }
-            
-            
+
+
             // Start the game
             if (!enableGui) {
                 // CLI interface
-                setupObjects();
                 do {
                     MazeCLI.printMaze();
                     maze.hero.move(MazeCLI.readKeyboardArrow());
                     maze.moveDragons();
                 } while (gameOver() == 0);
-                MazeCLI.printMaze();
+                MazeCLI.playAgain(gameOver());
             } else {
                 startGui();
                 // GUI interface
@@ -146,20 +145,15 @@ public class MazeGame {
 
         // Setup sword
         do {
-            x = r.nextInt(maze.mazeDim-6)+3;
-            y = r.nextInt(maze.mazeDim-6)+3;
+            x = r.nextInt(maze.mazeDim - 6) + 3;
+            y = r.nextInt(maze.mazeDim - 6) + 3;
 
         } while (maze.mazeMap[x][y] == 'X' || maze.mazeMap[x][y] == 'H');
         maze.sword = new GameObject('E', x, y);
         maze.mazeMap[maze.sword.getY()][maze.sword.getX()] = maze.sword.getState();
 
         // Setup exit
-        limitGen=maze.mazeDim /8;
-        do {
-            x = r.nextInt(limitGen)+(maze.mazeDim/2-maze.mazeDim/16);
-            y = r.nextInt(limitGen)+(maze.mazeDim/2-maze.mazeDim/16);
-        } while (maze.mazeMap[y][x] == 'X');
-        maze.exit = new GameObject('S', maze.mazeDim/2, maze.mazeDim/2);
+        maze.exit = new GameObject('S', maze.mazeDim / 2, maze.mazeDim / 2);
         maze.mazeMap[maze.exit.getY()][maze.exit.getX()] = maze.exit.getState();
 
         maze.dragons = new ArrayList<DragonObject>();
@@ -179,6 +173,7 @@ public class MazeGame {
             } while (maze.mazeMap[x][y] == 'X'
                     || maze.mazeMap[x][y] == 'E'
                     || maze.mazeMap[x][y] == 'D'
+                    || maze.mazeMap[x][y] == 'S'
                     || GameObject.adjacentPosition(maze.dragons.get(i),
                     maze.hero) || maze.mazeMap[x][y] == 'H');
             maze.mazeMap[maze.dragons.get(i).getY()][maze.dragons.get(i).getX()] = maze.dragons.get(i).getState();

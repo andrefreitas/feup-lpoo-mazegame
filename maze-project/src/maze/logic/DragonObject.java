@@ -26,7 +26,7 @@ public class DragonObject extends ObjectSelfMove implements Serializable {
         if (MazeGame.maze.dragonsCanSleep) {
             if (isSleeping == false) {
                 sleep = r.nextInt(100);
-                if (sleep < 20) {
+                if (sleep < 20 && !samePosition(this, MazeGame.maze.sword)) {
                     isSleeping = true;
                     MazeGame.maze.mazeMap[this.getY()][this.getX()] = 'd';
                     state = 'd';
