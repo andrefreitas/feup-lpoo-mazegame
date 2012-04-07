@@ -53,6 +53,7 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jCheckBox1 = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -63,13 +64,13 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("<html>\nMaze Size\n(between 10 and 50):");
         jLabel2.setToolTipText("");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 80, 50));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 80, 50));
 
         jLabel3.setText("Dragons:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 70, 30));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 70, 30));
 
         jLabel4.setText("Dragons Behaviour:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 160, 20));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 160, 20));
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setLabel("Frozen");
@@ -78,7 +79,7 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
                 jRadioButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, 123, -1));
+        getContentPane().add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 123, -1));
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setLabel("Can move");
@@ -87,19 +88,19 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
                 jRadioButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, -1, -1));
+        getContentPane().add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, -1, -1));
 
         buttonGroup1.add(jRadioButton3);
         jRadioButton3.setSelected(true);
         jRadioButton3.setLabel("Can move and sleep");
-        getContentPane().add(jRadioButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 180, 20));
+        getContentPane().add(jRadioButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 180, 20));
 
         jTextField1.setText("20");
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, 80, 30));
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 120, 80, 30));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3" }));
         jComboBox1.setSelectedIndex(2);
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, 56, 30));
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 56, 30));
 
         jLabel5.setText("Control Keys:");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, -1, -1));
@@ -145,6 +146,14 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, 220, 30));
 
+        jCheckBox1.setText("Default Maze");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 160, 20));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/GameOptions.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 390));
 
@@ -173,9 +182,13 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
                         Character.toUpperCase(jTextField3.getText().charAt(0)),
                         Character.toUpperCase(jTextField4.getText().charAt(0)),
                         Character.toUpperCase(jTextField5.getText().charAt(0))};
-                    MazeGame.setOptions(mazeDim, dragonOp, nDragons, moveChars);
-                    MazeBuilder.generateMaze(MazeGame.maze.mazeDim, MazeGame.maze);
-                    MazeGame.setupObjects();
+                    if (!jCheckBox1.isSelected()) {
+                        MazeGame.setOptions(mazeDim, dragonOp, nDragons, moveChars);
+                        MazeBuilder.generateMaze(MazeGame.maze.mazeDim, MazeGame.maze);
+                        MazeGame.setupObjects();
+                    } else {
+                        MazeGame.setOptions(MazeGame.maze.mazeDim, dragonOp, MazeGame.maze.nDragons, moveChars);
+                    }
                     MazeGame.optionsSet = true;
                     this.setVisible(false);
                 }
@@ -191,6 +204,16 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         radioButtonSelected = 2;
     }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        if (jCheckBox1.isSelected()) {
+            jTextField1.setEnabled(false);
+            jComboBox1.setEnabled(false);
+        } else {
+            jTextField1.setEnabled(true);
+            jComboBox1.setEnabled(true);
+        }
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
     private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         radioButtonSelected = 3;
     }
@@ -294,6 +317,7 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
