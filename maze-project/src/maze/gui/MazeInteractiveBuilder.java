@@ -215,12 +215,12 @@ public class MazeInteractiveBuilder {
 
                 if (isMinimalComplete()) {
 
-                    for (int i = 0; i < dimension; i++) {
+                   /* for (int i = 0; i < dimension; i++) {
                         for (int j = 0; j < dimension; j++) {
                             System.out.print(maze[i][j] + " ");
                         }
                         System.out.println("");
-                    }
+                    } */
 
                     // prepazeMaze Data and go
                     prepareMazeData();
