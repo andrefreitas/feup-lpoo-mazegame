@@ -22,8 +22,7 @@ public class heroObject extends ObjectIOMove {
         } else if (direction == MazeGame.maze.moveChars[3]) {
             xpos = 1;
             ypos = 0;
-        }
-        else {
+        } else {
             return;
         }
         // only moves the hero if the new cell isn't a wall, if he's
@@ -46,6 +45,10 @@ public class heroObject extends ObjectIOMove {
             MazeGame.updateObject(MazeGame.maze.hero,
                     MazeGame.maze.hero.getX(), MazeGame.maze.hero.getY(), 'A');
             MazeGame.maze.mazeMap[MazeGame.maze.hero.getY()][MazeGame.maze.hero.getX()] = MazeGame.maze.hero.getState();
+        }
+        // Makes the hero disappear when entering the exit portal
+        if (GameObject.samePosition(MazeGame.maze.hero, MazeGame.maze.exit)) {
+            MazeGame.maze.mazeMap[MazeGame.maze.hero.getY()][MazeGame.maze.hero.getX()] = 'S';
         }
         // if the hero is near the dragon and armed, the dragon dies
         for (int i = 0; i < MazeGame.maze.dragons.size(); i++) {

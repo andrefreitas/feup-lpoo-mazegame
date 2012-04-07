@@ -95,7 +95,7 @@ public class MazeGame {
                 startGui();
                 // GUI interface
                 do {
-                    Thread.sleep(2000);
+                    Thread.sleep(1000);
                     maze.moveDragons();
                     gameGui.repaint();
                 } while (gameOver() == 0);
@@ -142,19 +142,20 @@ public class MazeGame {
 
         // Setup sword
         do {
-            x = r.nextInt(maze.mazeDim);
-            y = r.nextInt(maze.mazeDim);
+            x = r.nextInt(maze.mazeDim-6)+3;
+            y = r.nextInt(maze.mazeDim-6)+3;
 
         } while (maze.mazeMap[x][y] == 'X' || maze.mazeMap[x][y] == 'H');
         maze.sword = new GameObject('E', x, y);
         maze.mazeMap[maze.sword.getY()][maze.sword.getX()] = maze.sword.getState();
 
         // Setup exit
-
+        limitGen=maze.mazeDim /8;
         do {
-            y = r.nextInt((maze.mazeDim - 1) / 2 - 1) + (maze.mazeDim - 1) / 2;
-        } while (maze.mazeMap[y][maze.mazeDim - 2] == 'X');
-        maze.exit = new GameObject('S', maze.mazeDim - 1, y);
+            x = r.nextInt(limitGen)+(maze.mazeDim/2-maze.mazeDim/16);
+            y = r.nextInt(limitGen)+(maze.mazeDim/2-maze.mazeDim/16);
+        } while (maze.mazeMap[y][x] == 'X');
+        maze.exit = new GameObject('S', maze.mazeDim/2, maze.mazeDim/2);
         maze.mazeMap[maze.exit.getY()][maze.exit.getX()] = maze.exit.getState();
 
         maze.dragons = new ArrayList<DragonObject>();
