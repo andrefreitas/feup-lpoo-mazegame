@@ -4,8 +4,18 @@ import maze.logic.MazeGame;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+/**
+ * MazeGameTest.java - a class for testing the game rules and objects movements.
+ *
+ * @author André Freitas, Vasco Gonçalves
+ * @version 1.0
+ * @see MazeGame
+ */
 public class MazeGameTest {
 
+    /**
+     * Test the possible and impossible moves of the hero.
+     */
     @Test
     public void testHeroBasicMoves() {
         MazeGame.setupObjects();
@@ -27,6 +37,9 @@ public class MazeGameTest {
         assertEquals(MazeGame.maze.hero.getY(), 2);
     }
 
+    /**
+     * Test if the hero die when goes to the same position of the dragon.
+     */
     @Test
     public void testHeroDie() {
         MazeGame.setupObjects();
@@ -34,6 +47,9 @@ public class MazeGameTest {
         assertEquals(true, MazeGame.gameOver());
     }
 
+    /**
+     * Test if the hero can't exit when he doesn't have a sword.
+     */
     @Test
     public void testHeroCantExit() {
         MazeGame.setupObjects();
@@ -48,6 +64,9 @@ public class MazeGameTest {
         assertEquals(MazeGame.maze.hero.getY(), 5);
     }
 
+    /**
+     * Test when the hero have a sword and kills the dragon.
+     */
     @Test
     public void testHeroKillDragon() {
         MazeGame.setupObjects();
@@ -71,6 +90,9 @@ public class MazeGameTest {
         assertEquals(MazeGame.maze.mazeMap[3][1], ' ');
     }
 
+    /**
+     * Test when the hero get's a sword and becames Armed.
+     */
     @Test
     public void testHeroArmed() {
         MazeGame.setupObjects();
@@ -89,6 +111,10 @@ public class MazeGameTest {
         }
         assertEquals(MazeGame.maze.hero.getState(), 'A');
     }
+    
+    /**
+     * Test when the hero can exit when he is armed.
+     */
 
     @Test
     public void testHeroCanExit() {
@@ -97,6 +123,9 @@ public class MazeGameTest {
         assertEquals(MazeGame.gameOver(), true);
     }
 
+    /**
+     * Test when the dragon is sleeping and can't kill the hero
+     */
     @Test
     public void testDragonSleepingKill() {
         MazeGame.setupObjects();

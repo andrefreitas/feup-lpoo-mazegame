@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * This class defines a maze that have a map and its objects
+ * Maze.java - A class for representing the Maze matrix and its objects.
+ *
+ * @author André Freitas, Vasco Gonçalves
+ * @version 1.0
  */
 public class Maze implements Serializable {
     // the dimension of the maze: default is 10
@@ -26,7 +29,7 @@ public class Maze implements Serializable {
     // the list of dragons
     public ArrayList<DragonObject> dragons = new ArrayList<DragonObject>(Arrays.asList(new DragonObject('D', 1, 3)));
     // an hero
-    public heroObject hero = new heroObject('H', 1, 1);
+    public HeroObject hero = new HeroObject('H', 1, 1);
     // an exit
     public GameObject exit = new GameObject('S', 9, 5);
     // a sword
@@ -39,33 +42,65 @@ public class Maze implements Serializable {
     public boolean dragonsCanSleep = false;
     public boolean dragonsCanMove = false;
 
-    // call every dragon to move
+    /**
+     * Call all the dragons to move.
+     */
     public void moveDragons() {
         for (int i = 0; i < dragons.size(); i++) {
             dragons.get(i).move();
         }
     }
 
-    public void setHero(heroObject h) {
+    /**
+     * Set the hero in the maze.
+     *
+     * @param h the hero.
+     */
+    public void setHero(HeroObject h) {
         hero = h;
     }
 
+    /**
+     * Set the exit in the maze.
+     *
+     * @param e
+     */
     public void setExit(GameObject e) {
         exit = e;
     }
 
+    /**
+     * Set the sword in the maze.
+     *
+     * @param s
+     */
     public void setSword(GameObject s) {
         sword = s;
     }
 
+    /**
+     * Set the dragons in the maze.
+     *
+     * @param d
+     */
     public void setDragons(ArrayList<DragonObject> d) {
         dragons = d;
     }
 
+    /**
+     * Set the array of chars that represents the maze.
+     *
+     * @param mazeM
+     */
     public void setMazeMap(char[][] mazeM) {
         mazeMap = mazeM;
     }
 
+    /**
+     * Set the mase dimension.
+     *
+     * @param dim the dimension
+     */
     public void setDim(int dim) {
         mazeDim = dim;
     }

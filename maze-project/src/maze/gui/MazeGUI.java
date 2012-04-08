@@ -21,6 +21,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import maze.logic.MazeGame;
 
+/**
+ * MazeGUI.java - a class for representing the maze in Window GUI interface
+ * using SWING framework.
+ *
+ * @author André Freitas, Vasco Gonçalves
+ * @version 1.0
+ */
 public class MazeGUI extends JFrame {
 
     private BufferedImage wallIcon;
@@ -34,8 +41,14 @@ public class MazeGUI extends JFrame {
     private BufferedImage sandIcon;
     public JButton exit;
 
+    /**
+     * Loads an image by giving a path.
+     *
+     * @param path the image full path
+     * @return a BufferedImage type
+     */
     private BufferedImage loadImage(String path) {
-        BufferedImage img=null;
+        BufferedImage img = null;
         try {
             img = ImageIO.read(getClass().getResource(path));
         } catch (IOException ex) {
@@ -45,11 +58,18 @@ public class MazeGUI extends JFrame {
 
     }
 
+    /**
+     * Constructor of the Maze GUI. Loads all the images and prepares the JFrame
+     * parameters, depending on the user options given in the Options GUI. Also,
+     * setups the keyboard listener for playing the game.
+     */
     public MazeGUI() {
         super("Maze Game");
+        // Set Window size
         int winSize = MazeGame.maze.mazeDim * 30;
         setContentPane(new GamePanel());
-        // Game icons
+
+        // Load Game icons
         wallIcon = loadImage("/resources/wallIcon.png");
         heroIcon = loadImage("/resources/heroIcon.png");
         heroArmedIcon = loadImage("/resources/heroArmedIcon.png");
@@ -103,6 +123,12 @@ public class MazeGUI extends JFrame {
 
     }
 
+    /**
+     * This function handle the GameOver state, by printing a convenient
+     * message. Also asks the use if he want to play again.
+     *
+     * @param overStatus the number of status
+     */
     public void gameOver(int overStatus) {
         MazeGame.gameOver = true;
         if (overStatus == 2) {
@@ -120,6 +146,11 @@ public class MazeGUI extends JFrame {
 
     }
 
+    /**
+     * When the user click the "X" int the window or press ESC, this function is
+     * called. It asks the user if he want to save the current game to play
+     * later.
+     */
     public void closeGame() {
         int n = JOptionPane.showConfirmDialog(this, "Do you want to save the current game?", "Save Game", JOptionPane.YES_NO_OPTION);
         if (n == 0) {
@@ -144,20 +175,41 @@ public class MazeGUI extends JFrame {
         }
     }
 
-    // Game Panel that show the maze
+    /**
+     * GamePanel - A class for representing the Maze using JPanel. Be defining
+     * this class, we can use the repaint functions of swing and double
+     * buffering, instead of using labels icons and etc, that increases CPU
+     * load.
+     */
     public class GamePanel extends JPanel {
 
         private static final long serialVersionUID = 1L;
 
+        /**
+         * Empty constructor.
+         */
         public GamePanel() {
             super();
             setBackground(Color.WHITE);
         }
 
+        /**
+         * Constructor with layoutmanager
+         *
+         * @param l the LayoutManager
+         */
         public GamePanel(LayoutManager l) {
             super(l);
         }
 
+        /**
+         * This function updates the JPanel content when the repaint() function
+         * is called. Here is where the magic goes. By using the array of chars,
+         * that represents the maze, this function chooses the Image to be draw
+         * in the i, j position.
+         *
+         * @param g the Graphics object
+         */
         @Override
         public void paint(Graphics g) {
             super.paint(g);

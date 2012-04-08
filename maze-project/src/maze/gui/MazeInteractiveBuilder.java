@@ -1,6 +1,3 @@
-/*
- * Maze Interactive construction
- */
 package maze.gui;
 
 import java.awt.Dimension;
@@ -15,8 +12,15 @@ import javax.swing.*;
 import maze.logic.DragonObject;
 import maze.logic.GameObject;
 import maze.logic.MazeGame;
-import maze.logic.heroObject;
+import maze.logic.HeroObject;
 
+/**
+ * MazeInteractiveBuilder.java - A class for creating a Maze Construction tool
+ * that uses the mouse
+ *
+ * @author André Freitas, Vasco Gonçalves
+ * @version 1.0
+ */
 public class MazeInteractiveBuilder {
     // Window and containers
 
@@ -53,12 +57,18 @@ public class MazeInteractiveBuilder {
     private int dragonMax = 3;
     private int swordMax = 1;
 
-    // This main exists for test purpose
+    /**
+     * The main() function.
+     */
     public static void main(String[] args) {
         MazeInteractiveBuilder builder = new MazeInteractiveBuilder(10);
 
     }
 
+    /**
+     * Asks the user the Maze Dimension and creates a new MazeInteractiveBuilder
+     * instance.
+     */
     static void run() {
         String mazeDimString;
         int mazeDim;
@@ -68,10 +78,13 @@ public class MazeInteractiveBuilder {
         } while (mazeDim < 10 | mazeDim > 35);
         MazeInteractiveBuilder builder = new MazeInteractiveBuilder(mazeDim);
     }
-    /*
-     * Constructor of the interactive builder @param d the dimension of the maze
-     */
 
+    /**
+     * Constructor of the interactive builder. Setup all the necessary data,
+     * like maze dimension, the icons, the panel and containers dimensions.
+     *
+     * @param d the dimension of the maze
+     */
     public MazeInteractiveBuilder(int d) {
         // Maze dimensions
         dimension = d;
@@ -102,10 +115,13 @@ public class MazeInteractiveBuilder {
         window.setVisible(true);
 
     }
-    /*
-     * Populate the basic maze with walls and sand
-     */
 
+    /**
+     * Populate the Maze array of chars and Maze Cell Buttons with Sand and
+     * Walls. Note that the maze data is internally represented in a 2D array of
+     * chars. In the other hand, in the GUI the maze is represented by using
+     * buttons.
+     */
     private void populateMaze() {
 
         // Populate all the maze with sand
@@ -141,8 +157,8 @@ public class MazeInteractiveBuilder {
 
     }
 
-    /*
-     * Populate the buttons to Build objects in the maze
+    /**
+     * Populate the Building Buttons and setup the actionlisteners.
      */
     private void populateBuildingButtons() {
 
@@ -215,12 +231,11 @@ public class MazeInteractiveBuilder {
 
                 if (isMinimalComplete()) {
 
-                   /* for (int i = 0; i < dimension; i++) {
-                        for (int j = 0; j < dimension; j++) {
-                            System.out.print(maze[i][j] + " ");
-                        }
-                        System.out.println("");
-                    } */
+                    /*
+                     * for (int i = 0; i < dimension; i++) { for (int j = 0; j <
+                     * dimension; j++) { System.out.print(maze[i][j] + " "); }
+                     * System.out.println(""); }
+                     */
 
                     // prepazeMaze Data and go
                     prepareMazeData();
@@ -246,9 +261,11 @@ public class MazeInteractiveBuilder {
 
     }
 
-    /*
-     * This functions fetch all the Maze Objects and the configuration values of
-     * the game
+    /**
+     * Configure all the maze parameters, like keyboard controls, the game
+     * objects and dragons behaviour. This is called when the start game button
+     * is pressed in the Window.
+     *
      */
     private void prepareMazeData() {
         // (1) Set the maze options
@@ -257,9 +274,9 @@ public class MazeInteractiveBuilder {
 
         // (2) Fetch all the objects
         ArrayList<DragonObject> dragons = new ArrayList<DragonObject>();
-        heroObject hero=null;
-        GameObject exit=null;
-        GameObject sword=null;
+        HeroObject hero = null;
+        GameObject exit = null;
+        GameObject sword = null;
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
                 switch (maze[i][j]) {
@@ -267,7 +284,7 @@ public class MazeInteractiveBuilder {
                         dragons.add(new DragonObject('D', j, i));
                         break;
                     case 'H':
-                        hero = new heroObject('H', j, i);
+                        hero = new HeroObject('H', j, i);
                         break;
                     case 'S': {
                         exit = new GameObject('S', j, i);
@@ -279,7 +296,7 @@ public class MazeInteractiveBuilder {
                 }
             }
         }
-        
+
         // (3) set that objects
         MazeGame.maze.setDragons(dragons);
         MazeGame.maze.setHero(hero);
@@ -289,12 +306,14 @@ public class MazeInteractiveBuilder {
         // Say the options are set and the game is ready to start!
         MazeGame.optionsSet = true;
 
-        }
+    }
 
-    
-
-    
-
+    /**
+     * Check if the maze is closed by walls and have the minimum objects
+     * numbers. Must have at least 1 hero, 1 dragon, 1 exit and 1 sword.
+     *
+     * @return true when the maze is minimal complete
+     */
     private boolean isMinimalComplete() {
         //  Check limit walls
         for (int i = 0; i < dimension; i++) {
@@ -316,24 +335,17 @@ public class MazeInteractiveBuilder {
             }
         }
 
-        if (exitMax == 1) {
-            return false;
-        }
-        if (swordMax == 1) {
-            return false;
-        }
-        if (heroMax == 1) {
-            return false;
-        }
-        if (dragonMax == 3) {
-            return false;
-        }
         // Check minimal objects
+        if (exitMax == 1 || swordMax == 1 || heroMax == 1 || dragonMax == 3) {
+            return false;
+        }
+
+
         return true;
     }
 
-    /*
-     * Setup the icons of the maze
+    /**
+     * Setup all the icons of the maze representation in GUI.
      */
     private void setupIcons() {
         wallIcon = new ImageIcon(getClass().getResource("/resources/wallIcon.png"));
@@ -344,10 +356,11 @@ public class MazeInteractiveBuilder {
         sandIcon = new ImageIcon(getClass().getResource("/resources/sandIcon.png"));
     }
 
-    /*
-     * Class for a button of type MazeCell This Button have 3 adittional
-     * parameters:the x, y and the value of the cell, that is the object that is
-     * beeing store in that position.
+    /**
+     * This class represent a Cell int the maze, that is a Button. This is only
+     * for the visual representation of the Maze in the GUI. Remember that all
+     * the internal data is stored in the array of chars
+     *
      */
     public class mazeCell extends JButton {
 
@@ -355,11 +368,24 @@ public class MazeInteractiveBuilder {
         public int y;
         public char val;
 
+        /**
+         * This function sets the value of the cell
+         *
+         * @param val the value to be stored
+         */
         public void setValue(char val) {
             this.val = val;
             setIcon(selectIcon(val));
         }
 
+        /**
+         * Constructor that receives the position of the Button. It also setups
+         * the listener, when the button is clicked, to set the Maze Cell Value.
+         * Example: putting an hero in the cell.
+         *
+         * @param x the x-axis position
+         * @param y the y-axis position
+         */
         public mazeCell(int x, int y) {
             this.x = x;
             this.y = y;
@@ -391,12 +417,13 @@ public class MazeInteractiveBuilder {
         }
     }
 
-    /*
-     * Check the ocurrence of a specified object and evaluates, basing in the
-     * limits, if it's possible or not
+    /**
+     * Check the ocurrence of a specified object and evaluates by the limits, if
+     * it's possible or not.
      *
-     * @param oldVal the existing value @param newVal the new value @return true
-     * if the limits of objects are respected
+     * @param oldVal the existing value
+     * @param newVal the new value
+     * @return true if the limits of objects are respected
      */
     private boolean checkOcurrence(int oldVal, int newVal) {
         // Evaluates the new value
@@ -474,9 +501,10 @@ public class MazeInteractiveBuilder {
 
         return true;
     }
-    /*
-     * This function returns an ImageIcon depending on the value given @param
-     * val the character value of the icon
+    /**
+     * This function returns an ImageIcon depending on the value given.
+     * Example: if the val given is 'H', this returns an Hero icon.
+     * @param val the character value of the icon
      */
 
     public ImageIcon selectIcon(char val) {
@@ -502,18 +530,4 @@ public class MazeInteractiveBuilder {
         return aux;
     }
 
-    /*
-     * Loads an image and return it as a buffered image @param path the full
-     * path of the image
-     */
-    private BufferedImage loadImage(String path) {
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(getClass().getResource(path));
-        } catch (IOException ex) {
-            System.exit(1);
-        }
-        return img;
-
-    }
 }

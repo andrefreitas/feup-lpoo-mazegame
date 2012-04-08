@@ -3,29 +3,36 @@ package maze.logic;
 import java.util.ArrayList;
 
 /**
- * ******************************************************
- * This class defines a maze builder
- * ******************************************************
+ * MazeBuilder.java - A class for building Mazes upon giving a 2D array of
+ * chars. Here we can have a lot of algorithms, but only call one!
+ *
+ * @author André Freitas, Vasco Gonçalves
+ * @version 1.0
  */
 public abstract class MazeBuilder {
-    /*
-     * Receives the maze and the dimension and generates the chambers @param dim
-     * the dimension n x n of the maze @param maze the maze object
-     */
 
+    /**
+     * Receives the maze, the dimension and generates the chambers
+     *
+     * @param dim the dimension n x n of the maze
+     * @param maze the maze object
+     */
     public static void generateMaze(int dim, Maze maze) {
-        dim= ((dim / 2) * 2 + 1);
+        dim = ((dim / 2) * 2 + 1);
         maze.setDim(dim);
         maze.mazeMap = new char[dim][dim];
         maze.mazeMap = dfs(dim, 0.75, 0.75);
     }
 
-    /*
+    /**
      * This is the DGS algorithm, that starts with the maze full of walls and
-     * starts opening paths. All Chambers have access to all the maze. Credit
-     * goes to http://en.wikipedia.org/wiki/Maze_generation_algorithm @param
-     * size the size of the maze @param complexity the complexity of the maze
-     * @param density the density of the maze @return an array of chars
+     * starts opening paths. All Chambers have access to all the maze. Credits
+     * goes to http://en.wikipedia.org/wiki/Maze_generation_algorithm
+     *
+     * @param size the size of the maze
+     * @param complexity the complexity of the maze
+     * @param density the density of the maze
+     * @return an array of chars
      *
      */
     public static char[][] dfs(int size, double complexity, double density) {
@@ -91,7 +98,7 @@ public abstract class MazeBuilder {
             }
 
         }
-        // move to array of chars
+        // convert to array of chars
         char[][] mazeChar = new char[size][size];
         for (int l = 0; l < size; l++) {
             for (int m = 0; m < size; m++) {

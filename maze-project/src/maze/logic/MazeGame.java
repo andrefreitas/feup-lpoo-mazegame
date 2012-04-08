@@ -11,16 +11,18 @@ import maze.gui.HomeGUI;
 import maze.gui.MazeGUI;
 
 /**
- * ******************************************************
- * This class defines a maze game
- * ******************************************************
+ * MazeGame.java - A class for representing the game of the maze. The game: Our
+ * hero wakes up after listening the voices of the dragons. Now, he need to get
+ * out of the maze with a sword and kill all the dragons.
+ *
+ * @author André Freitas, Vasco Gonçalves
+ * @version 1.0
  */
 public class MazeGame {
     // The maze of the game
 
     public static Maze maze;
     // Enables the gui
-    //TODO Verify CLI interface
     static boolean enableGui = true;
     // The game gui
     static MazeGUI gameGui;
@@ -29,9 +31,16 @@ public class MazeGame {
     public static boolean optionsSet = false;
     public static boolean gameOver = false;
 
+    /**
+     * The main function
+     *
+     * @param args the arguments for the main
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws InterruptedException
+     */
     public static void main(String args[]) throws IOException, ClassNotFoundException, InterruptedException {
         // Variables for options
-        int mazeDim = 30;
         boolean saveExists = true;
         ObjectInputStream is = null;
         try {
@@ -117,6 +126,15 @@ public class MazeGame {
 
     }
 
+    /**
+     * Set all the necessary game options. Options like the Maze Dimension, the
+     * Dragon Behaviour, the keyboard controls, etc
+     *
+     * @param mazeDim the maze Dimension
+     * @param dragonOp the dragon behaviour
+     * @param nDrag the number of dragons
+     * @param moveChars the keyboard controls
+     */
     public static void setOptions(int mazeDim, int dragonOp, int nDrag, char moveChars[]) {
         maze.setDim(mazeDim);
         maze.dragonOption = dragonOp;
@@ -124,11 +142,19 @@ public class MazeGame {
         maze.moveChars = moveChars;
     }
 
+    /**
+     * Starts a new Game GUI.
+     *
+     * @throws IOException
+     */
     public static void startGui() throws IOException {
         gameGui = new MazeGUI();
     }
 
-    // setup the objects with their initial positions and states
+    /**
+     * Setup all the objects in the maze about their position and initial state.
+     * Note that this function behaves based in the user options given.
+     */
     public static void setupObjects() {
         java.util.Random r = new java.util.Random();
         // Setup hero
@@ -140,7 +166,7 @@ public class MazeGame {
             y = r.nextInt(limitGen);
 
         } while (maze.mazeMap[x][y] == 'X');
-        maze.hero = new heroObject('H', x, y);
+        maze.hero = new HeroObject('H', x, y);
         maze.mazeMap[maze.hero.getY()][maze.hero.getX()] = maze.hero.getState();
 
         // Setup sword
@@ -182,6 +208,12 @@ public class MazeGame {
 
     }
 
+    /**
+     * Evaluate if the Game is Over. The game can end if the hero is killed by a
+     * Dragon or if the hero reached the exit with a sword.
+     *
+     * @return true if hero is killed or reached exit
+     */
     public static int gameOver() {
         if (GameObject.samePosition(maze.hero, maze.exit)
                 && maze.hero.getState() == 'A') {
@@ -197,7 +229,14 @@ public class MazeGame {
         return 0;
     }
 
-    // Update a gameobject calling the set functions
+    /**
+     * Update a specified object in the maze Game.
+     *
+     * @param a the object
+     * @param x the new x position
+     * @param y the new y position
+     * @param state the new state
+     */
     public static void updateObject(GameObject a, int x, int y, char state) {
         a.setY(y);
         a.setX(x);
