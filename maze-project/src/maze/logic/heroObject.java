@@ -1,8 +1,8 @@
 package maze.logic;
 
-public class heroObject extends ObjectIOMove {
+public class HeroObject extends ObjectIOMove {
 
-    public heroObject(char state, int x, int y) {
+    public HeroObject(char state, int x, int y) {
         super(state, x, y);
     }
 
