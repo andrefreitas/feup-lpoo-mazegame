@@ -316,19 +316,19 @@ public class MazeInteractiveBuilder {
         //  Check limit walls
         for (int i = 0; i < dimension; i++) {
             // Top
-            if (maze[0][i] == ' ') {
+            if (maze[0][i] != 'X') {
                 return false;
             }
             // Bottom
-            if (maze[dimension - 1][i] == ' ') {
+            if (maze[dimension - 1][i] != 'X') {
                 return false;
             }
             // Left
-            if (maze[i][0] == ' ') {
+            if (maze[i][0] != 'X') {
                 return false;
             }
             // Right
-            if (maze[i][dimension - 1] == ' ') {
+            if (maze[i][dimension - 1] != 'X') {
                 return false;
             }
         }
@@ -396,18 +396,20 @@ public class MazeInteractiveBuilder {
                     // Get the button position
                     int x = ((mazeCell) e.getSource()).x;
                     int y = ((mazeCell) e.getSource()).y;
+                    //only places item if not on the border
+                    if (x != dimension - 1 && x != 0 && y != dimension - 1 && y != 0) {
+                        // Evaluate the ocurrence
+                        int oldVal = ((mazeCell) e.getSource()).val;
+                        int newVal = valueSelected;
+                        if (checkOcurrence(oldVal, newVal)) {
 
-                    // Evaluate the ocurrence
-                    int oldVal = ((mazeCell) e.getSource()).val;
-                    int newVal = valueSelected;
-                    if (checkOcurrence(oldVal, newVal)) {
+                            // Set the icon and value in the button
+                            ((mazeCell) e.getSource()).setIcon(selectIcon(valueSelected));
+                            ((mazeCell) e.getSource()).setValue(valueSelected);
 
-                        // Set the icon and value in the button
-                        ((mazeCell) e.getSource()).setIcon(selectIcon(valueSelected));
-                        ((mazeCell) e.getSource()).setValue(valueSelected);
-
-                        // Update the value in the maze array of chars
-                        maze[y][x] = valueSelected;
+                            // Update the value in the maze array of chars
+                            maze[y][x] = valueSelected;
+                        }
                     }
                 }
             });
@@ -499,12 +501,13 @@ public class MazeInteractiveBuilder {
 
         return true;
     }
+
     /**
-     * This function returns an ImageIcon depending on the value given.
-     * Example: if the val given is 'H', this returns an Hero icon.
+     * This function returns an ImageIcon depending on the value given. Example:
+     * if the val given is 'H', this returns an Hero icon.
+     *
      * @param val the character value of the icon
      */
-
     public ImageIcon selectIcon(char val) {
         ImageIcon aux;
         aux = (ImageIcon) sandIcon;
@@ -527,5 +530,4 @@ public class MazeInteractiveBuilder {
         }
         return aux;
     }
-
 }
