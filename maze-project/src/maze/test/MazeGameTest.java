@@ -1,5 +1,7 @@
 package maze.test;
 
+import maze.cli.MazeCLI;
+import maze.logic.Maze;
 import maze.logic.MazeGame;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -7,7 +9,7 @@ import org.junit.Test;
 /**
  * MazeGameTest.java - a class for testing the game rules and objects movements.
  *
- * @author AndrÃ© Freitas, Vasco GonÃ§alves
+ * @author André Freitas, Vasco Gonçalves
  * @version 1.0
  * @see MazeGame
  */
@@ -18,8 +20,8 @@ public class MazeGameTest {
      */
     @Test
     public void testHeroBasicMoves() {
-        MazeGame.setupObjects();
         // test hero impossible moves
+    	MazeGame.maze= new Maze();
         MazeGame.maze.hero.move('W');
         assertEquals(MazeGame.maze.hero.getX(), 1);
         assertEquals(MazeGame.maze.hero.getY(), 1);
@@ -42,9 +44,9 @@ public class MazeGameTest {
      */
     @Test
     public void testHeroDie() {
-        MazeGame.setupObjects();
+    	MazeGame.maze= new Maze();
         MazeGame.maze.hero.move('S');
-        assertEquals(true, MazeGame.gameOver());
+        assertEquals(1, MazeGame.gameOver()); // return is 1 when dies
     }
 
     /**
@@ -52,7 +54,7 @@ public class MazeGameTest {
      */
     @Test
     public void testHeroCantExit() {
-        MazeGame.setupObjects();
+    	MazeGame.maze= new Maze();
         for (int i = 0; i < 7; i++) {
             MazeGame.maze.hero.move('D');
         }
@@ -69,7 +71,7 @@ public class MazeGameTest {
      */
     @Test
     public void testHeroKillDragon() {
-        MazeGame.setupObjects();
+    	MazeGame.maze= new Maze();
         for (int i = 0; i < 3; i++) {
             MazeGame.maze.hero.move('D');
         }
@@ -95,7 +97,7 @@ public class MazeGameTest {
      */
     @Test
     public void testHeroArmed() {
-        MazeGame.setupObjects();
+    	MazeGame.maze= new Maze();
         assertEquals(MazeGame.maze.hero.getState(), 'H');
         for (int i = 0; i < 3; i++) {
             MazeGame.maze.hero.move('D');
@@ -120,7 +122,7 @@ public class MazeGameTest {
     public void testHeroCanExit() {
         MazeGame.updateObject(MazeGame.maze.hero, 8, 5, 'A');
         MazeGame.maze.hero.move('D');
-        assertEquals(MazeGame.gameOver(), true);
+        assertEquals(MazeGame.gameOver(), 2); // success return is 2
     }
 
     /**
@@ -128,9 +130,9 @@ public class MazeGameTest {
      */
     @Test
     public void testDragonSleepingKill() {
-        MazeGame.setupObjects();
+    	MazeGame.maze= new Maze();
         MazeGame.maze.hero.move('S');
         MazeGame.maze.dragons.get(0).setState('d');
-        assertEquals(false, MazeGame.gameOver());
+        assertEquals(0, MazeGame.gameOver()); // must be 0, because is sleeping
     }
 }
