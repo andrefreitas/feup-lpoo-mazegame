@@ -4,15 +4,12 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import maze.logic.DragonObject;
 import maze.logic.GameObject;
-import maze.logic.MazeGame;
 import maze.logic.HeroObject;
+import maze.logic.MazeGame;
 
 /**
  * MazeInteractiveBuilder.java - A class for creating a Maze Construction tool
@@ -96,6 +93,7 @@ public class MazeInteractiveBuilder {
         setupIcons();
         // Main Window
         window = new JFrame("Maze Builder");
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setMinimumSize(new Dimension(30 * d + controlsWidth, 30 * d));
         window.setMaximumSize(new Dimension(30 * d + controlsWidth, 30 * d));
 

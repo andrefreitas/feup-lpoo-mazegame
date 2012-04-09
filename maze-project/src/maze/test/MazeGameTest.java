@@ -1,15 +1,14 @@
 package maze.test;
 
-import maze.cli.MazeCLI;
 import maze.logic.Maze;
 import maze.logic.MazeGame;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
  * MazeGameTest.java - a class for testing the game rules and objects movements.
  *
- * @author André Freitas, Vasco Gonçalves
+ * @author Andre Freitas, Vasco Goncalves
  * @version 1.0
  * @see MazeGame
  */
