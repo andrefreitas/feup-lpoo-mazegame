@@ -1,35 +1,23 @@
-== README ==
-	The Maze Game has a dragon, a hero and a sword in a maze. 
-	The hero must get the sword to be able to exit the dungeon, while optionally killing the dragon.
-	If the hero crosses the dragon while unarmed he dies, and the game is over.
-	
 == AUTHORS ==
 	* André Freitas - p.andrefreitas@gmail.com
 	* Vasco Gonçalves - vascofg@gmail.com
 	
-== CHANGELOG ==
-	(1) 2012-02-27  André Freitas, Vasco Gonçalves
-		* GameObject.java : Created the implementation of class GameObject.
-		* MazeGame.java : Created the class implementation and developed the solution till 1.5.
-	(2) 2012-03-03 André Freitas
-		* GameObject.java : Commented all sections.
-		* MazeGame.java : Commented all sections. Optimized function moveDragon() and dragon killing bug fixed (1).	
-	(3) 2012-03-03 André Freitas
-		* MazeGame.java : Added maze random generation using function recursiveMazeGen(mazeMap, xi, xf, yi, yf)
-	(4) 2012-03-03 Vasco Gonçalves
-		* MazeGame.java : Added option to ask the user if he wants to generate a random maze and its dimension.
-	(5) 2012-03-03 Vasco Gonçalves, André Freitas
-		* Package maze.logic: Changed attributes to public so the maze.test can acess them.
-		* Package maze.test: Added tests regarding the game logic and gameobject class.
-		
+== ABOUT THE PROJECT ==
+	The Maze Game has a dragon, a hero and a sword in a maze. 
+	The hero must get the sword to be able to exit the dungeon, while optionally killing the dragon.
+	If the hero crosses the dragon while unarmed he dies, and the game is over.
+	
+== ENABLE AND DISABLE GUI ==
+	In the package maze.logic, in MazeGame.java the variable "enableGUI" must bet set to true to enable 
+	the GUI. Otherwise, the game will run as a Command Line Interface
 
-== BUGS FIXED ==
-	(1) 2012-03-03 André Freitas
-		* Problem: the dragon still moves after being killed and hero disappears if in the same position as the dragon
-		* Solution: when the hero kills the dragon, its state goes to 'K' (killed) and the positions 
-		are set to x=-1 and y=-1.
+== RUNNING THE PROJECT ==
+	The folder "maze-project" is by itself a netbeans project. Notice that we are using JDK1.6, Junit 4
+	and the AbsoluteLayout.jar library that is from the Netbeans Swing Editor.
+	
+== JAVADOC ==
+	The Javadoc ouput html is in the folder "docs".
 
-== BUGS DETECTED ==
-	(1) 2012-03-03 André Freitas
-		* Problem: the maze have chambers with spaces of 2 units when the max is 1. 
-		* To Do: in maze recursive algorithm, don't generate points that cross subchambers exits
+== EAP PROJECT ==
+	The EAP project is in the folder "docs" where the package logical view and class view are described.
+	
