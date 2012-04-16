@@ -1,5 +1,6 @@
 package maze.gui;
 
+import maze.logic.Maze;
 import maze.logic.MazeBuilder;
 import maze.logic.MazeGame;
 
@@ -191,6 +192,7 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
                         MazeBuilder.generateMaze(MazeGame.maze.mazeDim, MazeGame.maze);
                         MazeGame.setupObjects();
                     } else {
+                        MazeGame.maze = new Maze();
                         MazeGame.setOptions(MazeGame.maze.mazeDim, dragonOp, MazeGame.maze.nDragons, moveChars);
                     }
                     MazeGame.optionsSet = true;
@@ -202,6 +204,7 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
     /**
      * Sets the Dragons Behaviour to "Frozen"
+     *
      * @param evt the action event
      */
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
@@ -210,14 +213,16 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
 
     /**
      * Sets the Dragons Behaviour to "Can move".
+     *
      * @param evt the action event
      */
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         radioButtonSelected = 2;
     }//GEN-LAST:event_jRadioButton2ActionPerformed
- 
+
     /**
      * Sets the Dragons Behaviour to "Can move and Sleep".
+     *
      * @param evt the action event
      */
     private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,7 +230,9 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
     }
 
     /**
-     * Disables the rest of the controls if the user choose to play the default maze.
+     * Disables the rest of the controls if the user choose to play the default
+     * maze.
+     *
      * @param evt the action event
      */
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
@@ -238,7 +245,9 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
-    /** The main function.
+    /**
+     * The main function.
+     *
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -287,9 +296,10 @@ public class HomeOptionsGUI extends javax.swing.JFrame {
             }
         });
     }
-/**
- * Shows this window for the user, by setting the JFrame as visible.
- */
+
+    /**
+     * Shows this window for the user, by setting the JFrame as visible.
+     */
     public static void showGui() {
         /*
          * Set the Nimbus look and feel
